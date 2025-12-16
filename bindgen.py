@@ -16,7 +16,10 @@ def define_type(ptype: str):
     elif 'boolean' in ptype:
             param_type = 'Bool'
     elif ptype.endswith('*'):
+        if 'GTKInterface' not in ptype:
             param_type = f"LegacyUnsafePointer[{define_type(param_type.replace('*', ''))}]"
+        else:
+            param_type = ptype.replace('*', '')
     elif 'Widget' in ptype:
             param_type = 'GTKInterface'
     return param_type
@@ -135,7 +138,8 @@ with open('fn.json', 'r') as f:
     for type in types:
         if type.endswith('@32'):
             comptimes += declare_comptime(type.replace('@32', ''), 'Int32') + '\n'
-      
+        if type.endswith('@I'):
+            comptimes += declare_comptime(type.replace('@I', ''), 'Int') + '\n'
 
     mojo_bindings = f"from sys.ffi import external_call, c_char, CStringSlice\n{comptimes}\ncomptime GTKInterface = LegacyUnsafePointer[NoneType]\ncomptime GTKType=LegacyUnsafePointer[NoneType]\ncomptime GError=LegacyUnsafePointer[NoneType]\ncomptime filename=String\n"
 
