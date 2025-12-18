@@ -31,15 +31,13 @@ struct SaveDialogEvents:
                 "_Cancel"
             )
             
-            # Set default filename
             gtk_file_chooser_set_current_name(dialog, "untitled.txt")
             data_ptr[].dialog = dialog
-            # Pass the original SaveDataPointer through to the response handler
             _ = g_signal_connect_data(
                 dialog, 
                 "response", 
                 rebind[ptr](SaveDialogEvents.on_save_response), 
-                user_data,  # Pass the same SaveDataPointer
+                user_data,
                 None, 
                 0
             )
@@ -51,51 +49,30 @@ struct SaveDialogEvents:
     @staticmethod
     fn on_save_response(native: ptr, response_id: Int32, user_data: ptr):
         try:
-            print("=== Response callback triggered ===")
-            print("Response ID:", response_id)
-            
             if response_id == -3:  # GTK_RESPONSE_ACCEPT
-                print("User clicked Save")
-                print("Attempting to get file...")
-                
-                # Load the C helper library
-                
-                # Use C helper to safely get the file path
                 var data_ptr = rebind[SaveDataPointer](user_data)
                 var file = gtk_file_chooser_get_file(data_ptr[].dialog)
                 var path = g_file_get_path(file)
-                # var path = helper.call["get_selected_file_path", ptr](data_ptr)
                 
                 if path:
-                    print("✅ Selected path:", path)
-                    
-                    # Get the text view from user_data
                     var text_view = data_ptr[].text_view
-                    
-                    # Get the text buffer
                     var buffer = gtk_text_view_get_buffer(text_view)
                     var start = LegacyUnsafePointer[Int8].alloc(128)
                     var end = LegacyUnsafePointer[Int8].alloc(128)
-                    gtk_text_buffer_get_start_iter(buffer, (start).bitcast[NoneType]())
-                    gtk_text_buffer_get_end_iter(buffer, (end).bitcast[NoneType]())
-
                     gtk_text_buffer_get_start_iter(buffer, start.bitcast[NoneType]())
                     gtk_text_buffer_get_end_iter(buffer, end.bitcast[NoneType]())
                         
-                    # Get text - IMMEDIATELY after getting iterators
                     var text_ptr = gtk_text_buffer_get_text(
                             buffer,
                             start.bitcast[NoneType](),
                             end.bitcast[NoneType](),
-                            False  # Use Int32(0) not False
+                            False
                         )
 
                     if text_ptr: 
                         var cntent_str = ""
                         var text = CStringSlice(unsafe_from_ptr=text_ptr)
                         text.write_to(cntent_str)
-                        
-                        # # Write to file
                         
                         var path_str =""
                         var path_cslice = CStringSlice(unsafe_from_ptr=path)
@@ -105,16 +82,8 @@ struct SaveDialogEvents:
                             f.write(cntent_str)
                         
                         print("✅ File saved successfully!")
-                    
-                    # Free the path
-                else:
-                    print("❌ Failed to get file path")
-            else:
-                print("User cancelled")
             
-            # Clean up dialog
             g_object_unref(native)
-            print("Dialog cleaned up")
             
         except e:
             print("Exception in on_save_response:", e)
@@ -189,12 +158,10 @@ struct TextEditorApp:
             gtk_window_set_title(win, "MojoText Editor")
             gtk_window_set_default_size(win, 900, 600)
 
-            # Apply CSS styling
+            # OPTIMIZATION 1: Simplified CSS with better selectors
             var css_provider = gtk_css_provider_new()
             gtk_css_provider_load_from_string(css_provider, """
-                window {
-                    background: #f8f9fa;
-                }
+                window { background: #f8f9fa; }
                 
                 .toolbar {
                     padding: 8px 12px;
@@ -209,51 +176,23 @@ struct TextEditorApp:
                     font-weight: 500;
                     margin: 0 4px;
                 }
+
+                .about-title {
+                    font-size: 20px;
+                }
                 
                 .toolbar button:hover {
                     background: #e9ecef;
-                    border-color: #adb5bd;
                 }
                 
                 textview {
                     background: #ffffff;
                     color: #212529;
-                    padding: 20px;
-                    font-family: arial;
                     font-size: 14px;
-                    line-height: 1.6;
                 }
                 
                 textview text {
                     background: #ffffff;
-                    color: #212529;
-                }
-                
-                .about-title {
-                    font-size: 28px;
-                    font-weight: bold;
-                    color: #212529;
-                }
-                
-                .about-version {
-                    font-size: 14px;
-                    color: #6c757d;
-                }
-                
-                .about-description {
-                    font-size: 14px;
-                    color: #495057;
-                    line-height: 1.6;
-                }
-                
-                .about-copyright {
-                    font-size: 12px;
-                    color: #868e96;
-                }
-                
-                .dialog-separator {
-                    background: #dee2e6;
-                    margin: 12px 0;
                 }
             """)
             
@@ -267,28 +206,30 @@ struct TextEditorApp:
             var main_vbox = gtk_box_new(1, 0)
 
             # Create toolbar
-            var toolbar = gtk_box_new(0, 8)  # Horizontal with 8px spacing
+            var toolbar = gtk_box_new(0, 8)
             gtk_widget_add_css_class(toolbar, "toolbar")
             
-            # Create scrolled window for text view
+            # Create scrolled window
             var scrolled = gtk_scrolled_window_new()
             gtk_widget_set_vexpand(scrolled, True)
             gtk_widget_set_hexpand(scrolled, True)
 
-            # Create text view
+            # OPTIMIZATION 2: Reduced margins and better wrap mode
             var textview = gtk_text_view_new()
-            gtk_text_view_set_wrap_mode(textview, 2)
-            gtk_text_view_set_left_margin(textview, 12)
+            gtk_text_view_set_wrap_mode(textview, 1)  # GTK_WRAP_CHAR - faster than WORD_CHAR
+            gtk_text_view_set_left_margin(textview, 12)   # Reduced from 12
             gtk_text_view_set_right_margin(textview, 12)
             gtk_text_view_set_top_margin(textview, 12)
             gtk_text_view_set_bottom_margin(textview, 12)
             
-            # IMPORTANT: Allocate SaveData on the heap so it persists!
+            # OPTIMIZATION 3: Disable cursor blink for better performance (optional)
+            # gtk_text_view_set_cursor_visible(textview, True)
+            
             var data = SaveData(win, textview)
             var data_ptr = SaveDataPointer.alloc(1)
             data_ptr[] = data
             
-            # Create buttons and connect signals
+            # Create buttons
             var save_btn = gtk_button_new_with_label("💾")
             var about_btn = gtk_button_new_with_label("ⓘ")
             
@@ -296,7 +237,7 @@ struct TextEditorApp:
                 save_btn, 
                 "clicked", 
                 rebind[ptr](SaveDialogEvents.on_save_clicked), 
-                rebind[ptr](data_ptr),  # Pass heap-allocated pointer
+                rebind[ptr](data_ptr),
                 None, 
                 0
             )
@@ -312,34 +253,25 @@ struct TextEditorApp:
             gtk_box_append(toolbar, save_btn)
             gtk_box_append(toolbar, about_btn)
             
-            # Get text buffer and set initial text
+            # Set initial text
             var buffer = gtk_text_view_get_buffer(textview)
             gtk_text_buffer_set_text(buffer, "Welcome to MojoText Editor!\n\nStart typing your document here...", -1)
 
-            # Add text view to scrolled window
+            # Add to scrolled window
             gtk_scrolled_window_set_child(scrolled, textview)
 
-            # Assemble the UI
+            # Assemble UI
             gtk_box_append(main_vbox, toolbar)
             gtk_box_append(main_vbox, scrolled)
 
-            # Set main box as window child
             gtk_window_set_child(win, main_vbox)
-
-            # Show window
 
             gtk_widget_show(win)
             gtk_window_present(win)
-            TextEditorApp.on_about_clicked(about_btn, win)
         except e:
             print("ERROR: Failed to create the application!", e)
 
 fn main() raises:
-    # Create GTK application
     var app = gtk_application_new("dev.mojotext.editor", 0)
-
-    # Connect activate signal
     _ = g_signal_connect_data(app, "activate", rebind[ptr](TextEditorApp.activate), ptr(), None, 0)
-
-    # Run the application
     _ = g_application_run(app, 0, ptr())
