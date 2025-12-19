@@ -1,7 +1,7 @@
 import json
 
 
-def define_type(ptype: str):
+def define_type(ptype: str, rtypemode=False):
     param_type = ptype
     if ptype.startswith('int') and not ptype.endswith('*'):
             param_type = param_type.replace('int', 'Int')
@@ -11,8 +11,11 @@ def define_type(ptype: str):
             param_type = 'Float32'
     elif 'char*' in ptype or 'char*[]' in ptype:
             param_type = "String"
-    elif 'void' in ptype:
-            param_type = 'None'
+    elif ptype == 'void':
+        if not rtypemode:
+            param_type = 'LegacyUnsafePointer[ParameterNULL]'
+        else:
+            param_type = 'NoneType'
     elif 'boolean' in ptype:
             param_type = 'Bool'
     elif ptype.endswith('*'):
@@ -70,8 +73,10 @@ def generate_function(name: str, return_type: str, params: dict[str, str]):
             string_preprocess_ijection += f'\n\tvar {new_parameter_name} = CStringSlice(slc_{new_parameter_name})'
             param_names[position] = new_parameter_name
 
-    return_type_mojo = define_type(return_type)
+    return_type_mojo = define_type(return_type, True)
     if return_type_mojo == 'None':
+        return_type_mojo = 'NoneType'
+    elif return_type_mojo == 'LegacyUnsafePointer[NULL]':
         return_type_mojo = 'NoneType'
     elif return_type_mojo == 'String':
         return_type_mojo = 'LegacyUnsafePointer[c_char]'
@@ -141,7 +146,7 @@ with open('fn.json', 'r') as f:
         if type.endswith('@I'):
             comptimes += declare_comptime(type.replace('@I', ''), 'Int') + '\n'
 
-    mojo_bindings = f"from sys.ffi import external_call, c_char, CStringSlice\n{comptimes}\ncomptime GTKInterface = LegacyUnsafePointer[NoneType]\ncomptime GTKType=LegacyUnsafePointer[NoneType]\ncomptime GError=LegacyUnsafePointer[NoneType]\ncomptime filename=String\n"
+    mojo_bindings = f"from sys.ffi import external_call, c_char, CStringSlice\ncomptime ParameterNULL=NoneType\n{comptimes}\ncomptime GTKInterface = LegacyUnsafePointer[NoneType]\ncomptime GTKType=LegacyUnsafePointer[NoneType]\ncomptime GError=LegacyUnsafePointer[NoneType]\ncomptime filename=String\n"
 
     mojo_bindings += declare_functions(functions_names, functions)
     

@@ -8,6 +8,7 @@ def get_type_string(type_info):
     tag = type_info.get_tag()
   
     if tag == GIRepository.TypeTag.VOID:
+
         return "void"
     elif tag == GIRepository.TypeTag.BOOLEAN:
         return "boolean"
@@ -151,7 +152,7 @@ def extract_all_gtk_functions():
         }
         
         print("=== Extracting ALL GTK 4.0 Functions with Signatures ===\n")
-        for ns in ["Gtk", "GObject", 'Gio']:
+        for ns in ["Gtk", "GObject", "Gio"]:
             
             n_infos = repo.get_n_infos(ns)
             for i in range(n_infos):

@@ -1,3 +1,4 @@
+# Uses Deprecated gtk4 dialog system, may or may not work
 from bindings import *
 from sys.ffi import CStringSlice
 from memory import UnsafePointer, alloc
@@ -13,7 +14,8 @@ struct FileOpenData:
     fn __init__(out self, win: ptr, result_label: ptr):
         self.win = win
         self.result_label = result_label
-        self.dialog = ptr()
+        var dialogint8 = LegacyUnsafePointer[Int8].alloc(1)
+        self.dialog = rebind[ptr](dialogint8)
 
 comptime FileOpenDataPointer = LegacyUnsafePointer[FileOpenData]
 
@@ -87,48 +89,52 @@ struct DialogDemos:
     @staticmethod
     fn show_file_open(button: ptr, user_data: ptr):
         try:
-            var app_data_ptr = rebind[AppDataPointer](user_data)
-            
-            # Allocate FRESH data for THIS dialog instance
-            var file_data = FileOpenData(app_data_ptr[].win, app_data_ptr[].result_label)
+            var app = rebind[FileOpenDataPointer](user_data)
+
+            var file_data = FileOpenData(app[].win, app[].result_label)
             var file_data_ptr = FileOpenDataPointer.alloc(1)
             file_data_ptr[] = file_data
-            
-            print("Creating file open dialog...")
+
             var dialog = gtk_file_chooser_native_new(
-                "Open File", 
-                file_data_ptr[].win, 
-                0, 
-                "_Open", 
+                "Open File",
+                app[].win,
+                0,   # OPEN
+                "_Open",
                 "_Cancel"
             )
-
             file_data_ptr[].dialog = dialog
+            app[].dialog = dialog
 
             _ = g_signal_connect_data(
-                dialog, 
-                "response", 
-                rebind[ptr](DialogDemos.on_file_open_response), 
-                rebind[ptr](file_data_ptr),  # Pass the fresh one
-                None, 
+                dialog,
+                "response",
+                rebind[ptr](DialogDemos.on_file_open_response),
+                rebind[ptr](file_data_ptr),
+                None,
                 0
             )
-            
+
             gtk_native_dialog_show(dialog)
-        except e:
-            print("Error showing file open dialog:", e)
+        except:
+            pass
+
 
     @staticmethod
-    fn on_file_open_response(native: ptr, response_id: Int32, user_data: ptr):
+    fn on_file_open_response(native: ptr, response_id: Int32, dialog: ptr):
         try:
             # print("=== FILE OPEN RESPONSE ===")
             # print("Native pointer:", native)
-            var data_ptr = rebind[FileOpenDataPointer](user_data)
+            var data_ptr = rebind[FileOpenDataPointer](dialog)
+            native[] = dialog[]
+            # var int8native_ptr = LegacyUnsafePointer[Int8].alloc(128)
+            # var native_ptr = rebind[ptr](int8native_ptr)
+            # native_ptr[] = data_ptr[].dialog
+            # var native_ptr_native =  rebind[FileOpenDataPointer](int8native_ptr)
             # print("Stored dialog pointer:", data_ptr[].dialog)
             
             if response_id == -3:  # GTK_RESPONSE_ACCEPT
                 # print("Getting file from dialog...")
-                var file = gtk_file_chooser_get_file(data_ptr[].dialog)
+                var file = gtk_file_chooser_get_file(native)
                 # print("Got file:", file)
                 var path = g_file_get_path(file)
                 
@@ -140,12 +146,13 @@ struct DialogDemos:
                     with open(path_str, 'r') as f:
                         var content = f.read()
                         var result_text = content
+                        print(result_text)
                         gtk_label_set_text(data_ptr[].result_label, result_text)
-                        # print("Selected file:", path_str)
-            else:
-                gtk_label_set_text(data_ptr[].result_label, "❌ File selection cancelled")
+                        print("Selected file:", path_str)
+            # else:
+            #     gtk_label_set_text(data_ptr[].result_label, "❌ File selection cancelled")
             
-            g_object_unref(native)
+            # g_object_unref(native)
             # Don't free data_ptr yet - let it leak for now to test
             # data_ptr.free()
         except e:
@@ -155,15 +162,15 @@ struct DialogDemos:
     @staticmethod
     fn show_file_save(button: ptr, user_data: ptr):
         try:
-            var app_data_ptr = rebind[AppDataPointer](user_data)
+            var app_data_ptr = rebind[FileSaveDataPointer](user_data)
             
-            var file_data = FileSaveData(app_data_ptr[].win, app_data_ptr[].result_label)
-            var file_data_ptr = FileSaveDataPointer.alloc(1)
-            file_data_ptr[] = file_data
+            # var file_data = FileSaveData(app_data_ptr[].win, app_data_ptr[].result_label)
+            # var file_data_ptr = FileSaveDataPointer.alloc(1)
+            # file_data_ptr[] = file_data
             
             var dialog = gtk_file_chooser_native_new(
                 "Save File", 
-                file_data_ptr[].win, 
+                app_data_ptr[].win, 
                 1,  # GTK_FILE_CHOOSER_ACTION_SAVE
                 "_Save", 
                 "_Cancel"
@@ -171,12 +178,12 @@ struct DialogDemos:
             
             gtk_file_chooser_set_current_name(dialog, "untitled.txt")
             
-            file_data_ptr[].dialog = dialog
+            app_data_ptr[].dialog = dialog
             _ = g_signal_connect_data(
                 dialog, 
                 "response", 
                 rebind[ptr](DialogDemos.on_file_save_response), 
-                rebind[ptr](file_data_ptr),
+                user_data,
                 None, 
                 0
             )

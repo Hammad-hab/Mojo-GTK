@@ -1,7 +1,7 @@
 # pixi environments
 .pixi/*
 !.pixi/config.toml
-*.json
+oldbindings.json
 main
 main.mojo
 alt.mojo
