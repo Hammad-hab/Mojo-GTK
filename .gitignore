@@ -1,10 +1,10 @@
 # pixi environments
 .pixi/*
 !.pixi/config.toml
-oldbindings.json
 main
 main.mojo
 alt.mojo
 gtktypes.mojo
 .ntx
 .pixi
+widgetzoox
