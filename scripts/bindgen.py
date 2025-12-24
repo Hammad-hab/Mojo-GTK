@@ -123,16 +123,19 @@ def declare_whitelisted_functions():
 def declare_functions(functions_names, functions: dict[str]):
     mojo_bindings = ''
     for function_name in functions_names:
-        if function_name == 'unique_types': 
-            continue # unique types is not a function 
-        descriptor: dict = functions[function_name]
-        params: dict[str, str] = fix_parameters(descriptor['params'])
-        
-        rtype: str = descriptor['rtype']
-        fn = generate_function(function_name, rtype, params)
-        mojo_bindings += fn + '\n'
-        # with open('bindings.mojo', 'w') as f:
-        #     f.write(mojo_bindings)
+        try:
+            if function_name == 'unique_types' or function_name == '_stats': 
+                continue # unique types is not a function 
+            descriptor: dict = functions[function_name]
+            params: dict[str, str] = fix_parameters(descriptor['params'])
+            
+            rtype: str = descriptor['rtype']
+            fn = generate_function(function_name, rtype, params)
+            mojo_bindings += fn + '\n'
+            # with open('bindings.mojo', 'w') as f:
+            #     f.write(mojo_bindings)
+        except Exception as e:
+            print(f'Encountered error while binding {function_name}: {e}')
     return mojo_bindings 
 
 with open('fn.json', 'r') as f:
