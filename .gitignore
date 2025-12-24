@@ -2,7 +2,6 @@
 .pixi/*
 !.pixi/config.toml
 main
-main.mojo
 alt.mojo
 gtktypes.mojo
 .ntx
