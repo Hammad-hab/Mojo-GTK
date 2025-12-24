@@ -1,14 +1,17 @@
 from gi.repository import GIRepository
 import json
+import sys
 
 types = set()
 
 def get_type_string(type_info):
     """Convert a TypeInfo to a readable string"""
-    tag = type_info.get_tag()
+    try:
+        tag = type_info.get_tag()
+    except:
+        return "void*"
   
     if tag == GIRepository.TypeTag.VOID:
-
         return "void"
     elif tag == GIRepository.TypeTag.BOOLEAN:
         return "boolean"
@@ -37,33 +40,38 @@ def get_type_string(type_info):
     elif tag == GIRepository.TypeTag.FILENAME:
         return "char*"
     elif tag == GIRepository.TypeTag.ARRAY:
-        array_type = type_info.get_array_type()
-        param_type = type_info.get_param_type(array_type)
-        typestr = f"{get_type_string(param_type)}[]"
-        return typestr
+        try:
+            array_type = type_info.get_array_type()
+            param_type = type_info.get_param_type(0)
+            typestr = f"{get_type_string(param_type)}[]"
+            return typestr
+        except:
+            return "void*[]"
     elif tag == GIRepository.TypeTag.INTERFACE:
-        iface = type_info.get_interface()
+        try:
+            iface = type_info.get_interface()
+            if iface is None:
+                return 'GTKInterface'
 
-        if isinstance(iface, GIRepository.EnumInfo):
-            types.add(iface.get_name() + '@32')
-            return iface.get_name()        # or UInt32 / Int32
+            if isinstance(iface, GIRepository.EnumInfo):
+                types.add(iface.get_name() + '@32')
+                return iface.get_name()
 
-        if isinstance(iface, GIRepository.FlagsInfo):
-            types.add(iface.get_name() + '@I')
-            return iface.get_name()       # bitflags → integer
+            if isinstance(iface, GIRepository.FlagsInfo):
+                types.add(iface.get_name() + '@I')
+                return iface.get_name()
 
-        return 'GTKInterface'
+            return 'GTKInterface'
+        except:
+            return 'GTKInterface'
     elif tag == GIRepository.TypeTag.GLIST:
         types.add('GTKType')
-        # param_type = type_info.get_param_type(0)
         return f"GTKType"
     elif tag == GIRepository.TypeTag.GTYPE:
         types.add('GTKType')
-        # param_type = type_info.get_param_type(0)
         return f"GTKType"
     elif tag == GIRepository.TypeTag.GSLIST:
         types.add('GTKType')
-        # param_type = type_info.get_param_type(0)
         return f"GTKType"
     elif tag == GIRepository.TypeTag.GHASH:
         types.add('GTKType')
@@ -77,42 +85,61 @@ def get_type_string(type_info):
         return str(tag)
 
 def format_function_signature(func_info, class_name=None):
-    func_name = func_info.get_name()
-    symbol = func_info.get_symbol()
+    """Safely extract function signature with error handling"""
+    try:
+        func_name = func_info.get_name()
+        symbol = func_info.get_symbol()
+    except:
+        return None, None, None
     
-    return_type_info = func_info.get_return_type()
-    return_type = get_type_string(return_type_info)
+    try:
+        return_type_info = func_info.get_return_type()
+        return_type = get_type_string(return_type_info) if return_type_info else "void"
+    except:
+        return_type = "void"
     
     params = {}
-    n_args = func_info.get_n_args()
+    
+    try:
+        n_args = func_info.get_n_args()
+    except:
+        n_args = 0
 
     # Always add 'self' if this is a method
-    if hasattr(func_info, "get_flags"):
-        flags = func_info.get_flags()
-        if flags & GIRepository.FunctionInfoFlags.IS_METHOD:
-            container = func_info.get_container()
-            if container:
-                params["self"] = 'GTKInterface'
+    try:
+        if hasattr(func_info, "get_flags"):
+            flags = func_info.get_flags()
+            if flags & GIRepository.FunctionInfoFlags.IS_METHOD:
+                container = func_info.get_container()
+                if container:
+                    params["self"] = 'GTKInterface'
+    except:
+        pass
 
     # Add other parameters
     for i in range(n_args):
-        arg = func_info.get_arg(i)
-        arg_name = arg.get_name() or f"arg{i}"
-        arg_info = arg.get_type_info()
-        if arg_info is None:
-            arg_type = "void*"
-        else:
-            arg_type = get_type_string(arg_info)
+        try:
+            arg = func_info.get_arg(i)
+            arg_name = arg.get_name() or f"arg{i}"
+            arg_info = arg.get_type_info()
+            
+            if arg_info is None:
+                arg_type = "void*"
+            else:
+                arg_type = get_type_string(arg_info)
 
-        direction = arg.get_direction()
-        if direction == GIRepository.Direction.OUT or direction == GIRepository.Direction.INOUT:
-            arg_type += "*"
+            direction = arg.get_direction()
+            if direction == GIRepository.Direction.OUT or direction == GIRepository.Direction.INOUT:
+                arg_type += "*"
 
-        params[arg_name] = arg_type
+            params[arg_name] = arg_type
+        except:
+            # Skip problematic parameters
+            continue
 
     params_str = ", ".join(f"{t} {n}" for n, t in params.items()) if params else "void"
-
     signature = f"{return_type} {symbol}({params_str})"
+    
     return signature, symbol, [return_type, symbol, params]
 
 
@@ -127,17 +154,34 @@ SAFE_INFO_TYPES = (
     GIRepository.CallbackInfo,
 )
 
+# Blacklist problematic types known to cause segfaults
+BLACKLIST_TYPES = {
+    'AsyncReadyCallback',  # Known to cause issues
+    'DestroyNotify',
+    'IOFunc',
+}
+
+def is_blacklisted(name):
+    """Check if a type name should be skipped"""
+    return name in BLACKLIST_TYPES
+
 def extract_all_gtk_functions():
     repo = GIRepository.Repository()
     
     try:
-        repo.require('cairo', '1.0', 0)        
-        repo.require('Gio', '2.0', 0)
-        repo.require('GObject', '2.0', 0)
-        repo.require('Gtk', '4.0', 0)
-
+        # Load libraries one at a time with error handling
+        namespaces = []
         
-        all_functions = []
+        for ns, version in [('cairo', '1.0'), ('GObject', '2.0'), ('Gio', '2.0'), ('Gtk', '4.0')]:
+            try:
+                print(f"Loading {ns} {version}...")
+                repo.require(ns, version, 0)
+                namespaces.append(ns)
+                print(f"  ✓ {ns} loaded successfully")
+            except Exception as e:
+                print(f"  ✗ Failed to load {ns}: {e}")
+                # Continue without this namespace
+        
         all_functions_dict = {}
         stats = {
             'top_level_functions': 0,
@@ -148,13 +192,21 @@ def extract_all_gtk_functions():
             'union_methods': 0,
             'callbacks': 0,
             'virtual_methods': 0,
-            'static_methods': 0
+            'static_methods': 0,
+            'errors': 0
         }
         
-        print("=== Extracting ALL GTK 4.0 Functions with Signatures ===\n")
-        for ns in ["Gtk", "GObject", "Gio"]:
+        print("\n=== Extracting Functions with Signatures ===\n")
+        
+        for ns in namespaces:
+            print(f"\nProcessing namespace: {ns}")
             
-            n_infos = repo.get_n_infos(ns)
+            try:
+                n_infos = repo.get_n_infos(ns)
+            except:
+                print(f"  Could not get info count for {ns}, skipping")
+                continue
+                
             for i in range(n_infos):
                 try:
                     info = repo.get_info(ns, i)
@@ -162,173 +214,181 @@ def extract_all_gtk_functions():
                         continue
                     if not isinstance(info, SAFE_INFO_TYPES):
                         continue
-                except:
-                    print('failed to get proper info, bad gi')
+                except Exception as e:
+                    stats['errors'] += 1
                     continue
 
                 try:
                     info_name = info.get_name()
-                except:
-                    print('failed to get name, bad gi')
-                    continue
-                # 1. Top-level functions
-                if isinstance(info, GIRepository.FunctionInfo):
-                    signature, symbol, raw_info = format_function_signature(info)
-                    # all_functions.append(f"{signature}\n")
-                    all_functions_dict[symbol] = {
-                        'rtype': raw_info[0],
-                        'params': raw_info[2]
-                    }
-                    stats['top_level_functions'] += 1
-                
-                # 2. Object/Class methods and constructors
-                elif isinstance(info, GIRepository.ObjectInfo):
-                    # Instance methods
-                    n_methods = info.get_n_methods()
-                    for j in range(n_methods):
-                        method = info.get_method(j)
-                        signature, symbol, raw_info = format_function_signature(method, info_name)
+                    
+                    # Skip blacklisted types
+                    if is_blacklisted(info_name):
+                        print(f"  Skipping blacklisted: {info_name}")
+                        continue
                         
-                        flags = method.get_flags()
-                        if flags & GIRepository.FunctionInfoFlags.IS_METHOD:
-                            # all_functions.append(f"{signature}\n")
+                except:
+                    stats['errors'] += 1
+                    continue
+                
+                # Process different info types with individual try-except blocks
+                try:
+                    if isinstance(info, GIRepository.FunctionInfo):
+                        signature, symbol, raw_info = format_function_signature(info)
+                        if symbol and raw_info:
                             all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                            stats['object_methods'] += 1
-                        else:
-                            # all_functions.append(f"{signature}\n")
-                            all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                            stats['static_methods'] += 1
+                                'rtype': raw_info[0],
+                                'params': raw_info[2]
+                            }
+                            stats['top_level_functions'] += 1
                     
-                    # Constructors
-                    try:
-                        n_constructors = info.get_n_constructors()
-                        for j in range(n_constructors):
-                            constructor = info.get_constructor(j)
-                            signature, symbol, raw_info = format_function_signature(constructor, f"{info_name}::new")
-                            # all_functions.append(f"{signature}\n")
-                            all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                            stats['object_constructors'] += 1
-                    except:
-                        pass
+                    elif isinstance(info, GIRepository.ObjectInfo):
+                        # Process methods
+                        try:
+                            n_methods = info.get_n_methods()
+                            for j in range(n_methods):
+                                try:
+                                    method = info.get_method(j)
+                                    signature, symbol, raw_info = format_function_signature(method, info_name)
+                                    if symbol and raw_info:
+                                        all_functions_dict[symbol] = {
+                                            'rtype': raw_info[0],
+                                            'params': raw_info[2]
+                                        }
+                                        flags = method.get_flags()
+                                        if flags & GIRepository.FunctionInfoFlags.IS_METHOD:
+                                            stats['object_methods'] += 1
+                                        else:
+                                            stats['static_methods'] += 1
+                                except:
+                                    stats['errors'] += 1
+                        except:
+                            pass
+                        
+                        # Process constructors
+                        try:
+                            n_constructors = info.get_n_constructors()
+                            for j in range(n_constructors):
+                                try:
+                                    constructor = info.get_constructor(j)
+                                    signature, symbol, raw_info = format_function_signature(constructor, f"{info_name}::new")
+                                    if symbol and raw_info:
+                                        all_functions_dict[symbol] = {
+                                            'rtype': raw_info[0],
+                                            'params': raw_info[2]
+                                        }
+                                        stats['object_constructors'] += 1
+                                except:
+                                    stats['errors'] += 1
+                        except:
+                            pass
                     
-                    # Virtual methods (vfuncs)
-                    try:
-                        n_vfuncs = info.get_n_vfuncs()
-                        for j in range(n_vfuncs):
-                            vfunc = info.get_vfunc(j)
-                            try:
-                                signature, symbol, raw_info = format_function_signature(vfunc, f"{info_name}::vfunc")
-                                # all_functions.append(f"{signature}\n")
+                    elif isinstance(info, GIRepository.InterfaceInfo):
+                        try:
+                            n_methods = info.get_n_methods()
+                            for j in range(n_methods):
+                                try:
+                                    method = info.get_method(j)
+                                    signature, symbol, raw_info = format_function_signature(method, info_name)
+                                    if symbol and raw_info:
+                                        all_functions_dict[symbol] = {
+                                            'rtype': raw_info[0],
+                                            'params': raw_info[2]
+                                        }
+                                        stats['interface_methods'] += 1
+                                except:
+                                    stats['errors'] += 1
+                        except:
+                            pass
+                    
+                    elif isinstance(info, GIRepository.StructInfo):
+                        try:
+                            n_methods = info.get_n_methods()
+                            for j in range(n_methods):
+                                try:
+                                    method = info.get_method(j)
+                                    signature, symbol, raw_info = format_function_signature(method, info_name)
+                                    if symbol and raw_info:
+                                        all_functions_dict[symbol] = {
+                                            'rtype': raw_info[0],
+                                            'params': raw_info[2]
+                                        }
+                                        stats['struct_methods'] += 1
+                                except:
+                                    stats['errors'] += 1
+                        except:
+                            pass
+                    
+                    elif isinstance(info, GIRepository.UnionInfo):
+                        try:
+                            n_methods = info.get_n_methods()
+                            for j in range(n_methods):
+                                try:
+                                    method = info.get_method(j)
+                                    signature, symbol, raw_info = format_function_signature(method, info_name)
+                                    if symbol and raw_info:
+                                        all_functions_dict[symbol] = {
+                                            'rtype': raw_info[0],
+                                            'params': raw_info[2]
+                                        }
+                                        stats['union_methods'] += 1
+                                except:
+                                    stats['errors'] += 1
+                        except:
+                            pass
+                    
+                    elif isinstance(info, GIRepository.CallbackInfo):
+                        try:
+                            signature, symbol, raw_info = format_function_signature(info, "Callback")
+                            if symbol and raw_info:
                                 all_functions_dict[symbol] = {
                                     'rtype': raw_info[0],
                                     'params': raw_info[2]
                                 }
-                                stats['virtual_methods'] += 1
-                            except:
-                                pass
-                    except:
-                        pass
+                                stats['callbacks'] += 1
+                        except:
+                            stats['errors'] += 1
                 
-                # 3. Interface methods
-                elif isinstance(info, GIRepository.InterfaceInfo):
-                    n_methods = info.get_n_methods()
-                    for j in range(n_methods):
-                        method = info.get_method(j)
-                        signature, symbol, raw_info = format_function_signature(method, info_name)
-                        # all_functions.append(f"{signature}\n")
-                        all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                        stats['interface_methods'] += 1
-                    
-                    # Virtual methods in interfaces
-                    try:
-                        n_vfuncs = info.get_n_vfuncs()
-                        for j in range(n_vfuncs):
-                            vfunc = info.get_vfunc(j)
-                            try:
-                                signature, symbol, raw_info = format_function_signature(vfunc, f"{info_name}::vfunc")
-                                # all_functions.append(f"{signature}\n")
-                                all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                                stats['virtual_methods'] += 1
-                            except:
-                                pass
-                    except:
-                        pass
-                
-                # 4. Struct methods
-                elif isinstance(info, GIRepository.StructInfo):
-                    n_methods = info.get_n_methods()
-                    for j in range(n_methods):
-                        method = info.get_method(j)
-                        signature, symbol, raw_info = format_function_signature(method, info_name)
-                        # all_functions.append(f"{signature}\n")
-                        all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                        stats['struct_methods'] += 1
-                
-                # 5. Union methods
-                elif isinstance(info, GIRepository.UnionInfo):
-                    n_methods = info.get_n_methods()
-                    for j in range(n_methods):
-                        method = info.get_method(j)
-                        signature, symbol, raw_info = format_function_signature(method, info_name)
-                        # all_functions.append(f"{signature}\n")
-                        all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                        stats['union_methods'] += 1
-                
-                # 6. Callback signatures
-                elif isinstance(info, GIRepository.CallbackInfo):
-                    try:
-                        signature, symbol, raw_info = format_function_signature(info, "Callback")
-                        # all_functions.append(f"{signature}\n  (Function pointer type)\n")
-                        all_functions_dict[symbol] = {
-                                    'rtype': raw_info[0],
-                                    'params': raw_info[2]
-                                }
-                        stats['callbacks'] += 1
-                    except:
-                        all_functions.append(f"{info_name} (function pointer type)\n")
-                        stats['callbacks'] += 1
+                except Exception as e:
+                    stats['errors'] += 1
+                    continue
                 
                 # Show progress
                 if (i + 1) % 50 == 0:
-                    print(f"Processed {i + 1}/{n_infos} items... Found {len(all_functions)} functions so far")
-            
+                    print(f"  Processed {i + 1}/{n_infos} items... Found {len(all_functions_dict)} functions, {stats['errors']} errors")
+        
+        # Add metadata
+        all_functions_dict['unique_types'] = list(types)
+        all_functions_dict['_stats'] = stats
+        
         # Write to file
         with open('fn.json', 'w') as f:
-            # for func in all_functions:
-            all_functions_dict['unique_types'] = list(types)
-            f.write(json.dumps(all_functions_dict))
-            return all_functions_dict
+            json.dump(all_functions_dict, f, indent=2)
+        
+        print("\n=== Statistics ===")
+        for key, value in stats.items():
+            print(f"{key}: {value}")
+        print(f"\nTotal functions extracted: {len(all_functions_dict) - 2}")  # -2 for metadata keys
+        print(f"Output written to fn.json")
+        
+        return all_functions_dict
         
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Fatal Error: {e}")
         import traceback
         traceback.print_exc()
+        return {}
 
 if __name__ == "__main__":
     functions = extract_all_gtk_functions()
-    function_names = functions.keys()
-    mojosrc = []
-    for fns in function_names:
-        mojosrc.append(f'fn {fns}:\n\t')
     
+    # Only generate Mojo bindings if extraction succeeded
+    if functions:
+        function_names = [k for k in functions.keys() if not k.startswith('_') and k != 'unique_types']
+        mojosrc = []
+        for fns in function_names:
+            mojosrc.append(f'fn {fns}:\n\t...\n')
+        
+        with open('bindings.mojo', 'w') as f:
+            f.write(''.join(mojosrc))
+        
+        print(f"\nMojo bindings written to bindings.mojo ({len(function_names)} functions)")
