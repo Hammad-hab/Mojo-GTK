@@ -21,6 +21,9 @@ struct App:
             gtk_widget_set_halign(label, 3)
             gtk_widget_set_valign(label, 3)
 
+
+            gtk_window_set_child(win, label)
+
             # Make text large using CSS
             var css = gtk_css_provider_new()
             gtk_css_provider_load_from_data(
@@ -34,7 +37,6 @@ struct App:
                 600
             )
 
-            gtk_center_box_set_center_widget(center, label)
 
             gtk_window_present(win)
 

@@ -172,7 +172,7 @@ def extract_all_gtk_functions():
         # Load libraries one at a time with error handling
         namespaces = []
         
-        for ns, version in [('cairo', '1.0'), ('GObject', '2.0'), ('Gio', '2.0'), ('Gtk', '4.0')]:
+        for ns, version in [('cairo', '1.0'), ('GObject', '2.0'), ('Gio', '2.0'), ('Gtk', '4.0'), ('GLib', '2.0')]:
             try:
                 print(f"Loading {ns} {version}...")
                 repo.require(ns, version, 0)
