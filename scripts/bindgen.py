@@ -7,10 +7,14 @@ def define_type(ptype: str, rtypemode=False):
             param_type = param_type.replace('int', 'Int')
     elif ptype.startswith('uint') and not ptype.endswith('*'):
             param_type = param_type.replace('uint', 'UInt')
-    elif 'float' in ptype or 'double' in ptype:
+    elif 'float' in ptype:
             param_type = 'Float32'
-    elif 'char*' in ptype or 'char*[]' in ptype:
+    elif 'double' in ptype:
+            param_type = 'Float64'
+    elif 'char*' == ptype:
             param_type = "String"
+    elif 'char*[]' == ptype:
+            param_type = "List[String]"
     elif ptype == 'void':
         if not rtypemode:
             param_type = 'LegacyUnsafePointer[ParameterNULL]'
@@ -67,11 +71,25 @@ def generate_function(name: str, return_type: str, params: dict[str, str]):
 
     if len(string_types_parameters) > 0:
         for parameter_name in string_types_parameters:
-            new_parameter_name = f'cstr_{parameter_name}'
             position = (param_names).index(parameter_name)
-            string_preprocess_ijection += f'\n\tvar slc_{new_parameter_name} = StringSlice({parameter_name} + "\0")'
-            string_preprocess_ijection += f'\n\tvar {new_parameter_name} = CStringSlice(slc_{new_parameter_name})'
-            param_names[position] = new_parameter_name
+            paramtype = params[parameter_name]
+
+            if paramtype =='char*':
+                new_parameter_name = f'cstr_{parameter_name}'
+                string_preprocess_ijection += f'\n\tvar slc_{new_parameter_name} = StringSlice({parameter_name} + "\0")'
+                string_preprocess_ijection += f'\n\tvar {new_parameter_name} = CStringSlice(slc_{new_parameter_name})'
+                param_names[position] = new_parameter_name
+                continue
+                
+            if paramtype =='char*[]':
+                c_param = f'cstr_{parameter_name}'
+                # string_preprocess_ijection += f'''\n\tvar {c_param}_storage = List[CStringSlice[StaticConstantOrigin]]()\n\tfor s in {parameter_name}:\n\t\tvar slc = String(s + "\0")\n\t\t{c_param}_storage.append(CStringSlice(slc))\n\tvar {c_param} = {c_param}_storage.copy'''
+                # string_preprocess_ijection += f'''\n\tvar {c_param} = {parameter_name}'''
+                param_names[position] = parameter_name
+            """
+            LegacyUnsafePointer[c_char]
+            """
+
 
     return_type_mojo = define_type(return_type, True)
     if return_type_mojo == 'None':
@@ -108,7 +126,7 @@ def declare_whitelisted_functions():
             'rtype': 'uint64',
             'params': {
                 'instance': 'GTKInterface',
-                'detailed_signal': 'char*[]',
+                'detailed_signal': 'char*',
                 'c_handler': 'GTKType',
                 'data': 'GTKType',
                 'destroy_data': 'NoneType',
@@ -135,7 +153,7 @@ def declare_functions(functions_names, functions: dict[str]):
             # with open('bindings.mojo', 'w') as f:
             #     f.write(mojo_bindings)
         except Exception as e:
-            print(f'Encountered error while binding {function_name}: {e}')
+            print(f'Encountered error while binding {function_name}: {e!r}')
     return mojo_bindings 
 
 with open('fn.json', 'r') as f:

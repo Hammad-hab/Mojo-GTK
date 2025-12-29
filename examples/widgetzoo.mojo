@@ -136,9 +136,10 @@ struct WidgetDemo:
             
             var scale1_adj = gtk_adjustment_new(50.0, 0.0, 100.0, 1.0, 10.0, 0.0)
             var scale1 = gtk_scale_new(0, scale1_adj)
+  
+            gtk_range_set_increments(scale1, 1.0, 10.0)
             gtk_scale_set_draw_value(scale1, True)
-            gtk_widget_set_size_request(scale1, 300, -1)
-            _ = g_signal_connect_data(scale1, "value-changed", rebind[ptr](WidgetDemo.on_scale_value_changed), ptr(), None, 0)
+            # _ = g_signal_connect_data(scale1, "value-changed", rebind[ptr](WidgetDemo.on_scale_value_changed), ptr(), None, 0)
             
             gtk_box_append(scale_box, scale1)
             gtk_box_append(main_box, gtk_widget_get_parent(scale_box))

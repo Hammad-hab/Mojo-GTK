@@ -381,14 +381,3 @@ def extract_all_gtk_functions():
 if __name__ == "__main__":
     functions = extract_all_gtk_functions()
     
-    # Only generate Mojo bindings if extraction succeeded
-    if functions:
-        function_names = [k for k in functions.keys() if not k.startswith('_') and k != 'unique_types']
-        mojosrc = []
-        for fns in function_names:
-            mojosrc.append(f'fn {fns}:\n\t...\n')
-        
-        with open('bindings.mojo', 'w') as f:
-            f.write(''.join(mojosrc))
-        
-        print(f"\nMojo bindings written to bindings.mojo ({len(function_names)} functions)")

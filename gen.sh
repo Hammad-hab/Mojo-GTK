@@ -1,2 +1,3 @@
-python3 scripts/descriptgen.py
-python3 scripts/bindgen.py
+python3.13 scripts/descriptgen.py
+echo "Running bindgen"
+python3.13 scripts/bindgen.py
