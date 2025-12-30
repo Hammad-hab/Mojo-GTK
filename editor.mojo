@@ -1,4 +1,4 @@
-from bindings import *
+from gtk import *
 from sys.ffi import CStringSlice, OwnedDLHandle
 from memory import UnsafePointer
 
@@ -57,15 +57,15 @@ struct SaveDialogEvents:
                 if path:
                     var text_view = data_ptr[].text_view
                     var buffer = gtk_text_view_get_buffer(text_view)
-                    var start = LegacyUnsafePointer[Int8].alloc(128)
-                    var end = LegacyUnsafePointer[Int8].alloc(128)
-                    gtk_text_buffer_get_start_iter(buffer, start.bitcast[NoneType]())
-                    gtk_text_buffer_get_end_iter(buffer, end.bitcast[NoneType]())
+                    var start =LegacyUnsafePointer[GTKTextIter].alloc(1)
+                    var end = LegacyUnsafePointer[GTKTextIter].alloc(1)
+                    gtk_text_buffer_get_start_iter(buffer, start)
+                    gtk_text_buffer_get_end_iter(buffer, end)
                         
                     var text_ptr = gtk_text_buffer_get_text(
                             buffer,
-                            start.bitcast[NoneType](),
-                            end.bitcast[NoneType](),
+                            start,
+                            end,
                             False
                         )
 

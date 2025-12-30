@@ -85,6 +85,10 @@ def get_type_string(type_info):
                     field = iface.get_field(i)
                     struct['fields'][field.get_name()] = get_type_string(field.get_type_info().get_tag())
                 types[name] = struct
+
+                if type_info.is_pointer():
+                    return name + "*"
+                    
                 return name
 
             return 'GTKInterface'
