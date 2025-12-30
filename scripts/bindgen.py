@@ -82,7 +82,6 @@ def generate_function(name: str, return_type: str, params: dict[str, str]):
                 continue
                 
             if paramtype =='char*[]':
-                c_param = f'cstr_{parameter_name}'
                 string_preprocess_ijection += f'\n\tvar nelements_{parameter_name} = len({parameter_name})'
                 string_preprocess_ijection += f'\n\tvar charptr_array_{parameter_name} = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_{parameter_name})'
                 string_preprocess_ijection += f'\n\tfor ix in range(nelements_{parameter_name}):'
@@ -90,14 +89,8 @@ def generate_function(name: str, return_type: str, params: dict[str, str]):
                 string_preprocess_ijection += f'\n\t\tvar cstr = CStringSlice(strelement + "\0")'
                 string_preprocess_ijection += f'\n\t\tvar charptr = cstr.unsafe_ptr()'
                 string_preprocess_ijection += f'\n\t\tcharptr_array_{parameter_name}[ix] = charptr'
-                # string_preprocess_ijection += f'''\n\tvar {c_param}_storage = List[CStringSlice[StaticConstantOrigin]]()\n\tfor s in {parameter_name}:\n\t\tvar slc = String(s + "\0")\n\t\t{c_param}_storage.append(CStringSlice(slc))\n\tvar {c_param} = {c_param}_storage.copy'''
-                # string_preprocess_ijection += f'''\n\tvar {c_param} = {parameter_name}'''
                 param_names[position] = f"charptr_array_{parameter_name}"
-            """
-            comptime charptr = LegacyUnsafePointer[c_char]
-            comptime charptr[] = LegacyUnsafePointer[c_char]
 
-            """
 
 
     return_type_mojo = define_type(return_type, True)

@@ -53,9 +53,20 @@ def get_type_string(type_info):
             if iface is None:
                 return 'GTKInterface'
 
+
             if isinstance(iface, GIRepository.EnumInfo):
                 types.add(iface.get_name() + '@32')
                 return iface.get_name()
+            
+            elif isinstance(iface, GIRepository.StructInfo):
+                types.add(iface.get_name())
+                
+                return iface.get_name()
+                # if ("TextIter" not in iface.get_name()): return iface.get_name()
+                # print("It's a struct!", iface.get_name(), iface.get_size())
+                # for i in range(iface.get_n_fields()):
+                #     field = iface.get_field(i)
+                #     print(f"  Field: {field.get_name()} {get_type_string(field.get_type_info().get_tag())}")
 
             if isinstance(iface, GIRepository.FlagsInfo):
                 types.add(iface.get_name() + '@I')
