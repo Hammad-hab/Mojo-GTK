@@ -1,226 +1,226 @@
 from sys.ffi import external_call, c_char, CStringSlice
 comptime ParameterNULL=NoneType
-comptime BindingFlags=Int32
-comptime SocketProtocol=Int32
-comptime ShortcutActionFlags=Int32
-comptime SizeRequestMode=Int32
-comptime ConstraintRelation=Int32
-comptime NotificationPriority=Int32
-comptime TreeViewDropPosition=Int32
-comptime TreeViewColumnSizing=Int32
-comptime DataStreamByteOrder=Int32
-comptime AccessibleRole=Int32
-comptime Collation=Int32
-comptime TlsDatabaseLookupFlags=Int32
-comptime StateFlags=Int32
-comptime FontChooserLevel=Int32
-comptime EmblemOrigin=Int32
-comptime FileMeasureFlags=Int32
-comptime SpinButtonUpdatePolicy=Int32
-comptime BlendMode=Int32
-comptime FileChooserAction=Int32
-comptime IOError=Int32
-comptime FilterChange=Int32
-comptime InputHints=Int32
-comptime TlsChannelBindingType=Int32
-comptime Overflow=Int32
-comptime MountMountFlags=Int32
-comptime MessageType=Int32
-comptime EventSequenceState=Int32
-comptime License=Int32
-comptime TlsCertificateRequestFlags=Int32
-comptime OptionFlags=Int32
-comptime MountOperationResult=Int32
-comptime SelectionMode=Int32
-comptime InscriptionOverflow=Int32
-comptime NetworkConnectivity=Int32
-comptime TraverseFlags=Int32
-comptime IOErrorEnum=Int32
-comptime StyleContextPrintFlags=Int32
-comptime UnicodeType=Int32
-comptime ConnectFlags=Int32
-comptime SorterOrder=Int32
 comptime AccessiblePlatformState=Int32
-comptime IOStreamSpliceFlags=Int32
-comptime DBusInterfaceSkeletonFlags=Int32
-comptime IconViewDropPosition=Int32
-comptime FileAttributeStatus=Int32
-comptime RegexMatchFlags=Int32
-comptime BaselinePosition=Int32
-comptime UnixSocketAddressType=Int32
-comptime GLAPI=Int32
-comptime Direction=Int32
-comptime TreeModelFlags=Int32
-comptime TlsCertificateFlags=Int32
-comptime ConstraintStrength=Int32
-comptime MaskMode=Int32
-comptime ListTabBehavior=Int32
-comptime DirectionType=Int32
-comptime DBusObjectManagerClientFlags=Int32
-comptime PageOrientation=Int32
-comptime BusType=Int32
-comptime SignalMatchType=Int32
-comptime AccessibleProperty=Int32
-comptime ZlibCompressorFormat=Int32
-comptime ShortcutScope=Int32
-comptime Ordering=Int32
-comptime InputPurpose=Int32
-comptime LevelBarMode=Int32
-comptime PopoverMenuFlags=Int32
-comptime OutputStreamSpliceFlags=Int32
-comptime PadActionType=Int32
-comptime PrintPages=Int32
-comptime PickFlags=Int32
-comptime ResolverNameLookupFlags=Int32
-comptime NaturalWrapMode=Int32
-comptime TypeDebugFlags=Int32
-comptime FileCopyFlags=Int32
-comptime Justification=Int32
-comptime OptionArg=Int32
-comptime PositionType=Int32
-comptime DataStreamNewlineType=Int32
-comptime StackTransitionType=Int32
-comptime TypeFlags=Int32
-comptime MainContextFlags=Int32
-comptime LogLevelFlags=Int32
-comptime LogWriterOutput=Int32
-comptime PasswordSave=Int32
-comptime PollableReturn=Int32
-comptime IOCondition=Int32
-comptime UriParamsFlags=Int32
-comptime SliceConfig=Int32
-comptime FileSetContentsFlags=Int32
-comptime SpinType=Int32
-comptime AccessibleRelation=Int32
-comptime IconSize=Int32
-comptime SocketFamily=Int32
-comptime TextDirection=Int32
-comptime UriFlags=Int32
-comptime BusNameOwnerFlags=Int32
-comptime TestLogType=Int32
-comptime DBusServerFlags=Int32
-comptime ChecksumType=Int32
-comptime NormalizeMode=Int32
-comptime PrintDuplex=Int32
-comptime IOFlags=Int32
-comptime SorterChange=Int32
-comptime DBusMessageByteOrder=Int32
-comptime SpawnFlags=Int32
-comptime CredentialsType=Int32
-comptime PropagationPhase=Int32
-comptime ScrollablePolicy=Int32
-comptime ParamFlags=Int32
-comptime FileType=Int32
-comptime AccessibleTextContentChange=Int32
-comptime Align=Int32
-comptime FileTest=Int32
-comptime PrintCapabilities=Int32
-comptime DBusMessageHeaderField=Int32
-comptime PrintQuality=Int32
-comptime TreeViewGridLines=Int32
-comptime DateWeekday=Int32
-comptime FileError=Int32
-comptime TextBufferNotifyFlags=Int32
-comptime ImageType=Int32
-comptime WrapMode=Int32
-comptime ArrowType=Int32
-comptime ContentFit=Int32
-comptime DragAction=Int32
-comptime ConverterResult=Int32
-comptime NumberUpLayout=Int32
-comptime DebugFlags=Int32
-comptime MarkupParseFlags=Int32
-comptime IOStatus=Int32
-comptime CellRendererState=Int32
-comptime DBusMessageType=Int32
-comptime FilterMatch=Int32
-comptime GraphicsOffloadEnabled=Int32
-comptime FileMonitorEvent=Int32
-comptime SeekType=Int32
-comptime DBusConnectionFlags=Int32
-comptime PropagationLimit=Int32
-comptime IconLookupFlags=Int32
-comptime ConstraintAttribute=Int32
-comptime PrintStatus=Int32
-comptime PrintOperationResult=Int32
-comptime TraverseType=Int32
-comptime EntryIconPosition=Int32
-comptime SocketType=Int32
-comptime TextSearchFlags=Int32
-comptime UserDirectory=Int32
-comptime WindowGravity=Int32
-comptime EventControllerScrollFlags=Int32
-comptime AccessibleState=Int32
-comptime ModifierType=Int32
-comptime PageSet=Int32
-comptime FormatSizeFlags=Int32
-comptime DBusSendMessageFlags=Int32
-comptime DBusMessageFlags=Int32
-comptime DBusSignalFlags=Int32
-comptime DBusProxyFlags=Int32
-comptime FileAttributeInfoFlags=Int32
-comptime ApplicationFlags=Int32
-comptime BusNameWatcherFlags=Int32
-comptime SensitivityType=Int32
-comptime PolicyType=Int32
 comptime UnicodeBreakType=Int32
-comptime FileAttributeType=Int32
-comptime ScrollUnit=Int32
-comptime TlsInteractionResult=Int32
-comptime ListScrollFlags=Int32
-comptime Orientation=Int32
-comptime SettingsBindFlags=Int32
-comptime RegexCompileFlags=Int32
-comptime ResourceLookupFlags=Int32
-comptime EllipsizeMode=Int32
-comptime SortType=Int32
-comptime FileQueryInfoFlags=Int32
-comptime BuilderClosureFlags=Int32
-comptime ApplicationInhibitFlags=Int32
-comptime AccessibleAnnouncementPriority=Int32
-comptime StringFilterMatchMode=Int32
-comptime FileMonitorFlags=Int32
-comptime AppInfoCreateFlags=Int32
-comptime DateMonth=Int32
-comptime ScalingFilter=Int32
-comptime TextWindowType=Int32
-comptime SubprocessFlags=Int32
-comptime DBusCallFlags=Int32
-comptime FileCreateFlags=Int32
-comptime DriveStartStopType=Int32
-comptime CornerType=Int32
-comptime MountUnmountFlags=Int32
-comptime UriHideFlags=Int32
-comptime ResolverRecordType=Int32
-comptime TimeType=Int32
-comptime TestTrapFlags=Int32
-comptime TlsRehandshakeMode=Int32
-comptime KeyFileFlags=Int32
-comptime AxisUse=Int32
-comptime TokenType=Int32
-comptime SizeGroupMode=Int32
-comptime UnicodeScript=Int32
-comptime KeyMatch=Int32
-comptime RevealerTransitionType=Int32
-comptime DriveStartFlags=Int32
-comptime AssistantPageType=Int32
-comptime DBusSubtreeFlags=Int32
-comptime TlsPasswordFlags=Int32
-comptime TestFileType=Int32
-comptime TestDBusFlags=Int32
-comptime VariantClass=Int32
-comptime DBusCapabilityFlags=Int32
-comptime DialogFlags=Int32
-comptime PackType=Int32
+comptime TypeFlags=Int32
+comptime BusNameWatcherFlags=Int32
+comptime FileCopyFlags=Int32
+comptime ArrowType=Int32
+comptime UnicodeType=Int32
+comptime TreeViewGridLines=Int32
 comptime TlsDatabaseVerifyFlags=Int32
-comptime IOChannelError=Int32
-comptime FontLevel=Int32
-comptime ConverterFlags=Int32
-comptime TlsProtocolVersion=Int32
+comptime PrintQuality=Int32
+comptime TreeViewColumnSizing=Int32
+comptime BindingFlags=Int32
+comptime NumberUpLayout=Int32
+comptime Justification=Int32
+comptime TestDBusFlags=Int32
+comptime DirectionType=Int32
+comptime SensitivityType=Int32
+comptime DBusServerFlags=Int32
+comptime ListScrollFlags=Int32
+comptime IOErrorEnum=Int32
+comptime BusNameOwnerFlags=Int32
+comptime EventSequenceState=Int32
+comptime FileChooserAction=Int32
+comptime SizeRequestMode=Int32
+comptime GraphicsOffloadEnabled=Int32
+comptime ChecksumType=Int32
+comptime AccessibleProperty=Int32
+comptime LevelBarMode=Int32
+comptime RevealerTransitionType=Int32
+comptime MarkupParseFlags=Int32
+comptime BuilderClosureFlags=Int32
+comptime TlsDatabaseLookupFlags=Int32
+comptime ScrollablePolicy=Int32
 comptime FillRule=Int32
-comptime PrintOperationAction=Int32
+comptime ResolverNameLookupFlags=Int32
+comptime SelectionMode=Int32
+comptime TextBufferNotifyFlags=Int32
+comptime AccessibleAnnouncementPriority=Int32
+comptime TextWindowType=Int32
+comptime TestLogType=Int32
+comptime ZlibCompressorFormat=Int32
+comptime DBusProxyFlags=Int32
+comptime TlsChannelBindingType=Int32
+comptime PropagationLimit=Int32
+comptime DragAction=Int32
+comptime PageSet=Int32
+comptime PopoverMenuFlags=Int32
+comptime DBusInterfaceSkeletonFlags=Int32
+comptime DBusSubtreeFlags=Int32
+comptime IOError=Int32
+comptime IOStatus=Int32
+comptime IOChannelError=Int32
+comptime UriParamsFlags=Int32
+comptime DataStreamByteOrder=Int32
 comptime TestSubprocessFlags=Int32
+comptime MaskMode=Int32
+comptime UnicodeScript=Int32
+comptime DBusCallFlags=Int32
+comptime PageOrientation=Int32
+comptime DBusCapabilityFlags=Int32
+comptime CredentialsType=Int32
+comptime StackTransitionType=Int32
+comptime ShortcutActionFlags=Int32
+comptime FileAttributeType=Int32
+comptime DateWeekday=Int32
+comptime AxisUse=Int32
+comptime EntryIconPosition=Int32
+comptime FontChooserLevel=Int32
+comptime KeyMatch=Int32
+comptime DBusMessageByteOrder=Int32
+comptime TlsCertificateRequestFlags=Int32
+comptime AssistantPageType=Int32
+comptime FileQueryInfoFlags=Int32
+comptime UriFlags=Int32
+comptime LogLevelFlags=Int32
+comptime TlsInteractionResult=Int32
+comptime PrintStatus=Int32
+comptime DBusMessageHeaderField=Int32
+comptime InscriptionOverflow=Int32
+comptime SocketType=Int32
+comptime FormatSizeFlags=Int32
+comptime TestTrapFlags=Int32
+comptime SliceConfig=Int32
+comptime StyleContextPrintFlags=Int32
+comptime SpawnFlags=Int32
+comptime PrintOperationResult=Int32
+comptime WrapMode=Int32
+comptime VariantClass=Int32
+comptime BaselinePosition=Int32
+comptime EventControllerScrollFlags=Int32
+comptime ShortcutScope=Int32
+comptime SorterChange=Int32
+comptime PropagationPhase=Int32
+comptime SocketFamily=Int32
+comptime ConnectFlags=Int32
+comptime AccessibleState=Int32
+comptime MessageType=Int32
+comptime TlsRehandshakeMode=Int32
+comptime TreeViewDropPosition=Int32
+comptime FontLevel=Int32
+comptime TlsProtocolVersion=Int32
+comptime SorterOrder=Int32
+comptime NetworkConnectivity=Int32
+comptime GLAPI=Int32
+comptime TestFileType=Int32
+comptime RegexMatchFlags=Int32
+comptime PickFlags=Int32
+comptime TlsPasswordFlags=Int32
+comptime PrintPages=Int32
+comptime ApplicationFlags=Int32
+comptime IOStreamSpliceFlags=Int32
+comptime ConstraintRelation=Int32
+comptime SizeGroupMode=Int32
+comptime DriveStartStopType=Int32
+comptime DebugFlags=Int32
+comptime Orientation=Int32
+comptime ResolverRecordType=Int32
+comptime IconLookupFlags=Int32
+comptime EllipsizeMode=Int32
+comptime ContentFit=Int32
+comptime ConverterResult=Int32
+comptime SpinType=Int32
+comptime NaturalWrapMode=Int32
+comptime Collation=Int32
+comptime PrintOperationAction=Int32
+comptime DBusSendMessageFlags=Int32
+comptime DBusObjectManagerClientFlags=Int32
+comptime DBusMessageType=Int32
+comptime TypeDebugFlags=Int32
+comptime IOCondition=Int32
+comptime MountUnmountFlags=Int32
+comptime PackType=Int32
+comptime TraverseFlags=Int32
+comptime FileTest=Int32
+comptime LogWriterOutput=Int32
+comptime DBusMessageFlags=Int32
+comptime FileCreateFlags=Int32
+comptime AccessibleRelation=Int32
+comptime UserDirectory=Int32
+comptime SettingsBindFlags=Int32
+comptime TextDirection=Int32
+comptime MountOperationResult=Int32
+comptime DataStreamNewlineType=Int32
+comptime DriveStartFlags=Int32
+comptime DBusConnectionFlags=Int32
+comptime MountMountFlags=Int32
+comptime FilterMatch=Int32
+comptime License=Int32
+comptime FileMonitorEvent=Int32
+comptime PrintCapabilities=Int32
+comptime TextSearchFlags=Int32
+comptime AccessibleRole=Int32
+comptime NormalizeMode=Int32
+comptime IconViewDropPosition=Int32
+comptime SubprocessFlags=Int32
+comptime SignalMatchType=Int32
+comptime Direction=Int32
+comptime IconSize=Int32
+comptime ListTabBehavior=Int32
+comptime TraverseType=Int32
+comptime OptionFlags=Int32
+comptime PasswordSave=Int32
+comptime ConstraintStrength=Int32
+comptime TokenType=Int32
+comptime Align=Int32
+comptime FileSetContentsFlags=Int32
+comptime AccessibleTextContentChange=Int32
+comptime TreeModelFlags=Int32
+comptime StringFilterMatchMode=Int32
+comptime TlsCertificateFlags=Int32
+comptime Ordering=Int32
+comptime ScrollUnit=Int32
 comptime Unit=Int32
+comptime KeyFileFlags=Int32
+comptime CellRendererState=Int32
+comptime ParamFlags=Int32
+comptime ConverterFlags=Int32
+comptime AppInfoCreateFlags=Int32
+comptime FileType=Int32
+comptime PositionType=Int32
+comptime InputPurpose=Int32
+comptime StateFlags=Int32
+comptime Overflow=Int32
+comptime IOFlags=Int32
+comptime BusType=Int32
+comptime FileError=Int32
+comptime MainContextFlags=Int32
+comptime FileMeasureFlags=Int32
+comptime DialogFlags=Int32
+comptime ImageType=Int32
+comptime ModifierType=Int32
+comptime RegexCompileFlags=Int32
+comptime FilterChange=Int32
+comptime WindowGravity=Int32
+comptime ResourceLookupFlags=Int32
+comptime SeekType=Int32
+comptime CornerType=Int32
+comptime ApplicationInhibitFlags=Int32
+comptime DateMonth=Int32
+comptime SortType=Int32
+comptime EmblemOrigin=Int32
+comptime UriHideFlags=Int32
+comptime PollableReturn=Int32
+comptime InputHints=Int32
+comptime PrintDuplex=Int32
+comptime ScalingFilter=Int32
+comptime FileAttributeStatus=Int32
+comptime NotificationPriority=Int32
+comptime OutputStreamSpliceFlags=Int32
+comptime UnixSocketAddressType=Int32
+comptime PolicyType=Int32
+comptime DBusSignalFlags=Int32
+comptime FileAttributeInfoFlags=Int32
+comptime PadActionType=Int32
+comptime BlendMode=Int32
+comptime SpinButtonUpdatePolicy=Int32
+comptime FileMonitorFlags=Int32
+comptime OptionArg=Int32
+comptime TimeType=Int32
+comptime SocketProtocol=Int32
+comptime ConstraintAttribute=Int32
 
 comptime GTKInterface = LegacyUnsafePointer[NoneType]
 comptime GTKType=LegacyUnsafePointer[NoneType]
@@ -361,7 +361,14 @@ fn g_object_get_property(self: GTKInterface, property_name: String, value: GTKIn
 fn g_object_get_qdata(self: GTKInterface, quark: UInt32, ) raises -> NoneType:
 	return external_call["g_object_get_qdata", NoneType](self, quark,)
 fn g_object_getv(self: GTKInterface, n_properties: UInt32, names: List[String], values: GTKInterface[], ) raises -> NoneType:
-	return external_call["g_object_getv", NoneType](self, n_properties, names, values,)
+	var nelements_names = len(names)
+	var charptr_array_names = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_names)
+	for ix in range(nelements_names):
+		var strelement = names[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_names[ix] = charptr
+	return external_call["g_object_getv", NoneType](self, n_properties, charptr_array_names, values,)
 fn g_object_is_floating(self: GTKInterface, ) raises -> Bool:
 	return external_call["g_object_is_floating", Bool](self,)
 fn g_object_notify(self: GTKInterface, property_name: String, ) raises -> NoneType:
@@ -1395,7 +1402,14 @@ fn g_application_register(self: GTKInterface, cancellable: GTKInterface, ) raise
 fn g_application_release(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_application_release", NoneType](self,)
 fn g_application_run(self: GTKInterface, argc: Int32, argv: List[String], ) raises -> Int32:
-	return external_call["g_application_run", Int32](self, argc, argv,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	return external_call["g_application_run", Int32](self, argc, charptr_array_argv,)
 fn g_application_send_notification(self: GTKInterface, id: String, notification: GTKInterface, ) raises -> NoneType:
 	var slc_cstr_id = StringSlice(id + " ")
 	var cstr_id = CStringSlice(slc_cstr_id)
@@ -2445,7 +2459,14 @@ fn g_dtls_connection_handshake_async(self: GTKInterface, io_priority: Int32, can
 fn g_dtls_connection_handshake_finish(self: GTKInterface, result: GTKInterface, ) raises -> Bool:
 	return external_call["g_dtls_connection_handshake_finish", Bool](self, result,)
 fn g_dtls_connection_set_advertised_protocols(self: GTKInterface, protocols: List[String], ) raises -> NoneType:
-	return external_call["g_dtls_connection_set_advertised_protocols", NoneType](self, protocols,)
+	var nelements_protocols = len(protocols)
+	var charptr_array_protocols = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_protocols)
+	for ix in range(nelements_protocols):
+		var strelement = protocols[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_protocols[ix] = charptr
+	return external_call["g_dtls_connection_set_advertised_protocols", NoneType](self, charptr_array_protocols,)
 fn g_dtls_connection_set_certificate(self: GTKInterface, certificate: GTKInterface, ) raises -> NoneType:
 	return external_call["g_dtls_connection_set_certificate", NoneType](self, certificate,)
 fn g_dtls_connection_set_database(self: GTKInterface, database: GTKInterface, ) raises -> NoneType:
@@ -2483,7 +2504,14 @@ fn g_emblemed_icon_get_emblems(self: GTKInterface, ) raises -> GTKType:
 fn g_emblemed_icon_get_icon(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["g_emblemed_icon_get_icon", GTKInterface](self,)
 fn g_file_new_build_filenamev(args: List[String], ) raises -> GTKInterface:
-	return external_call["g_file_new_build_filenamev", GTKInterface](args,)
+	var nelements_args = len(args)
+	var charptr_array_args = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_args)
+	for ix in range(nelements_args):
+		var strelement = args[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_args[ix] = charptr
+	return external_call["g_file_new_build_filenamev", GTKInterface](charptr_array_args,)
 fn g_file_new_for_commandline_arg(arg: String, ) raises -> GTKInterface:
 	var slc_cstr_arg = StringSlice(arg + " ")
 	var cstr_arg = CStringSlice(slc_cstr_arg)
@@ -3085,7 +3113,14 @@ fn g_file_info_set_attribute_string(self: GTKInterface, attribute: String, attr_
 fn g_file_info_set_attribute_stringv(self: GTKInterface, attribute: String, attr_value: List[String], ) raises -> NoneType:
 	var slc_cstr_attribute = StringSlice(attribute + " ")
 	var cstr_attribute = CStringSlice(slc_cstr_attribute)
-	return external_call["g_file_info_set_attribute_stringv", NoneType](self, cstr_attribute, attr_value,)
+	var nelements_attr_value = len(attr_value)
+	var charptr_array_attr_value = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_attr_value)
+	for ix in range(nelements_attr_value):
+		var strelement = attr_value[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_attr_value[ix] = charptr
+	return external_call["g_file_info_set_attribute_stringv", NoneType](self, cstr_attribute, charptr_array_attr_value,)
 fn g_file_info_set_attribute_uint32(self: GTKInterface, attribute: String, attr_value: UInt32, ) raises -> NoneType:
 	var slc_cstr_attribute = StringSlice(attribute + " ")
 	var cstr_attribute = CStringSlice(slc_cstr_attribute)
@@ -4237,7 +4272,14 @@ fn g_settings_set_string(self: GTKInterface, key: String, value: String, ) raise
 fn g_settings_set_strv(self: GTKInterface, key: String, value: List[String], ) raises -> Bool:
 	var slc_cstr_key = StringSlice(key + " ")
 	var cstr_key = CStringSlice(slc_cstr_key)
-	return external_call["g_settings_set_strv", Bool](self, cstr_key, value,)
+	var nelements_value = len(value)
+	var charptr_array_value = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_value)
+	for ix in range(nelements_value):
+		var strelement = value[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_value[ix] = charptr
+	return external_call["g_settings_set_strv", Bool](self, cstr_key, charptr_array_value,)
 fn g_settings_set_uint(self: GTKInterface, key: String, value: UInt32, ) raises -> Bool:
 	var slc_cstr_key = StringSlice(key + " ")
 	var cstr_key = CStringSlice(slc_cstr_key)
@@ -4263,7 +4305,14 @@ fn g_settings_backend_changed_tree(self: GTKInterface, tree: GTKInterface, origi
 fn g_settings_backend_keys_changed(self: GTKInterface, path: String, items: List[String], origin_tag: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	var slc_cstr_path = StringSlice(path + " ")
 	var cstr_path = CStringSlice(slc_cstr_path)
-	return external_call["g_settings_backend_keys_changed", NoneType](self, cstr_path, items, origin_tag,)
+	var nelements_items = len(items)
+	var charptr_array_items = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_items)
+	for ix in range(nelements_items):
+		var strelement = items[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_items[ix] = charptr
+	return external_call["g_settings_backend_keys_changed", NoneType](self, cstr_path, charptr_array_items, origin_tag,)
 fn g_settings_backend_path_changed(self: GTKInterface, path: String, origin_tag: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	var slc_cstr_path = StringSlice(path + " ")
 	var cstr_path = CStringSlice(slc_cstr_path)
@@ -4391,13 +4440,27 @@ fn g_simple_permission_new(allowed: Bool, ) raises -> GTKInterface:
 fn g_simple_proxy_resolver_new(x_default_proxy: String, ignore_hosts: List[String], ) raises -> GTKInterface:
 	var slc_cstr_x_default_proxy = StringSlice(x_default_proxy + " ")
 	var cstr_x_default_proxy = CStringSlice(slc_cstr_x_default_proxy)
-	return external_call["g_simple_proxy_resolver_new", GTKInterface](cstr_x_default_proxy, ignore_hosts,)
+	var nelements_ignore_hosts = len(ignore_hosts)
+	var charptr_array_ignore_hosts = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_ignore_hosts)
+	for ix in range(nelements_ignore_hosts):
+		var strelement = ignore_hosts[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_ignore_hosts[ix] = charptr
+	return external_call["g_simple_proxy_resolver_new", GTKInterface](cstr_x_default_proxy, charptr_array_ignore_hosts,)
 fn g_simple_proxy_resolver_set_default_proxy(self: GTKInterface, x_default_proxy: String, ) raises -> NoneType:
 	var slc_cstr_x_default_proxy = StringSlice(x_default_proxy + " ")
 	var cstr_x_default_proxy = CStringSlice(slc_cstr_x_default_proxy)
 	return external_call["g_simple_proxy_resolver_set_default_proxy", NoneType](self, cstr_x_default_proxy,)
 fn g_simple_proxy_resolver_set_ignore_hosts(self: GTKInterface, ignore_hosts: List[String], ) raises -> NoneType:
-	return external_call["g_simple_proxy_resolver_set_ignore_hosts", NoneType](self, ignore_hosts,)
+	var nelements_ignore_hosts = len(ignore_hosts)
+	var charptr_array_ignore_hosts = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_ignore_hosts)
+	for ix in range(nelements_ignore_hosts):
+		var strelement = ignore_hosts[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_ignore_hosts[ix] = charptr
+	return external_call["g_simple_proxy_resolver_set_ignore_hosts", NoneType](self, charptr_array_ignore_hosts,)
 fn g_simple_proxy_resolver_set_uri_proxy(self: GTKInterface, uri_scheme: String, proxy: String, ) raises -> NoneType:
 	var slc_cstr_uri_scheme = StringSlice(uri_scheme + " ")
 	var cstr_uri_scheme = CStringSlice(slc_cstr_uri_scheme)
@@ -4717,7 +4780,14 @@ fn g_static_resource_get_resource(self: GTKInterface, ) raises -> GTKInterface:
 fn g_static_resource_init(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_static_resource_init", NoneType](self,)
 fn g_subprocess_newv(argv: List[String], flags: SubprocessFlags, ) raises -> GTKInterface:
-	return external_call["g_subprocess_newv", GTKInterface](argv, flags,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	return external_call["g_subprocess_newv", GTKInterface](charptr_array_argv, flags,)
 fn g_subprocess_communicate(self: GTKInterface, stdin_buf: GTKInterface, cancellable: GTKInterface, stdout_buf: GTKInterface, stderr_buf: GTKInterface, ) raises -> Bool:
 	return external_call["g_subprocess_communicate", Bool](self, stdin_buf, cancellable, stdout_buf, stderr_buf,)
 fn g_subprocess_communicate_async(self: GTKInterface, stdin_buf: GTKInterface, cancellable: GTKInterface, callback: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
@@ -4783,7 +4853,14 @@ fn g_subprocess_launcher_set_cwd(self: GTKInterface, cwd: String, ) raises -> No
 	var cstr_cwd = CStringSlice(slc_cstr_cwd)
 	return external_call["g_subprocess_launcher_set_cwd", NoneType](self, cstr_cwd,)
 fn g_subprocess_launcher_set_environ(self: GTKInterface, env: List[String], ) raises -> NoneType:
-	return external_call["g_subprocess_launcher_set_environ", NoneType](self, env,)
+	var nelements_env = len(env)
+	var charptr_array_env = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_env)
+	for ix in range(nelements_env):
+		var strelement = env[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_env[ix] = charptr
+	return external_call["g_subprocess_launcher_set_environ", NoneType](self, charptr_array_env,)
 fn g_subprocess_launcher_set_flags(self: GTKInterface, flags: SubprocessFlags, ) raises -> NoneType:
 	return external_call["g_subprocess_launcher_set_flags", NoneType](self, flags,)
 fn g_subprocess_launcher_set_stderr_file_path(self: GTKInterface, path: String, ) raises -> NoneType:
@@ -4805,7 +4882,14 @@ fn g_subprocess_launcher_setenv(self: GTKInterface, variable: String, value: Str
 	var cstr_value = CStringSlice(slc_cstr_value)
 	return external_call["g_subprocess_launcher_setenv", NoneType](self, cstr_variable, cstr_value, overwrite,)
 fn g_subprocess_launcher_spawnv(self: GTKInterface, argv: List[String], ) raises -> GTKInterface:
-	return external_call["g_subprocess_launcher_spawnv", GTKInterface](self, argv,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	return external_call["g_subprocess_launcher_spawnv", GTKInterface](self, charptr_array_argv,)
 fn g_subprocess_launcher_take_fd(self: GTKInterface, source_fd: Int32, target_fd: Int32, ) raises -> NoneType:
 	return external_call["g_subprocess_launcher_take_fd", NoneType](self, source_fd, target_fd,)
 fn g_subprocess_launcher_take_stderr_fd(self: GTKInterface, fd: Int32, ) raises -> NoneType:
@@ -4923,7 +5007,14 @@ fn g_themed_icon_new(iconname: String, ) raises -> GTKInterface:
 	var cstr_iconname = CStringSlice(slc_cstr_iconname)
 	return external_call["g_themed_icon_new", GTKInterface](cstr_iconname,)
 fn g_themed_icon_new_from_names(iconnames: List[String], len: Int32, ) raises -> GTKInterface:
-	return external_call["g_themed_icon_new_from_names", GTKInterface](iconnames, len,)
+	var nelements_iconnames = len(iconnames)
+	var charptr_array_iconnames = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_iconnames)
+	for ix in range(nelements_iconnames):
+		var strelement = iconnames[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_iconnames[ix] = charptr
+	return external_call["g_themed_icon_new_from_names", GTKInterface](charptr_array_iconnames, len,)
 fn g_themed_icon_new_with_default_fallbacks(iconname: String, ) raises -> GTKInterface:
 	var slc_cstr_iconname = StringSlice(iconname + " ")
 	var cstr_iconname = CStringSlice(slc_cstr_iconname)
@@ -5065,7 +5156,14 @@ fn g_tls_connection_handshake_async(self: GTKInterface, io_priority: Int32, canc
 fn g_tls_connection_handshake_finish(self: GTKInterface, result: GTKInterface, ) raises -> Bool:
 	return external_call["g_tls_connection_handshake_finish", Bool](self, result,)
 fn g_tls_connection_set_advertised_protocols(self: GTKInterface, protocols: List[String], ) raises -> NoneType:
-	return external_call["g_tls_connection_set_advertised_protocols", NoneType](self, protocols,)
+	var nelements_protocols = len(protocols)
+	var charptr_array_protocols = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_protocols)
+	for ix in range(nelements_protocols):
+		var strelement = protocols[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_protocols[ix] = charptr
+	return external_call["g_tls_connection_set_advertised_protocols", NoneType](self, charptr_array_protocols,)
 fn g_tls_connection_set_certificate(self: GTKInterface, certificate: GTKInterface, ) raises -> NoneType:
 	return external_call["g_tls_connection_set_certificate", NoneType](self, certificate,)
 fn g_tls_connection_set_database(self: GTKInterface, database: GTKInterface, ) raises -> NoneType:
@@ -5401,7 +5499,14 @@ fn g_content_type_is_unknown(type: String, ) raises -> Bool:
 	var cstr_type = CStringSlice(slc_cstr_type)
 	return external_call["g_content_type_is_unknown", Bool](cstr_type,)
 fn g_content_type_set_mime_dirs(dirs: List[String], ) raises -> NoneType:
-	return external_call["g_content_type_set_mime_dirs", NoneType](dirs,)
+	var nelements_dirs = len(dirs)
+	var charptr_array_dirs = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_dirs)
+	for ix in range(nelements_dirs):
+		var strelement = dirs[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_dirs[ix] = charptr
+	return external_call["g_content_type_set_mime_dirs", NoneType](charptr_array_dirs,)
 fn g_content_types_get_registered() raises -> GTKType:
 	return external_call["g_content_types_get_registered", GTKType]()
 fn g_dbus_address_escape_value(string: String, ) raises -> LegacyUnsafePointer[c_char]:
@@ -5587,7 +5692,14 @@ fn gtk_about_dialog_new() raises -> GTKInterface:
 fn gtk_about_dialog_add_credit_section(self: GTKInterface, section_name: String, people: List[String], ) raises -> NoneType:
 	var slc_cstr_section_name = StringSlice(section_name + " ")
 	var cstr_section_name = CStringSlice(slc_cstr_section_name)
-	return external_call["gtk_about_dialog_add_credit_section", NoneType](self, cstr_section_name, people,)
+	var nelements_people = len(people)
+	var charptr_array_people = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_people)
+	for ix in range(nelements_people):
+		var strelement = people[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_people[ix] = charptr
+	return external_call["gtk_about_dialog_add_credit_section", NoneType](self, cstr_section_name, charptr_array_people,)
 fn gtk_about_dialog_get_artists(self: GTKInterface, ) raises -> List[String]:
 	return external_call["gtk_about_dialog_get_artists", List[String]](self,)
 fn gtk_about_dialog_get_authors(self: GTKInterface, ) raises -> List[String]:
@@ -5621,9 +5733,23 @@ fn gtk_about_dialog_get_website_label(self: GTKInterface, ) raises -> LegacyUnsa
 fn gtk_about_dialog_get_wrap_license(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_about_dialog_get_wrap_license", Bool](self,)
 fn gtk_about_dialog_set_artists(self: GTKInterface, artists: List[String], ) raises -> NoneType:
-	return external_call["gtk_about_dialog_set_artists", NoneType](self, artists,)
+	var nelements_artists = len(artists)
+	var charptr_array_artists = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_artists)
+	for ix in range(nelements_artists):
+		var strelement = artists[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_artists[ix] = charptr
+	return external_call["gtk_about_dialog_set_artists", NoneType](self, charptr_array_artists,)
 fn gtk_about_dialog_set_authors(self: GTKInterface, authors: List[String], ) raises -> NoneType:
-	return external_call["gtk_about_dialog_set_authors", NoneType](self, authors,)
+	var nelements_authors = len(authors)
+	var charptr_array_authors = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_authors)
+	for ix in range(nelements_authors):
+		var strelement = authors[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_authors[ix] = charptr
+	return external_call["gtk_about_dialog_set_authors", NoneType](self, charptr_array_authors,)
 fn gtk_about_dialog_set_comments(self: GTKInterface, comments: String, ) raises -> NoneType:
 	var slc_cstr_comments = StringSlice(comments + " ")
 	var cstr_comments = CStringSlice(slc_cstr_comments)
@@ -5633,7 +5759,14 @@ fn gtk_about_dialog_set_copyright(self: GTKInterface, copyright: String, ) raise
 	var cstr_copyright = CStringSlice(slc_cstr_copyright)
 	return external_call["gtk_about_dialog_set_copyright", NoneType](self, cstr_copyright,)
 fn gtk_about_dialog_set_documenters(self: GTKInterface, documenters: List[String], ) raises -> NoneType:
-	return external_call["gtk_about_dialog_set_documenters", NoneType](self, documenters,)
+	var nelements_documenters = len(documenters)
+	var charptr_array_documenters = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_documenters)
+	for ix in range(nelements_documenters):
+		var strelement = documenters[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_documenters[ix] = charptr
+	return external_call["gtk_about_dialog_set_documenters", NoneType](self, charptr_array_documenters,)
 fn gtk_about_dialog_set_license(self: GTKInterface, license: String, ) raises -> NoneType:
 	var slc_cstr_license = StringSlice(license + " ")
 	var cstr_license = CStringSlice(slc_cstr_license)
@@ -5801,7 +5934,14 @@ fn gtk_alert_dialog_get_message(self: GTKInterface, ) raises -> LegacyUnsafePoin
 fn gtk_alert_dialog_get_modal(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_alert_dialog_get_modal", Bool](self,)
 fn gtk_alert_dialog_set_buttons(self: GTKInterface, labels: List[String], ) raises -> NoneType:
-	return external_call["gtk_alert_dialog_set_buttons", NoneType](self, labels,)
+	var nelements_labels = len(labels)
+	var charptr_array_labels = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_labels)
+	for ix in range(nelements_labels):
+		var strelement = labels[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_labels[ix] = charptr
+	return external_call["gtk_alert_dialog_set_buttons", NoneType](self, charptr_array_labels,)
 fn gtk_alert_dialog_set_cancel_button(self: GTKInterface, button: Int32, ) raises -> NoneType:
 	return external_call["gtk_alert_dialog_set_cancel_button", NoneType](self, button,)
 fn gtk_alert_dialog_set_default_button(self: GTKInterface, button: Int32, ) raises -> NoneType:
@@ -5947,7 +6087,14 @@ fn gtk_application_remove_window(self: GTKInterface, window: GTKInterface, ) rai
 fn gtk_application_set_accels_for_action(self: GTKInterface, detailed_action_name: String, accels: List[String], ) raises -> NoneType:
 	var slc_cstr_detailed_action_name = StringSlice(detailed_action_name + " ")
 	var cstr_detailed_action_name = CStringSlice(slc_cstr_detailed_action_name)
-	return external_call["gtk_application_set_accels_for_action", NoneType](self, cstr_detailed_action_name, accels,)
+	var nelements_accels = len(accels)
+	var charptr_array_accels = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_accels)
+	for ix in range(nelements_accels):
+		var strelement = accels[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_accels[ix] = charptr
+	return external_call["gtk_application_set_accels_for_action", NoneType](self, cstr_detailed_action_name, charptr_array_accels,)
 fn gtk_application_set_menubar(self: GTKInterface, menubar: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_application_set_menubar", NoneType](self, menubar,)
 fn gtk_application_uninhibit(self: GTKInterface, cookie: UInt32, ) raises -> NoneType:
@@ -6235,15 +6382,36 @@ fn gtk_builder_add_from_string(self: GTKInterface, buffer: String, length: Int64
 fn gtk_builder_add_objects_from_file(self: GTKInterface, filename: String, object_ids: List[String], ) raises -> Bool:
 	var slc_cstr_filename = StringSlice(filename + " ")
 	var cstr_filename = CStringSlice(slc_cstr_filename)
-	return external_call["gtk_builder_add_objects_from_file", Bool](self, cstr_filename, object_ids,)
+	var nelements_object_ids = len(object_ids)
+	var charptr_array_object_ids = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_object_ids)
+	for ix in range(nelements_object_ids):
+		var strelement = object_ids[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_object_ids[ix] = charptr
+	return external_call["gtk_builder_add_objects_from_file", Bool](self, cstr_filename, charptr_array_object_ids,)
 fn gtk_builder_add_objects_from_resource(self: GTKInterface, resource_path: String, object_ids: List[String], ) raises -> Bool:
 	var slc_cstr_resource_path = StringSlice(resource_path + " ")
 	var cstr_resource_path = CStringSlice(slc_cstr_resource_path)
-	return external_call["gtk_builder_add_objects_from_resource", Bool](self, cstr_resource_path, object_ids,)
+	var nelements_object_ids = len(object_ids)
+	var charptr_array_object_ids = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_object_ids)
+	for ix in range(nelements_object_ids):
+		var strelement = object_ids[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_object_ids[ix] = charptr
+	return external_call["gtk_builder_add_objects_from_resource", Bool](self, cstr_resource_path, charptr_array_object_ids,)
 fn gtk_builder_add_objects_from_string(self: GTKInterface, buffer: String, length: Int64, object_ids: List[String], ) raises -> Bool:
 	var slc_cstr_buffer = StringSlice(buffer + " ")
 	var cstr_buffer = CStringSlice(slc_cstr_buffer)
-	return external_call["gtk_builder_add_objects_from_string", Bool](self, cstr_buffer, length, object_ids,)
+	var nelements_object_ids = len(object_ids)
+	var charptr_array_object_ids = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_object_ids)
+	for ix in range(nelements_object_ids):
+		var strelement = object_ids[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_object_ids[ix] = charptr
+	return external_call["gtk_builder_add_objects_from_string", Bool](self, cstr_buffer, length, charptr_array_object_ids,)
 fn gtk_builder_create_closure(self: GTKInterface, function_name: String, flags: BuilderClosureFlags, object: GTKInterface, ) raises -> GTKInterface:
 	var slc_cstr_function_name = StringSlice(function_name + " ")
 	var cstr_function_name = CStringSlice(slc_cstr_function_name)
@@ -7111,7 +7279,14 @@ fn gtk_constraint_layout_new() raises -> GTKInterface:
 fn gtk_constraint_layout_add_constraint(self: GTKInterface, constraint: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_constraint_layout_add_constraint", NoneType](self, constraint,)
 fn gtk_constraint_layout_add_constraints_from_descriptionv(self: GTKInterface, lines: List[String], n_lines: UInt64, hspacing: Int32, vspacing: Int32, views: GTKType, ) raises -> GTKType:
-	return external_call["gtk_constraint_layout_add_constraints_from_descriptionv", GTKType](self, lines, n_lines, hspacing, vspacing, views,)
+	var nelements_lines = len(lines)
+	var charptr_array_lines = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_lines)
+	for ix in range(nelements_lines):
+		var strelement = lines[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_lines[ix] = charptr
+	return external_call["gtk_constraint_layout_add_constraints_from_descriptionv", GTKType](self, charptr_array_lines, n_lines, hspacing, vspacing, views,)
 fn gtk_constraint_layout_add_guide(self: GTKInterface, guide: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_constraint_layout_add_guide", NoneType](self, guide,)
 fn gtk_constraint_layout_observe_constraints(self: GTKInterface, ) raises -> GTKInterface:
@@ -7283,7 +7458,14 @@ fn gtk_drop_controller_motion_is_pointer(self: GTKInterface, ) raises -> Bool:
 fn gtk_drop_down_new(model: GTKInterface, expression: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_drop_down_new", GTKInterface](model, expression,)
 fn gtk_drop_down_new_from_strings(strings: List[String], ) raises -> GTKInterface:
-	return external_call["gtk_drop_down_new_from_strings", GTKInterface](strings,)
+	var nelements_strings = len(strings)
+	var charptr_array_strings = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strings)
+	for ix in range(nelements_strings):
+		var strelement = strings[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strings[ix] = charptr
+	return external_call["gtk_drop_down_new_from_strings", GTKInterface](charptr_array_strings,)
 fn gtk_drop_down_get_enable_search(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_drop_down_get_enable_search", Bool](self,)
 fn gtk_drop_down_get_expression(self: GTKInterface, ) raises -> GTKInterface:
@@ -7773,7 +7955,21 @@ fn gtk_file_chooser_add_choice(self: GTKInterface, id: String, label: String, op
 	var cstr_id = CStringSlice(slc_cstr_id)
 	var slc_cstr_label = StringSlice(label + " ")
 	var cstr_label = CStringSlice(slc_cstr_label)
-	return external_call["gtk_file_chooser_add_choice", NoneType](self, cstr_id, cstr_label, options, option_labels,)
+	var nelements_options = len(options)
+	var charptr_array_options = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_options)
+	for ix in range(nelements_options):
+		var strelement = options[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_options[ix] = charptr
+	var nelements_option_labels = len(option_labels)
+	var charptr_array_option_labels = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_option_labels)
+	for ix in range(nelements_option_labels):
+		var strelement = option_labels[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_option_labels[ix] = charptr
+	return external_call["gtk_file_chooser_add_choice", NoneType](self, cstr_id, cstr_label, charptr_array_options, charptr_array_option_labels,)
 fn gtk_file_chooser_add_filter(self: GTKInterface, filter: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_file_chooser_add_filter", NoneType](self, filter,)
 fn gtk_file_chooser_add_shortcut_folder(self: GTKInterface, folder: GTKInterface, ) raises -> Bool:
@@ -8669,11 +8865,32 @@ fn gtk_icon_theme_lookup_by_gicon(self: GTKInterface, icon: GTKInterface, size: 
 fn gtk_icon_theme_lookup_icon(self: GTKInterface, icon_name: String, fallbacks: List[String], size: Int32, scale: Int32, direction: TextDirection, flags: IconLookupFlags, ) raises -> GTKInterface:
 	var slc_cstr_icon_name = StringSlice(icon_name + " ")
 	var cstr_icon_name = CStringSlice(slc_cstr_icon_name)
-	return external_call["gtk_icon_theme_lookup_icon", GTKInterface](self, cstr_icon_name, fallbacks, size, scale, direction, flags,)
+	var nelements_fallbacks = len(fallbacks)
+	var charptr_array_fallbacks = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_fallbacks)
+	for ix in range(nelements_fallbacks):
+		var strelement = fallbacks[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_fallbacks[ix] = charptr
+	return external_call["gtk_icon_theme_lookup_icon", GTKInterface](self, cstr_icon_name, charptr_array_fallbacks, size, scale, direction, flags,)
 fn gtk_icon_theme_set_resource_path(self: GTKInterface, path: List[String], ) raises -> NoneType:
-	return external_call["gtk_icon_theme_set_resource_path", NoneType](self, path,)
+	var nelements_path = len(path)
+	var charptr_array_path = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_path)
+	for ix in range(nelements_path):
+		var strelement = path[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_path[ix] = charptr
+	return external_call["gtk_icon_theme_set_resource_path", NoneType](self, charptr_array_path,)
 fn gtk_icon_theme_set_search_path(self: GTKInterface, path: List[String], ) raises -> NoneType:
-	return external_call["gtk_icon_theme_set_search_path", NoneType](self, path,)
+	var nelements_path = len(path)
+	var charptr_array_path = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_path)
+	for ix in range(nelements_path):
+		var strelement = path[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_path[ix] = charptr
+	return external_call["gtk_icon_theme_set_search_path", NoneType](self, charptr_array_path,)
 fn gtk_icon_theme_set_theme_name(self: GTKInterface, theme_name: String, ) raises -> NoneType:
 	var slc_cstr_theme_name = StringSlice(theme_name + " ")
 	var cstr_theme_name = CStringSlice(slc_cstr_theme_name)
@@ -10809,7 +11026,14 @@ fn gtk_scale_set_has_origin(self: GTKInterface, has_origin: Bool, ) raises -> No
 fn gtk_scale_set_value_pos(self: GTKInterface, pos: PositionType, ) raises -> NoneType:
 	return external_call["gtk_scale_set_value_pos", NoneType](self, pos,)
 fn gtk_scale_button_new(min: Float64, max: Float64, step: Float64, icons: List[String], ) raises -> GTKInterface:
-	return external_call["gtk_scale_button_new", GTKInterface](min, max, step, icons,)
+	var nelements_icons = len(icons)
+	var charptr_array_icons = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_icons)
+	for ix in range(nelements_icons):
+		var strelement = icons[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_icons[ix] = charptr
+	return external_call["gtk_scale_button_new", GTKInterface](min, max, step, charptr_array_icons,)
 fn gtk_scale_button_get_active(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_scale_button_get_active", Bool](self,)
 fn gtk_scale_button_get_adjustment(self: GTKInterface, ) raises -> GTKInterface:
@@ -10829,7 +11053,14 @@ fn gtk_scale_button_set_adjustment(self: GTKInterface, adjustment: GTKInterface,
 fn gtk_scale_button_set_has_frame(self: GTKInterface, has_frame: Bool, ) raises -> NoneType:
 	return external_call["gtk_scale_button_set_has_frame", NoneType](self, has_frame,)
 fn gtk_scale_button_set_icons(self: GTKInterface, icons: List[String], ) raises -> NoneType:
-	return external_call["gtk_scale_button_set_icons", NoneType](self, icons,)
+	var nelements_icons = len(icons)
+	var charptr_array_icons = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_icons)
+	for ix in range(nelements_icons):
+		var strelement = icons[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_icons[ix] = charptr
+	return external_call["gtk_scale_button_set_icons", NoneType](self, charptr_array_icons,)
 fn gtk_scale_button_set_value(self: GTKInterface, value: Float64, ) raises -> NoneType:
 	return external_call["gtk_scale_button_set_value", NoneType](self, value,)
 fn gtk_scroll_info_new() raises -> GTKInterface:
@@ -11491,7 +11722,14 @@ fn gtk_string_filter_set_search(self: GTKInterface, search: String, ) raises -> 
 	var cstr_search = CStringSlice(slc_cstr_search)
 	return external_call["gtk_string_filter_set_search", NoneType](self, cstr_search,)
 fn gtk_string_list_new(strings: List[String], ) raises -> GTKInterface:
-	return external_call["gtk_string_list_new", GTKInterface](strings,)
+	var nelements_strings = len(strings)
+	var charptr_array_strings = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strings)
+	for ix in range(nelements_strings):
+		var strelement = strings[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strings[ix] = charptr
+	return external_call["gtk_string_list_new", GTKInterface](charptr_array_strings,)
 fn gtk_string_list_append(self: GTKInterface, string: String, ) raises -> NoneType:
 	var slc_cstr_string = StringSlice(string + " ")
 	var cstr_string = CStringSlice(slc_cstr_string)
@@ -11505,7 +11743,14 @@ fn gtk_string_list_get_string(self: GTKInterface, position: UInt32, ) raises -> 
 fn gtk_string_list_remove(self: GTKInterface, position: UInt32, ) raises -> NoneType:
 	return external_call["gtk_string_list_remove", NoneType](self, position,)
 fn gtk_string_list_splice(self: GTKInterface, position: UInt32, n_removals: UInt32, additions: List[String], ) raises -> NoneType:
-	return external_call["gtk_string_list_splice", NoneType](self, position, n_removals, additions,)
+	var nelements_additions = len(additions)
+	var charptr_array_additions = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_additions)
+	for ix in range(nelements_additions):
+		var strelement = additions[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_additions[ix] = charptr
+	return external_call["gtk_string_list_splice", NoneType](self, position, n_removals, charptr_array_additions,)
 fn gtk_string_list_take(self: GTKInterface, string: String, ) raises -> NoneType:
 	var slc_cstr_string = StringSlice(string + " ")
 	var cstr_string = CStringSlice(slc_cstr_string)
@@ -13173,7 +13418,14 @@ fn gtk_widget_set_can_target(self: GTKInterface, can_target: Bool, ) raises -> N
 fn gtk_widget_set_child_visible(self: GTKInterface, child_visible: Bool, ) raises -> NoneType:
 	return external_call["gtk_widget_set_child_visible", NoneType](self, child_visible,)
 fn gtk_widget_set_css_classes(self: GTKInterface, classes: List[String], ) raises -> NoneType:
-	return external_call["gtk_widget_set_css_classes", NoneType](self, classes,)
+	var nelements_classes = len(classes)
+	var charptr_array_classes = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_classes)
+	for ix in range(nelements_classes):
+		var strelement = classes[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_classes[ix] = charptr
+	return external_call["gtk_widget_set_css_classes", NoneType](self, charptr_array_classes,)
 fn gtk_widget_set_cursor(self: GTKInterface, cursor: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_widget_set_cursor", NoneType](self, cursor,)
 fn gtk_widget_set_cursor_from_name(self: GTKInterface, name: String, ) raises -> NoneType:
@@ -13885,7 +14137,14 @@ fn g_bookmark_file_set_description(self: GTKInterface, uri: String, description:
 fn g_bookmark_file_set_groups(self: GTKInterface, uri: String, groups: List[String], length: UInt64, ) raises -> NoneType:
 	var slc_cstr_uri = StringSlice(uri + " ")
 	var cstr_uri = CStringSlice(slc_cstr_uri)
-	return external_call["g_bookmark_file_set_groups", NoneType](self, cstr_uri, groups, length,)
+	var nelements_groups = len(groups)
+	var charptr_array_groups = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_groups)
+	for ix in range(nelements_groups):
+		var strelement = groups[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_groups[ix] = charptr
+	return external_call["g_bookmark_file_set_groups", NoneType](self, cstr_uri, charptr_array_groups, length,)
 fn g_bookmark_file_set_icon(self: GTKInterface, uri: String, href: String, mime_type: String, ) raises -> NoneType:
 	var slc_cstr_uri = StringSlice(uri + " ")
 	var cstr_uri = CStringSlice(slc_cstr_uri)
@@ -14591,7 +14850,14 @@ fn g_key_file_load_from_data_dirs(self: GTKInterface, file: String, full_path: L
 fn g_key_file_load_from_dirs(self: GTKInterface, file: String, search_dirs: List[String], full_path: LegacyUnsafePointer[char], flags: KeyFileFlags, ) raises -> Bool:
 	var slc_cstr_file = StringSlice(file + " ")
 	var cstr_file = CStringSlice(slc_cstr_file)
-	return external_call["g_key_file_load_from_dirs", Bool](self, cstr_file, search_dirs, full_path, flags,)
+	var nelements_search_dirs = len(search_dirs)
+	var charptr_array_search_dirs = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_search_dirs)
+	for ix in range(nelements_search_dirs):
+		var strelement = search_dirs[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_search_dirs[ix] = charptr
+	return external_call["g_key_file_load_from_dirs", Bool](self, cstr_file, charptr_array_search_dirs, full_path, flags,)
 fn g_key_file_load_from_file(self: GTKInterface, file: String, flags: KeyFileFlags, ) raises -> Bool:
 	var slc_cstr_file = StringSlice(file + " ")
 	var cstr_file = CStringSlice(slc_cstr_file)
@@ -14685,7 +14951,14 @@ fn g_key_file_set_locale_string_list(self: GTKInterface, group_name: String, key
 	var cstr_key = CStringSlice(slc_cstr_key)
 	var slc_cstr_locale = StringSlice(locale + " ")
 	var cstr_locale = CStringSlice(slc_cstr_locale)
-	return external_call["g_key_file_set_locale_string_list", NoneType](self, cstr_group_name, cstr_key, cstr_locale, list, length,)
+	var nelements_list = len(list)
+	var charptr_array_list = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_list)
+	for ix in range(nelements_list):
+		var strelement = list[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_list[ix] = charptr
+	return external_call["g_key_file_set_locale_string_list", NoneType](self, cstr_group_name, cstr_key, cstr_locale, charptr_array_list, length,)
 fn g_key_file_set_string(self: GTKInterface, group_name: String, key: String, string: String, ) raises -> NoneType:
 	var slc_cstr_group_name = StringSlice(group_name + " ")
 	var cstr_group_name = CStringSlice(slc_cstr_group_name)
@@ -14699,7 +14972,14 @@ fn g_key_file_set_string_list(self: GTKInterface, group_name: String, key: Strin
 	var cstr_group_name = CStringSlice(slc_cstr_group_name)
 	var slc_cstr_key = StringSlice(key + " ")
 	var cstr_key = CStringSlice(slc_cstr_key)
-	return external_call["g_key_file_set_string_list", NoneType](self, cstr_group_name, cstr_key, list, length,)
+	var nelements_list = len(list)
+	var charptr_array_list = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_list)
+	for ix in range(nelements_list):
+		var strelement = list[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_list[ix] = charptr
+	return external_call["g_key_file_set_string_list", NoneType](self, cstr_group_name, cstr_key, charptr_array_list, length,)
 fn g_key_file_set_uint64(self: GTKInterface, group_name: String, key: String, value: UInt64, ) raises -> NoneType:
 	var slc_cstr_group_name = StringSlice(group_name + " ")
 	var cstr_group_name = CStringSlice(slc_cstr_group_name)
@@ -15189,27 +15469,69 @@ fn g_regex_match_all(self: GTKInterface, string: String, match_options: RegexMat
 	var cstr_string = CStringSlice(slc_cstr_string)
 	return external_call["g_regex_match_all", Bool](self, cstr_string, match_options, match_info,)
 fn g_regex_match_all_full(self: GTKInterface, string: List[String], string_len: Int64, start_position: Int32, match_options: RegexMatchFlags, match_info: GTKInterface, ) raises -> Bool:
-	return external_call["g_regex_match_all_full", Bool](self, string, string_len, start_position, match_options, match_info,)
+	var nelements_string = len(string)
+	var charptr_array_string = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_string)
+	for ix in range(nelements_string):
+		var strelement = string[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_string[ix] = charptr
+	return external_call["g_regex_match_all_full", Bool](self, charptr_array_string, string_len, start_position, match_options, match_info,)
 fn g_regex_match_full(self: GTKInterface, string: List[String], string_len: Int64, start_position: Int32, match_options: RegexMatchFlags, match_info: GTKInterface, ) raises -> Bool:
-	return external_call["g_regex_match_full", Bool](self, string, string_len, start_position, match_options, match_info,)
+	var nelements_string = len(string)
+	var charptr_array_string = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_string)
+	for ix in range(nelements_string):
+		var strelement = string[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_string[ix] = charptr
+	return external_call["g_regex_match_full", Bool](self, charptr_array_string, string_len, start_position, match_options, match_info,)
 fn g_regex_ref(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["g_regex_ref", GTKInterface](self,)
 fn g_regex_replace(self: GTKInterface, string: List[String], string_len: Int64, start_position: Int32, replacement: String, match_options: RegexMatchFlags, ) raises -> LegacyUnsafePointer[c_char]:
+	var nelements_string = len(string)
+	var charptr_array_string = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_string)
+	for ix in range(nelements_string):
+		var strelement = string[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_string[ix] = charptr
 	var slc_cstr_replacement = StringSlice(replacement + " ")
 	var cstr_replacement = CStringSlice(slc_cstr_replacement)
-	return external_call["g_regex_replace", LegacyUnsafePointer[c_char]](self, string, string_len, start_position, cstr_replacement, match_options,)
+	return external_call["g_regex_replace", LegacyUnsafePointer[c_char]](self, charptr_array_string, string_len, start_position, cstr_replacement, match_options,)
 fn g_regex_replace_eval(self: GTKInterface, string: List[String], string_len: Int64, start_position: Int32, match_options: RegexMatchFlags, eval: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> LegacyUnsafePointer[c_char]:
-	return external_call["g_regex_replace_eval", LegacyUnsafePointer[c_char]](self, string, string_len, start_position, match_options, eval, user_data,)
+	var nelements_string = len(string)
+	var charptr_array_string = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_string)
+	for ix in range(nelements_string):
+		var strelement = string[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_string[ix] = charptr
+	return external_call["g_regex_replace_eval", LegacyUnsafePointer[c_char]](self, charptr_array_string, string_len, start_position, match_options, eval, user_data,)
 fn g_regex_replace_literal(self: GTKInterface, string: List[String], string_len: Int64, start_position: Int32, replacement: String, match_options: RegexMatchFlags, ) raises -> LegacyUnsafePointer[c_char]:
+	var nelements_string = len(string)
+	var charptr_array_string = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_string)
+	for ix in range(nelements_string):
+		var strelement = string[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_string[ix] = charptr
 	var slc_cstr_replacement = StringSlice(replacement + " ")
 	var cstr_replacement = CStringSlice(slc_cstr_replacement)
-	return external_call["g_regex_replace_literal", LegacyUnsafePointer[c_char]](self, string, string_len, start_position, cstr_replacement, match_options,)
+	return external_call["g_regex_replace_literal", LegacyUnsafePointer[c_char]](self, charptr_array_string, string_len, start_position, cstr_replacement, match_options,)
 fn g_regex_split(self: GTKInterface, string: String, match_options: RegexMatchFlags, ) raises -> List[String]:
 	var slc_cstr_string = StringSlice(string + " ")
 	var cstr_string = CStringSlice(slc_cstr_string)
 	return external_call["g_regex_split", List[String]](self, cstr_string, match_options,)
 fn g_regex_split_full(self: GTKInterface, string: List[String], string_len: Int64, start_position: Int32, match_options: RegexMatchFlags, max_tokens: Int32, ) raises -> List[String]:
-	return external_call["g_regex_split_full", List[String]](self, string, string_len, start_position, match_options, max_tokens,)
+	var nelements_string = len(string)
+	var charptr_array_string = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_string)
+	for ix in range(nelements_string):
+		var strelement = string[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_string[ix] = charptr
+	return external_call["g_regex_split_full", List[String]](self, charptr_array_string, string_len, start_position, match_options, max_tokens,)
 fn g_regex_unref(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_regex_unref", NoneType](self,)
 fn g_regex_check_replacement(replacement: String, has_references: Bool, ) raises -> Bool:
@@ -15575,7 +15897,14 @@ fn g_strv_builder_add(self: GTKInterface, value: String, ) raises -> NoneType:
 	var cstr_value = CStringSlice(slc_cstr_value)
 	return external_call["g_strv_builder_add", NoneType](self, cstr_value,)
 fn g_strv_builder_addv(self: GTKInterface, value: List[String], ) raises -> NoneType:
-	return external_call["g_strv_builder_addv", NoneType](self, value,)
+	var nelements_value = len(value)
+	var charptr_array_value = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_value)
+	for ix in range(nelements_value):
+		var strelement = value[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_value[ix] = charptr
+	return external_call["g_strv_builder_addv", NoneType](self, charptr_array_value,)
 fn g_strv_builder_end(self: GTKInterface, ) raises -> List[String]:
 	return external_call["g_strv_builder_end", List[String]](self,)
 fn g_strv_builder_ref(self: GTKInterface, ) raises -> GTKInterface:
@@ -15961,7 +16290,14 @@ fn g_variant_new_byte(value: UInt8, ) raises -> GTKInterface:
 fn g_variant_new_bytestring(string: UInt8[], ) raises -> GTKInterface:
 	return external_call["g_variant_new_bytestring", GTKInterface](string,)
 fn g_variant_new_bytestring_array(strv: List[String], length: Int64, ) raises -> GTKInterface:
-	return external_call["g_variant_new_bytestring_array", GTKInterface](strv, length,)
+	var nelements_strv = len(strv)
+	var charptr_array_strv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strv)
+	for ix in range(nelements_strv):
+		var strelement = strv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strv[ix] = charptr
+	return external_call["g_variant_new_bytestring_array", GTKInterface](charptr_array_strv, length,)
 fn g_variant_new_dict_entry(key: GTKInterface, value: GTKInterface, ) raises -> GTKInterface:
 	return external_call["g_variant_new_dict_entry", GTKInterface](key, value,)
 fn g_variant_new_double(value: Float64, ) raises -> GTKInterface:
@@ -15987,7 +16323,14 @@ fn g_variant_new_object_path(object_path: String, ) raises -> GTKInterface:
 	var cstr_object_path = CStringSlice(slc_cstr_object_path)
 	return external_call["g_variant_new_object_path", GTKInterface](cstr_object_path,)
 fn g_variant_new_objv(strv: List[String], length: Int64, ) raises -> GTKInterface:
-	return external_call["g_variant_new_objv", GTKInterface](strv, length,)
+	var nelements_strv = len(strv)
+	var charptr_array_strv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strv)
+	for ix in range(nelements_strv):
+		var strelement = strv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strv[ix] = charptr
+	return external_call["g_variant_new_objv", GTKInterface](charptr_array_strv, length,)
 fn g_variant_new_signature(signature: String, ) raises -> GTKInterface:
 	var slc_cstr_signature = StringSlice(signature + " ")
 	var cstr_signature = CStringSlice(slc_cstr_signature)
@@ -15997,7 +16340,14 @@ fn g_variant_new_string(string: String, ) raises -> GTKInterface:
 	var cstr_string = CStringSlice(slc_cstr_string)
 	return external_call["g_variant_new_string", GTKInterface](cstr_string,)
 fn g_variant_new_strv(strv: List[String], length: Int64, ) raises -> GTKInterface:
-	return external_call["g_variant_new_strv", GTKInterface](strv, length,)
+	var nelements_strv = len(strv)
+	var charptr_array_strv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strv)
+	for ix in range(nelements_strv):
+		var strelement = strv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strv[ix] = charptr
+	return external_call["g_variant_new_strv", GTKInterface](charptr_array_strv, length,)
 fn g_variant_new_tuple(children: GTKInterface[], n_children: UInt64, ) raises -> GTKInterface:
 	return external_call["g_variant_new_tuple", GTKInterface](children, n_children,)
 fn g_variant_new_uint16(value: UInt16, ) raises -> GTKInterface:
@@ -16485,11 +16835,25 @@ fn g_bit_unlock_and_set(address: LegacyUnsafePointer[ParameterNULL], lock_bit: U
 fn g_blow_chunks() raises -> NoneType:
 	return external_call["g_blow_chunks", NoneType]()
 fn g_build_filenamev(args: List[String], ) raises -> LegacyUnsafePointer[c_char]:
-	return external_call["g_build_filenamev", LegacyUnsafePointer[c_char]](args,)
+	var nelements_args = len(args)
+	var charptr_array_args = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_args)
+	for ix in range(nelements_args):
+		var strelement = args[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_args[ix] = charptr
+	return external_call["g_build_filenamev", LegacyUnsafePointer[c_char]](charptr_array_args,)
 fn g_build_pathv(separator: String, args: List[String], ) raises -> LegacyUnsafePointer[c_char]:
 	var slc_cstr_separator = StringSlice(separator + " ")
 	var cstr_separator = CStringSlice(slc_cstr_separator)
-	return external_call["g_build_pathv", LegacyUnsafePointer[c_char]](cstr_separator, args,)
+	var nelements_args = len(args)
+	var charptr_array_args = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_args)
+	for ix in range(nelements_args):
+		var strelement = args[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_args[ix] = charptr
+	return external_call["g_build_pathv", LegacyUnsafePointer[c_char]](cstr_separator, charptr_array_args,)
 fn g_canonicalize_filename(filename: String, relative_to: String, ) raises -> LegacyUnsafePointer[c_char]:
 	var slc_cstr_filename = StringSlice(filename + " ")
 	var cstr_filename = CStringSlice(slc_cstr_filename)
@@ -16617,19 +16981,40 @@ fn g_dpgettext2(domain: String, context: String, msgid: String, ) raises -> Lega
 	var cstr_msgid = CStringSlice(slc_cstr_msgid)
 	return external_call["g_dpgettext2", LegacyUnsafePointer[c_char]](cstr_domain, cstr_context, cstr_msgid,)
 fn g_environ_getenv(envp: List[String], variable: String, ) raises -> LegacyUnsafePointer[c_char]:
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
 	var slc_cstr_variable = StringSlice(variable + " ")
 	var cstr_variable = CStringSlice(slc_cstr_variable)
-	return external_call["g_environ_getenv", LegacyUnsafePointer[c_char]](envp, cstr_variable,)
+	return external_call["g_environ_getenv", LegacyUnsafePointer[c_char]](charptr_array_envp, cstr_variable,)
 fn g_environ_setenv(envp: List[String], variable: String, value: String, overwrite: Bool, ) raises -> List[String]:
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
 	var slc_cstr_variable = StringSlice(variable + " ")
 	var cstr_variable = CStringSlice(slc_cstr_variable)
 	var slc_cstr_value = StringSlice(value + " ")
 	var cstr_value = CStringSlice(slc_cstr_value)
-	return external_call["g_environ_setenv", List[String]](envp, cstr_variable, cstr_value, overwrite,)
+	return external_call["g_environ_setenv", List[String]](charptr_array_envp, cstr_variable, cstr_value, overwrite,)
 fn g_environ_unsetenv(envp: List[String], variable: String, ) raises -> List[String]:
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
 	var slc_cstr_variable = StringSlice(variable + " ")
 	var cstr_variable = CStringSlice(slc_cstr_variable)
-	return external_call["g_environ_unsetenv", List[String]](envp, cstr_variable,)
+	return external_call["g_environ_unsetenv", List[String]](charptr_array_envp, cstr_variable,)
 fn g_fdwalk_set_cloexec(lowfd: Int32, ) raises -> Int32:
 	return external_call["g_fdwalk_set_cloexec", Int32](lowfd,)
 fn g_file_error_from_errno(err_no: Int32, ) raises -> FileError:
@@ -17149,19 +17534,75 @@ fn g_spaced_primes_closest(num: UInt32, ) raises -> UInt32:
 fn g_spawn_async(working_directory: String, argv: List[String], envp: List[String], flags: SpawnFlags, child_setup: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], child_pid: LegacyUnsafePointer[Int32], ) raises -> Bool:
 	var slc_cstr_working_directory = StringSlice(working_directory + " ")
 	var cstr_working_directory = CStringSlice(slc_cstr_working_directory)
-	return external_call["g_spawn_async", Bool](cstr_working_directory, argv, envp, flags, child_setup, user_data, child_pid,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
+	return external_call["g_spawn_async", Bool](cstr_working_directory, charptr_array_argv, charptr_array_envp, flags, child_setup, user_data, child_pid,)
 fn g_spawn_async_with_fds(working_directory: String, argv: List[String], envp: List[String], flags: SpawnFlags, child_setup: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], child_pid: LegacyUnsafePointer[Int32], stdin_fd: Int32, stdout_fd: Int32, stderr_fd: Int32, ) raises -> Bool:
 	var slc_cstr_working_directory = StringSlice(working_directory + " ")
 	var cstr_working_directory = CStringSlice(slc_cstr_working_directory)
-	return external_call["g_spawn_async_with_fds", Bool](cstr_working_directory, argv, envp, flags, child_setup, user_data, child_pid, stdin_fd, stdout_fd, stderr_fd,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
+	return external_call["g_spawn_async_with_fds", Bool](cstr_working_directory, charptr_array_argv, charptr_array_envp, flags, child_setup, user_data, child_pid, stdin_fd, stdout_fd, stderr_fd,)
 fn g_spawn_async_with_pipes(working_directory: String, argv: List[String], envp: List[String], flags: SpawnFlags, child_setup: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], child_pid: LegacyUnsafePointer[Int32], standard_input: LegacyUnsafePointer[Int32], standard_output: LegacyUnsafePointer[Int32], standard_error: LegacyUnsafePointer[Int32], ) raises -> Bool:
 	var slc_cstr_working_directory = StringSlice(working_directory + " ")
 	var cstr_working_directory = CStringSlice(slc_cstr_working_directory)
-	return external_call["g_spawn_async_with_pipes", Bool](cstr_working_directory, argv, envp, flags, child_setup, user_data, child_pid, standard_input, standard_output, standard_error,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
+	return external_call["g_spawn_async_with_pipes", Bool](cstr_working_directory, charptr_array_argv, charptr_array_envp, flags, child_setup, user_data, child_pid, standard_input, standard_output, standard_error,)
 fn g_spawn_async_with_pipes_and_fds(working_directory: String, argv: List[String], envp: List[String], flags: SpawnFlags, child_setup: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], stdin_fd: Int32, stdout_fd: Int32, stderr_fd: Int32, source_fds: Int32[], target_fds: Int32[], n_fds: UInt64, child_pid_out: LegacyUnsafePointer[Int32], stdin_pipe_out: LegacyUnsafePointer[Int32], stdout_pipe_out: LegacyUnsafePointer[Int32], stderr_pipe_out: LegacyUnsafePointer[Int32], ) raises -> Bool:
 	var slc_cstr_working_directory = StringSlice(working_directory + " ")
 	var cstr_working_directory = CStringSlice(slc_cstr_working_directory)
-	return external_call["g_spawn_async_with_pipes_and_fds", Bool](cstr_working_directory, argv, envp, flags, child_setup, user_data, stdin_fd, stdout_fd, stderr_fd, source_fds, target_fds, n_fds, child_pid_out, stdin_pipe_out, stdout_pipe_out, stderr_pipe_out,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
+	return external_call["g_spawn_async_with_pipes_and_fds", Bool](cstr_working_directory, charptr_array_argv, charptr_array_envp, flags, child_setup, user_data, stdin_fd, stdout_fd, stderr_fd, source_fds, target_fds, n_fds, child_pid_out, stdin_pipe_out, stdout_pipe_out, stderr_pipe_out,)
 fn g_spawn_check_exit_status(wait_status: Int32, ) raises -> Bool:
 	return external_call["g_spawn_check_exit_status", Bool](wait_status,)
 fn g_spawn_check_wait_status(wait_status: Int32, ) raises -> Bool:
@@ -17183,7 +17624,21 @@ fn g_spawn_exit_error_quark() raises -> UInt32:
 fn g_spawn_sync(working_directory: String, argv: List[String], envp: List[String], flags: SpawnFlags, child_setup: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], standard_output: LegacyUnsafePointer[UInt8[]], standard_error: LegacyUnsafePointer[UInt8[]], wait_status: LegacyUnsafePointer[Int32], ) raises -> Bool:
 	var slc_cstr_working_directory = StringSlice(working_directory + " ")
 	var cstr_working_directory = CStringSlice(slc_cstr_working_directory)
-	return external_call["g_spawn_sync", Bool](cstr_working_directory, argv, envp, flags, child_setup, user_data, standard_output, standard_error, wait_status,)
+	var nelements_argv = len(argv)
+	var charptr_array_argv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_argv)
+	for ix in range(nelements_argv):
+		var strelement = argv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_argv[ix] = charptr
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
+	return external_call["g_spawn_sync", Bool](cstr_working_directory, charptr_array_argv, charptr_array_envp, flags, child_setup, user_data, standard_output, standard_error, wait_status,)
 fn g_stat(filename: String, buf: GTKInterface, ) raises -> Int32:
 	var slc_cstr_filename = StringSlice(filename + " ")
 	var cstr_filename = CStringSlice(slc_cstr_filename)
@@ -17277,7 +17732,14 @@ fn g_strdup(str: String, ) raises -> LegacyUnsafePointer[c_char]:
 	var cstr_str = CStringSlice(slc_cstr_str)
 	return external_call["g_strdup", LegacyUnsafePointer[c_char]](cstr_str,)
 fn g_strdupv(str_array: List[String], ) raises -> List[String]:
-	return external_call["g_strdupv", List[String]](str_array,)
+	var nelements_str_array = len(str_array)
+	var charptr_array_str_array = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_str_array)
+	for ix in range(nelements_str_array):
+		var strelement = str_array[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_str_array[ix] = charptr
+	return external_call["g_strdupv", List[String]](charptr_array_str_array,)
 fn g_strerror(errnum: Int32, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["g_strerror", LegacyUnsafePointer[c_char]](errnum,)
 fn g_strescape(source: String, exceptions: String, ) raises -> LegacyUnsafePointer[c_char]:
@@ -17287,7 +17749,14 @@ fn g_strescape(source: String, exceptions: String, ) raises -> LegacyUnsafePoint
 	var cstr_exceptions = CStringSlice(slc_cstr_exceptions)
 	return external_call["g_strescape", LegacyUnsafePointer[c_char]](cstr_source, cstr_exceptions,)
 fn g_strfreev(str_array: List[String], ) raises -> NoneType:
-	return external_call["g_strfreev", NoneType](str_array,)
+	var nelements_str_array = len(str_array)
+	var charptr_array_str_array = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_str_array)
+	for ix in range(nelements_str_array):
+		var strelement = str_array[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_str_array[ix] = charptr
+	return external_call["g_strfreev", NoneType](charptr_array_str_array,)
 fn g_strip_context(msgid: String, msgval: String, ) raises -> LegacyUnsafePointer[c_char]:
 	var slc_cstr_msgid = StringSlice(msgid + " ")
 	var cstr_msgid = CStringSlice(slc_cstr_msgid)
@@ -17297,7 +17766,14 @@ fn g_strip_context(msgid: String, msgval: String, ) raises -> LegacyUnsafePointe
 fn g_strjoinv(separator: String, str_array: List[String], ) raises -> LegacyUnsafePointer[c_char]:
 	var slc_cstr_separator = StringSlice(separator + " ")
 	var cstr_separator = CStringSlice(slc_cstr_separator)
-	return external_call["g_strjoinv", LegacyUnsafePointer[c_char]](cstr_separator, str_array,)
+	var nelements_str_array = len(str_array)
+	var charptr_array_str_array = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_str_array)
+	for ix in range(nelements_str_array):
+		var strelement = str_array[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_str_array[ix] = charptr
+	return external_call["g_strjoinv", LegacyUnsafePointer[c_char]](cstr_separator, charptr_array_str_array,)
 fn g_strlcat(dest: String, src: String, dest_size: UInt64, ) raises -> UInt64:
 	var slc_cstr_dest = StringSlice(dest + " ")
 	var cstr_dest = CStringSlice(slc_cstr_dest)
@@ -17367,15 +17843,43 @@ fn g_strup(string: String, ) raises -> LegacyUnsafePointer[c_char]:
 	var cstr_string = CStringSlice(slc_cstr_string)
 	return external_call["g_strup", LegacyUnsafePointer[c_char]](cstr_string,)
 fn g_strv_contains(strv: List[String], str: String, ) raises -> Bool:
+	var nelements_strv = len(strv)
+	var charptr_array_strv = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strv)
+	for ix in range(nelements_strv):
+		var strelement = strv[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strv[ix] = charptr
 	var slc_cstr_str = StringSlice(str + " ")
 	var cstr_str = CStringSlice(slc_cstr_str)
-	return external_call["g_strv_contains", Bool](strv, cstr_str,)
+	return external_call["g_strv_contains", Bool](charptr_array_strv, cstr_str,)
 fn g_strv_equal(strv1: List[String], strv2: List[String], ) raises -> Bool:
-	return external_call["g_strv_equal", Bool](strv1, strv2,)
+	var nelements_strv1 = len(strv1)
+	var charptr_array_strv1 = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strv1)
+	for ix in range(nelements_strv1):
+		var strelement = strv1[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strv1[ix] = charptr
+	var nelements_strv2 = len(strv2)
+	var charptr_array_strv2 = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_strv2)
+	for ix in range(nelements_strv2):
+		var strelement = strv2[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_strv2[ix] = charptr
+	return external_call["g_strv_equal", Bool](charptr_array_strv1, charptr_array_strv2,)
 fn g_strv_get_type() raises -> GTKType:
 	return external_call["g_strv_get_type", GTKType]()
 fn g_strv_length(str_array: List[String], ) raises -> UInt32:
-	return external_call["g_strv_length", UInt32](str_array,)
+	var nelements_str_array = len(str_array)
+	var charptr_array_str_array = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_str_array)
+	for ix in range(nelements_str_array):
+		var strelement = str_array[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_str_array[ix] = charptr
+	return external_call["g_strv_length", UInt32](charptr_array_str_array,)
 fn g_test_add_data_func(testpath: String, test_data: LegacyUnsafePointer[ParameterNULL], test_func: GTKInterface, ) raises -> NoneType:
 	var slc_cstr_testpath = StringSlice(testpath + " ")
 	var cstr_testpath = CStringSlice(slc_cstr_testpath)
@@ -17483,7 +17987,14 @@ fn g_test_trap_subprocess(test_path: String, usec_timeout: UInt64, test_flags: T
 fn g_test_trap_subprocess_with_envp(test_path: String, envp: List[String], usec_timeout: UInt64, test_flags: TestSubprocessFlags, ) raises -> NoneType:
 	var slc_cstr_test_path = StringSlice(test_path + " ")
 	var cstr_test_path = CStringSlice(slc_cstr_test_path)
-	return external_call["g_test_trap_subprocess_with_envp", NoneType](cstr_test_path, envp, usec_timeout, test_flags,)
+	var nelements_envp = len(envp)
+	var charptr_array_envp = LegacyUnsafePointer[LegacyUnsafePointer[c_char]].alloc(nelements_envp)
+	for ix in range(nelements_envp):
+		var strelement = envp[ix]
+		var cstr = CStringSlice(strelement + " ")
+		var charptr = cstr.unsafe_ptr()
+		charptr_array_envp[ix] = charptr
+	return external_call["g_test_trap_subprocess_with_envp", NoneType](cstr_test_path, charptr_array_envp, usec_timeout, test_flags,)
 fn g_timeout_add_full(priority: Int32, interval: UInt32, function: GTKInterface, data: LegacyUnsafePointer[ParameterNULL], notify: GTKInterface, ) raises -> UInt32:
 	return external_call["g_timeout_add_full", UInt32](priority, interval, function, data, notify,)
 fn g_timeout_add_seconds_full(priority: Int32, interval: UInt32, function: GTKInterface, data: LegacyUnsafePointer[ParameterNULL], notify: GTKInterface, ) raises -> UInt32:
