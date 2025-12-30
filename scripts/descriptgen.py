@@ -55,8 +55,11 @@ def get_type_string(type_info):
                 return 'GTKInterface'
 
 
+            name = "GTK" + iface.get_name()
+            
             if isinstance(iface, GIRepository.EnumInfo) or isinstance(iface, GIRepository.FlagsInfo):
-                name = "GTK" + iface.get_name()
+                if name in types.keys():
+                    return "Enum-" + name
                 enum =  {
                     "name": name,
                     "values": {},
@@ -72,7 +75,8 @@ def get_type_string(type_info):
                 return "Enum-" + name
             
             elif isinstance(iface, GIRepository.StructInfo):
-                name = "GTK" + iface.get_name()
+                if name in types.keys():
+                    return name
                 struct = {
                     "name": name,
                     "fields": {},
@@ -83,12 +87,12 @@ def get_type_string(type_info):
                 
                 for i in range(iface.get_n_fields()):
                     field = iface.get_field(i)
-                    struct['fields'][field.get_name()] = get_type_string(field.get_type_info().get_tag())
+                    struct['fields'][field.get_name()] = get_type_string(field.get_type_info())
                 types[name] = struct
 
                 if type_info.is_pointer():
                     return name + "*"
-                    
+
                 return name
 
             return 'GTKInterface'

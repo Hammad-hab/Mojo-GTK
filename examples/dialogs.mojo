@@ -1,5 +1,5 @@
 # Uses Deprecated gtk4 dialog system, may or may not work
-from bindings import *
+from gtk import *
 from sys.ffi import CStringSlice
 from memory import UnsafePointer, alloc
 
@@ -102,14 +102,14 @@ struct DialogDemos:
                 "_Open",
                 "_Cancel"
             )
-            file_data_ptr[].dialog = dialog
-            app[].dialog = dialog
+            # file_data_ptr[].dialog = dialog
+            # app[].dialog = dialog
 
             _ = g_signal_connect_data(
                 dialog,
                 "response",
                 rebind[ptr](DialogDemos.on_file_open_response),
-                rebind[ptr](file_data_ptr),
+                user_data,
                 None,
                 0
             )
@@ -120,12 +120,13 @@ struct DialogDemos:
 
 
     @staticmethod
+    @export("on_file_open_response", ABI="C")
     fn on_file_open_response(native: ptr, response_id: Int32, dialog: ptr):
         try:
             # print("=== FILE OPEN RESPONSE ===")
             # print("Native pointer:", native)
-            var data_ptr = rebind[FileOpenDataPointer](dialog)
-            native[] = dialog[]
+            var data_ptr = rebind[FileOpenDataPointer](native)
+            # native[] = dialog[]
             # var int8native_ptr = LegacyUnsafePointer[Int8].alloc(128)
             # var native_ptr = rebind[ptr](int8native_ptr)
             # native_ptr[] = data_ptr[].dialog
@@ -134,7 +135,7 @@ struct DialogDemos:
             
             if response_id == -3:  # GTK_RESPONSE_ACCEPT
                 # print("Getting file from dialog...")
-                var file = gtk_file_chooser_get_file(native)
+                var file = gtk_file_chooser_get_file(dialog)
                 # print("Got file:", file)
                 var path = g_file_get_path(file)
                 
@@ -320,14 +321,14 @@ struct DialogDemos:
             var data_ptr = rebind[ColorDataPointer](user_data)
             
             if response_id == -5:  # GTK_RESPONSE_OK
-                var rgba_ptr = LegacyUnsafePointer[Int8].alloc(32)
-                gtk_color_chooser_get_rgba(dialog, rgba_ptr.bitcast[NoneType]())
+                var rgba_ptr = LegacyUnsafePointer[GTKRGBA].alloc(1)
+                gtk_color_chooser_get_rgba(dialog, rgba_ptr)
                 
-                var rgba_doubles = rgba_ptr.bitcast[Float64]()
-                var r = Int(rgba_doubles[0] * 255)
-                var g = Int(rgba_doubles[1] * 255)
-                var b = Int(rgba_doubles[2] * 255)
-                var a = rgba_doubles[3]
+                var rgba_doubles =  rgba_ptr[]
+                var r = Int(rgba_doubles.red * 255)
+                var g = Int(rgba_doubles.blue * 255)
+                var b = Int(rgba_doubles.green * 255)
+                var a = 1
                 
                 var result_text = "🎨 Color selected:\nRGB(" + String(r) + ", " + String(g) + ", " + String(b) + ")\nAlpha: " + String(a)
                 gtk_label_set_text(data_ptr[].result_label, result_text)
