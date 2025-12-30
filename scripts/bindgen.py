@@ -203,5 +203,5 @@ with open('fn.json', 'r') as f:
     
     whitelisted_declarations = declare_whitelisted_functions()
     mojo_bindings += '\n' + whitelisted_declarations
-    with open('bindings.mojo', 'w') as f:
+    with open('gtk.mojo', 'w') as f:
         f.write(mojo_bindings)
