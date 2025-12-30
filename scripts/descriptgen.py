@@ -1,8 +1,9 @@
+from multiprocessing import Value
 from gi.repository import GIRepository
 import json
 import sys
 
-types = set()
+types = dict()
 
 def get_type_string(type_info):
     """Convert a TypeInfo to a readable string"""
@@ -54,23 +55,37 @@ def get_type_string(type_info):
                 return 'GTKInterface'
 
 
-            if isinstance(iface, GIRepository.EnumInfo):
-                types.add(iface.get_name() + '@32')
-                return iface.get_name()
+            if isinstance(iface, GIRepository.EnumInfo) or isinstance(iface, GIRepository.FlagsInfo):
+                name = "GTK" + iface.get_name()
+                enum =  {
+                    "name": name,
+                    "values": {},
+                    "type": "Enum",
+                }
+
+                for i in range(iface.get_n_values()):
+                    value = iface.get_value(i)
+                    enum['values'][value.get_name().upper()] = value.get_value()
+                
+                types[name] = enum
+
+                return "Enum-" + name
             
             elif isinstance(iface, GIRepository.StructInfo):
-                types.add(iface.get_name())
+                name = "GTK" + iface.get_name()
+                struct = {
+                    "name": name,
+                    "fields": {},
+                    "size": iface.get_size(),
+                    "type": "Struct"
+                    
+                }
                 
-                return iface.get_name()
-                # if ("TextIter" not in iface.get_name()): return iface.get_name()
-                # print("It's a struct!", iface.get_name(), iface.get_size())
-                # for i in range(iface.get_n_fields()):
-                #     field = iface.get_field(i)
-                #     print(f"  Field: {field.get_name()} {get_type_string(field.get_type_info().get_tag())}")
-
-            if isinstance(iface, GIRepository.FlagsInfo):
-                types.add(iface.get_name() + '@I')
-                return iface.get_name()
+                for i in range(iface.get_n_fields()):
+                    field = iface.get_field(i)
+                    struct['fields'][field.get_name()] = get_type_string(field.get_type_info().get_tag())
+                types[name] = struct
+                return name
 
             return 'GTKInterface'
         except:
@@ -368,7 +383,8 @@ def extract_all_gtk_functions():
                     print(f"  Processed {i + 1}/{n_infos} items... Found {len(all_functions_dict)} functions, {stats['errors']} errors")
         
         # Add metadata
-        all_functions_dict['unique_types'] = list(types)
+        all_functions_dict['unique_types'] = types
+        # print(types)
         all_functions_dict['_stats'] = stats
         
         # Write to file

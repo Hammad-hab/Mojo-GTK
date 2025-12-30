@@ -47,10 +47,14 @@ def extract_param_names(params: dict[str, str]):
     parameters = list(params.keys())
     return parameters
 
-def fix_parameters(params: dict[str, str]) -> dict[str, str]:
+def fix_parameters(params: dict[str, str], function_name:str) -> dict[str, str]:
     parameters = list(params.keys())
     nw_parameters = {}
     for p in parameters:
+        if params[p].startswith('Enum-'):
+            nw_parameters[p] = 'Int32'
+            continue
+            
         if ('def' in p):
             new_name = f'x_{p}'
             nw_parameters[new_name] = params[p]
@@ -147,30 +151,54 @@ def declare_functions(functions_names, functions: dict[str]):
             if function_name == 'unique_types' or function_name == '_stats': 
                 continue # unique types is not a function 
             descriptor: dict = functions[function_name]
-            params: dict[str, str] = fix_parameters(descriptor['params'])
+            params: dict[str, str] = fix_parameters(descriptor['params'], function_name)
             
             rtype: str = descriptor['rtype']
             fn = generate_function(function_name, rtype, params)
             mojo_bindings += fn + '\n'
-            # with open('bindings.mojo', 'w') as f:
-            #     f.write(mojo_bindings)
+       
         except Exception as e:
             print(f'Encountered error while binding {function_name}: {e!r}')
     return mojo_bindings 
+
+def declare_enum(name: str, descriptgen_dict: dict):
+    content = f"@register_passable\nstruct {name}:"
+    fields = descriptgen_dict['values']
+    for field_name, field_value in fields.items():
+        if field_name == '0BSD':
+            field_name = "ZERO_BSD"
+        content += f"\n\tcomptime {field_name}={field_value}"
+    return content
+
+def declare_struct(name: str, descriptgen_dict: dict):
+    content = f"@register_passable('trivial')\n@fieldwise_init\nstruct {name}:"
+    fields = descriptgen_dict['fields']
+        
+    for field_name, field_type in fields.items():
+        content += f"\n\tvar {field_name}: {define_type(field_type)}"
+
+    if len(fields.keys()) == 0:
+        content = f"comptime {name} = LegacyUnsafePointer[NoneType]"
+
+    return content
 
 with open('fn.json', 'r') as f:
     functions: dict = json.loads(f.read())
     functions_names = functions.keys()
     types: list[str] = functions['unique_types']
-    comptimes = ''
-    for type in types:
-        if type.endswith('@32'):
-            comptimes += declare_comptime(type.replace('@32', ''), 'Int32') + '\n'
-        if type.endswith('@I'):
-            comptimes += declare_comptime(type.replace('@I', ''), 'Int') + '\n'
+    comptimes = '# === GTK Types & Structs === '
+    # TODO: fix this after adding struct declarations
+    for name, descriptjson in types.items():
+        # print(descriptjson['type'])
+        if descriptjson['type'] == 'Enum':
+            comptimes += declare_enum(name, descriptjson) + '\n\n'
+            continue
 
+        if descriptjson['type'] == 'Struct':
+            comptimes += declare_struct(name, descriptjson) + '\n\n'
+            continue
+        
     mojo_bindings = f"from sys.ffi import external_call, c_char, CStringSlice\ncomptime ParameterNULL=NoneType\n{comptimes}\ncomptime GTKInterface = LegacyUnsafePointer[NoneType]\ncomptime GTKType=LegacyUnsafePointer[NoneType]\ncomptime GError=LegacyUnsafePointer[NoneType]\ncomptime filename=String\n"
-
     mojo_bindings += declare_functions(functions_names, functions)
     
     whitelisted_declarations = declare_whitelisted_functions()
