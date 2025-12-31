@@ -1,4 +1,4 @@
-from bindings import *
+from gtk import *
 from sys.ffi import CStringSlice
 from memory import UnsafePointer
 

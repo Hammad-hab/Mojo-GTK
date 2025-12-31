@@ -76,6 +76,8 @@ def get_type_string(type_info):
             
             elif isinstance(iface, GIRepository.StructInfo):
                 if name in types.keys():
+                    if type_info.is_pointer():
+                        return name + "*"
                     return name
                 struct = {
                     "name": name,

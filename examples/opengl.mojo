@@ -1,27 +1,30 @@
-# NOTE: THIS WILL NOT WORK, IT'S STILL UNDEVELOPED AND BUGGY
-from bindings import *
+from gtk import *
 from sys.ffi import CStringSlice, OwnedDLHandle, c_char
 import math
 
-comptime UnsafePointer = LegacyUnsafePointer
-comptime ptr = LegacyUnsafePointer[NoneType]
-comptime charptr = LegacyUnsafePointer[c_char]
+alias UnsafePointer = LegacyUnsafePointer
+alias ptr = LegacyUnsafePointer[NoneType]
+alias charptr = LegacyUnsafePointer[c_char]
 
 # OpenGL Constants
-comptime GL_COLOR_BUFFER_BIT: UInt32 = 0x00004000
-comptime GL_DEPTH_BUFFER_BIT: UInt32 = 0x00000100
-comptime GL_TRIANGLES: UInt32 = 0x0004
-comptime GL_VERSION: UInt32 = 0x1F02
-comptime GL_ARRAY_BUFFER: UInt32 = 0x8892
-comptime GL_STATIC_DRAW: UInt32 = 0x88E4
-comptime GL_FLOAT: UInt32 = 0x1406
-comptime GL_FALSE: UInt32 = 0
-comptime GL_TRUE: UInt32 = 1
-comptime GL_VERTEX_SHADER: UInt32 = 0x8B31
-comptime GL_FRAGMENT_SHADER: UInt32 = 0x8DD9
-comptime GL_COMPILE_STATUS: UInt32 = 0x8B81
-comptime GL_LINK_STATUS: UInt32 = 0x8B82
-comptime GL_INFO_LOG_LENGTH: UInt32 = 0x8B84
+alias GL_COLOR_BUFFER_BIT: UInt32 = 0x00004000
+alias GL_DEPTH_BUFFER_BIT: UInt32 = 0x00000100
+alias GL_TRIANGLES: UInt32 = 0x0004
+alias GL_VERSION: UInt32 = 0x1F02
+alias GL_ARRAY_BUFFER: UInt32 = 0x8892
+alias GL_STATIC_DRAW: UInt32 = 0x88E4
+alias GL_FLOAT: UInt32 = 0x1406
+alias GL_FALSE: UInt32 = 0
+alias GL_TRUE: UInt32 = 1
+# alias GL_VERT÷EX_SHADER: UInt32 = 0x8B31
+# alias GL_FRAGMENT_SHADER: UInt32 = 0x8DD9
+comptime GL_VERTEX_SHADER   = 0x8B31
+comptime GL_FRAGMENT_SHADER = 0x8B30
+comptime GL_GEOMETRY_SHADER = 0x8DD9
+
+alias GL_COMPILE_STATUS: UInt32 = 0x8B81
+alias GL_LINK_STATUS: UInt32 = 0x8B82
+alias GL_INFO_LOG_LENGTH: UInt32 = 0x8B84
 
 @register_passable("trivial")
 struct GLAppData:
@@ -36,7 +39,7 @@ struct GLAppData:
         self.vao = 0
         self.program = 0
 
-comptime GLAppDataPointer = LegacyUnsafePointer[GLAppData]
+alias GLAppDataPointer = LegacyUnsafePointer[GLAppData]
 
 @register_passable("trivial")
 struct OpenGLApp:
@@ -48,9 +51,9 @@ struct OpenGLApp:
             gtk_gl_area_make_current(area)
             
             var error = gtk_gl_area_get_error(area)
-            if error:
-                print("❌ Failed to initialize OpenGL")
-                return
+            # if error:
+            #     print("❌ Failed to initialize OpenGL")
+            #     return
             
             var gl = OwnedDLHandle("/System/Library/Frameworks/OpenGL.framework/OpenGL")
             
@@ -80,17 +83,15 @@ struct OpenGLApp:
             var glAttachShader = gl.get_function[fn(UInt32, UInt32) -> None]("glAttachShader")
             var glLinkProgram = gl.get_function[fn(UInt32) -> None]("glLinkProgram")
             var glGetProgramiv = gl.get_function[fn(UInt32, UInt32, UnsafePointer[Int32]) -> None]("glGetProgramiv")
+            var glGetProgramInfoLog = gl.get_function[fn(UInt32, Int32, UnsafePointer[Int32], charptr) -> None]("glGetProgramInfoLog")
             var glDeleteShader = gl.get_function[fn(UInt32) -> None]("glDeleteShader")
+            var glBindAttribLocation = gl.get_function[fn(UInt32, UInt32, charptr) -> None]("glBindAttribLocation")
+            var glBindFragDataLocation = gl.get_function[fn(UInt32, UInt32, charptr) -> None]("glBindFragDataLocation")
             
             var data_ptr = rebind[GLAppDataPointer](user_data)
             
-            # Create and compile vertex shader
-            var vertex_source = """#version 150 core
-in vec2 position;
-void main() {
-    gl_Position = vec4(position, 0.0, 1.0);
-}
-"""
+            # Use simple raw strings without String wrapper
+            var vertex_source = "#version 330 core\nlayout(location = 0) in vec2 position;\nvoid main() {\n    gl_Position = vec4(position, 0.0, 1.0);\n}\n\0"
             
             var vertex_shader = glCreateShader(GL_VERTEX_SHADER)
             var vs_ptr = vertex_source.unsafe_ptr()
@@ -111,13 +112,8 @@ void main() {
             else:
                 print("✅ Vertex shader compiled")
             
-            # Create and compile fragment shader
-            var fragment_source = """#version 150 core
-                out vec4 outColor;
-                void main() {
-                    outColor = vec4(1.0, 1.0, 0.0, 1.0);
-                }
-            """
+            # Fragment shader as raw string
+            var fragment_source = "#version 330 core\nout vec4 FragColor;\nvoid main() {\n    FragColor = vec4(1.0, 1.0, 0.0, 1.0);\n}\n\0"
             
             var fragment_shader = glCreateShader(GL_FRAGMENT_SHADER)
             var fs_ptr = fragment_source.unsafe_ptr()
@@ -138,57 +134,46 @@ void main() {
             else:
                 print("✅ Fragment shader compiled")
             
-            # Create program
+            # Create program - DON'T bind FragDataLocation, it might be causing issues
             var program = glCreateProgram()
             glAttachShader(program, vertex_shader)
             glAttachShader(program, fragment_shader)
-            var glBindAttribLocation = gl.get_function[
-                fn(UInt32, UInt32, charptr) -> None
-            ]("glBindAttribLocation")
-
-            glBindAttribLocation(program, 0, rebind[charptr]("position".unsafe_ptr()))
-            glBindAttribLocation(program, 1,  rebind[charptr]("color".unsafe_ptr()))
-            var glBindFragDataLocation = gl.get_function[
-                fn(UInt32, UInt32, charptr) -> None
-            ]("glBindFragDataLocation")
-            glBindFragDataLocation(program, 0, rebind[charptr]("outColor".unsafe_ptr()))
-
+            
+            # Link immediately without any bindings
             glLinkProgram(program)
             
-            # Check program linking
+            # Check program linking with better error reporting
             var prog_success = UnsafePointer[Int32].alloc(1)
             glGetProgramiv(program, GL_LINK_STATUS, prog_success)
             if prog_success[] == 0:
                 print("❌ Program linking failed!")
+                # Get the error log
+                var log_length = UnsafePointer[Int32].alloc(1)
+                glGetProgramiv(program, GL_INFO_LOG_LENGTH, log_length)
+                if log_length[] > 0:
+                    var log_buffer = UnsafePointer[c_char].alloc(Int(log_length[]))
+                    glGetProgramInfoLog(program, log_length[], LegacyUnsafePointer[Int32](), log_buffer)
+                    print("Link Log:", String(CStringSlice(unsafe_from_ptr=log_buffer)))
                 return
             else:
-                print("✅ Program linked")
+                print("✅ Program linked successfully!")
             
             glDeleteShader(vertex_shader)
             glDeleteShader(fragment_shader)
             
             data_ptr[].program = program
             
-            # Create vertex data (position + color) - use Float32 explicitly
-            var vertices = UnsafePointer[Float32].alloc(15)
-            # Top vertex (red)
+            # Create vertex data (just positions) - use Float32 explicitly
+            var vertices = UnsafePointer[Float32].alloc(6)
+            # Top vertex
             vertices[0] = 0.0    # x
             vertices[1] = 0.5    # y
-            vertices[2] = 1.0    # r
-            vertices[3] = 0.0    # g
-            vertices[4] = 0.0    # b
-            # Bottom left (green)
-            vertices[5] = -0.5   # x
-            vertices[6] = -0.5   # y
-            vertices[7] = 0.0    # r
-            vertices[8] = 1.0    # g
-            vertices[9] = 0.0    # b
-            # Bottom right (blue)
-            vertices[10] = 0.5   # x
-            vertices[11] = -0.5  # y
-            vertices[12] = 0.0   # r
-            vertices[13] = 0.0   # g
-            vertices[14] = 1.0   # b
+            # Bottom left
+            vertices[2] = -0.5   # x
+            vertices[3] = -0.5   # y
+            # Bottom right
+            vertices[4] = 0.5    # x
+            vertices[5] = -0.5   # y
             
             # Create VAO
             var vao_ptr = UnsafePointer[UInt32].alloc(1)
@@ -205,19 +190,12 @@ void main() {
             print("VBO created:", data_ptr[].vbo)
             
             var vertices_ptr = rebind[ptr](vertices)
-            glBufferData(GL_ARRAY_BUFFER, 15 * 4, vertices_ptr, GL_STATIC_DRAW)
+            glBufferData(GL_ARRAY_BUFFER, 6 * 4, vertices_ptr, GL_STATIC_DRAW)
             
-            # Setup vertex attributes
-            # Position attribute (location = 0) - 2 floats, stride = 5 floats, offset = 0
-            glVertexAttribPointer(0, 2, GL_FLOAT, 0, 20, ptr())  # stride in bytes = 5*4=20
+            # Setup vertex attributes - just position
+            # Position attribute (location = 0) - 2 floats, stride = 2 floats (8 bytes), offset = 0
+            glVertexAttribPointer(0, 2, GL_FLOAT, 0, 8, ptr())
             glEnableVertexAttribArray(0)
-            
-            # Color attribute (location = 1) - 3 floats, stride = 5 floats, offset = 2 floats = 8 bytes
-            var offset_8 = UnsafePointer[Int8].alloc(1)
-            offset_8[] = 8
-            var color_offset = rebind[ptr](offset_8)
-            glVertexAttribPointer(1, 3, GL_FLOAT, 0, 20, color_offset)
-            glEnableVertexAttribArray(1)
             
             print("✅ OpenGL initialized successfully!")
             print("Program ID:", program)
@@ -344,7 +322,7 @@ void main() {
             gtk_widget_set_margin_bottom(gl_area, 12)
             
             # Request OpenGL 3.3 Core Profile
-            gtk_gl_area_set_required_version(gl_area, 3, 2)
+            gtk_gl_area_set_required_version(gl_area, 3, 3)
             
             # IMPORTANT: Set use_es to False for desktop OpenGL
             gtk_gl_area_set_use_es(gl_area, False)

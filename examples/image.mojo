@@ -1,4 +1,4 @@
-from bindings import *
+from gtk import *
 from sys.ffi import CStringSlice
 from memory import UnsafePointer
 
@@ -43,7 +43,7 @@ struct ImageDemo:
             gtk_file_filter_add_mime_type(filter, "image/bmp")
             gtk_file_filter_add_mime_type(filter, "image/webp")
             
-            var filter_list = g_list_store_new(ptr())
+            var filter_list = g_list_store_new()
             g_list_store_append(filter_list, filter)
             gtk_file_dialog_set_filters(dialog, filter_list)
             

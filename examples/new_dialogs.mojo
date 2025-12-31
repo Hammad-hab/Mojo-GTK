@@ -1,4 +1,4 @@
-from bindings import *
+from gtk import *
 from sys.ffi import CStringSlice
 from memory import UnsafePointer
 
@@ -154,9 +154,6 @@ struct DialogDemos:
             gtk_about_dialog_set_program_name(about, "Mojo GTK4 Dialog Demos")
             gtk_about_dialog_set_version(about, "1.0")
             gtk_about_dialog_set_comments(about, "Mojo GTK Bindings Dialog demo")
-            gtk_about_dialog_set_website(about, "https://mojo-lang.org")
-            gtk_about_dialog_set_website_label(about, "mojo-lang.org")
-            gtk_about_dialog_set_license_type(about, 2)  # MIT
             gtk_window_set_transient_for(about, app[].win)
             gtk_window_set_modal(about, True)
             gtk_widget_show(about)

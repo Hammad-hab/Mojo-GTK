@@ -1,4 +1,4 @@
-from bindings import *
+from gtk import *
 from sys.ffi import CStringSlice
 from memory import UnsafePointer
 
@@ -276,8 +276,8 @@ struct FormsDemo:
             print("Rating:", Int(rating_val), "/ 5")
             
             var buffer = gtk_text_view_get_buffer(form_data.text_view)
-            var start = LegacyUnsafePointer[NoneType]()
-            var end = LegacyUnsafePointer[NoneType]()
+            var start = LegacyUnsafePointer[GTKTextIter].alloc(1)
+            var end = LegacyUnsafePointer[GTKTextIter].alloc(1)
             gtk_text_buffer_get_start_iter(buffer, start)
             gtk_text_buffer_get_end_iter(buffer, end)
             var comments_text = gtk_text_buffer_get_text(buffer, start, end, False)
