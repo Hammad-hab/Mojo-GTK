@@ -48,7 +48,7 @@ See the demos for more samples and usage help.
 
 ### Setup and usage
 - install gtk on your system
-- make sure your pixi.toml contains the appropriate library paths for `MODULAR_MOJO_MAX_SYSTEM_LIBS` (see pixi.toml for reference)
+- make sure your pixi.toml contains the appropriate library paths for `MODULAR_MOJO_MAX_SYSTEM_LIBS` (see pixi.toml for reference, this usually includes the output of `pkg-config --libs gtk4`)
 - use mojo build (currently the code uses `external_call` so mojo run doesn't work that well yet)
 
 
