@@ -1,6 +1,7 @@
 from sys.ffi import external_call, c_char, CStringSlice
 comptime ParameterNULL=NoneType
-# === GTK Types & Structs === @register_passable
+# === GTK Types & Structs ===
+@register_passable
 struct GTKBindingFlags:
 	comptime DEFAULT=0
 	comptime BIDIRECTIONAL=1
@@ -3063,6 +3064,7 @@ comptime GTKInterface = LegacyUnsafePointer[NoneType]
 comptime GTKType=LegacyUnsafePointer[NoneType]
 comptime GError=LegacyUnsafePointer[NoneType]
 comptime filename=String
+# === GTK Functions ===
 fn cairo_image_surface_create() raises -> NoneType:
 	return external_call["cairo_image_surface_create", NoneType]()
 fn g_binding_dup_source(self: GTKInterface, ) raises -> GTKInterface:
@@ -21085,6 +21087,7 @@ fn g_uuid_string_is_valid(str: String, ) raises -> Bool:
 fn g_uuid_string_random() raises -> LegacyUnsafePointer[c_char]:
 	return external_call["g_uuid_string_random", LegacyUnsafePointer[c_char]]()
 
+# === GTK Functions ===
 fn g_application_run(app: GTKInterface, argc: Int32, argv: GTKType, ) raises -> Int32:
 	return external_call["g_application_run", Int32](app, argc, argv,)
 fn g_signal_connect_data(instance: GTKInterface, detailed_signal: String, c_handler: GTKType, data: GTKType, destroy_data: NoneType, connect_flags: UInt32, ) raises -> UInt64:

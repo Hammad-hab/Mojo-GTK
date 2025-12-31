@@ -145,7 +145,7 @@ def declare_whitelisted_functions():
     return declare_functions(functions_names, WHITELIST)
 
 def declare_functions(functions_names, functions: dict[str]):
-    mojo_bindings = ''
+    mojo_bindings = '# === GTK Functions ===\n'
     for function_name in functions_names:
         try:
             if function_name == 'unique_types' or function_name == '_stats': 
@@ -186,7 +186,7 @@ with open('fn.json', 'r') as f:
     functions: dict = json.loads(f.read())
     functions_names = functions.keys()
     types: list[str] = functions['unique_types']
-    comptimes = '# === GTK Types & Structs === '
+    comptimes = '# === GTK Types & Structs ===\n'
     # TODO: fix this after adding struct declarations
     for name, descriptjson in types.items():
         # print(descriptjson['type'])
