@@ -164,7 +164,7 @@ struct FormsDemo:
             gtk_widget_set_margin_end(close_btn, 24)
             gtk_widget_set_margin_bottom(close_btn, 16)
             
-            _ = g_signal_connect_data(close_btn, "clicked", rebind[ptr](FormsDemo.on_dialog_close), dialog, None, 0)
+            _ = g_signal_connect_data(close_btn, "clicked", (FormsDemo.on_dialog_close), dialog, None, 0)
             
             gtk_box_append(content_area, close_btn)
             
@@ -558,8 +558,8 @@ struct FormsDemo:
             var submit_btn = gtk_button_new_with_label("Submit")
             gtk_widget_add_css_class(submit_btn, "suggested-action")
             
-            _ = g_signal_connect_data(submit_btn, "clicked", rebind[ptr](FormsDemo.on_submit_clicked), form_data_ptr.bitcast[NoneType](), None, 0)
-            _ = g_signal_connect_data(reset_btn, "clicked", rebind[ptr](FormsDemo.on_reset_clicked), form_data_ptr.bitcast[NoneType](), None, 0)
+            _ = g_signal_connect_data(submit_btn, "clicked", (FormsDemo.on_submit_clicked), form_data_ptr.bitcast[NoneType](), None, 0)
+            _ = g_signal_connect_data(reset_btn, "clicked", (FormsDemo.on_reset_clicked), form_data_ptr.bitcast[NoneType](), None, 0)
             
             gtk_box_append(actions, reset_btn)
             gtk_box_append(actions, cancel_btn)
@@ -579,5 +579,5 @@ struct FormsDemo:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.formsdemo", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](FormsDemo.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (FormsDemo.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())

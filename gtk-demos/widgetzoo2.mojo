@@ -172,7 +172,7 @@ struct WidgetZoo2:
             gtk_revealer_set_child(revealer, reveal_content)
             var reveal_toggle = gtk_toggle_button_new_with_label("Toggle")    
             
-            _ = g_signal_connect_data(reveal_toggle, "toggled", rebind[ptr](WidgetZoo2.toggle_handler), revealer, None, 0)
+            _ = g_signal_connect_data(reveal_toggle, "toggled", (WidgetZoo2.toggle_handler), revealer, None, 0)
             gtk_box_append(reveal_box, reveal_toggle)
             gtk_box_append(reveal_box, revealer)
             gtk_box_append(right_col, gtk_widget_get_parent(reveal_box))
@@ -213,5 +213,5 @@ struct WidgetZoo2:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.gtkzoo2", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](WidgetZoo2.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (WidgetZoo2.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())

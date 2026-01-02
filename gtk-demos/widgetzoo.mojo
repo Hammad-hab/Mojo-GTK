@@ -62,7 +62,7 @@ struct WidgetDemo:
             
             var btn_primary = gtk_button_new_with_label("Suggested Action")
             gtk_widget_add_css_class(btn_primary, "suggested-action")
-            _ = g_signal_connect_data(btn_primary, "clicked", rebind[ptr](WidgetDemo.on_button_clicked), ptr(), None, 0)
+            _ = g_signal_connect_data(btn_primary, "clicked", (WidgetDemo.on_button_clicked), ptr(), None, 0)
             
             var btn_destructive = gtk_button_new_with_label("Destructive Action")
             gtk_widget_add_css_class(btn_destructive, "destructive-action")
@@ -82,7 +82,7 @@ struct WidgetDemo:
             var toggle_box = WidgetDemo.create_section("Toggle Controls")
             
             var toggle1 = gtk_toggle_button_new_with_label("Toggle Button")
-            _ = g_signal_connect_data(toggle1, "toggled", rebind[ptr](WidgetDemo.on_toggle_toggled), ptr(), None, 0)
+            _ = g_signal_connect_data(toggle1, "toggled", (WidgetDemo.on_toggle_toggled), ptr(), None, 0)
             
             var check1 = gtk_check_button_new_with_label("Check Button")
             var check2 = gtk_check_button_new_with_label("Checked")
@@ -205,5 +205,5 @@ struct WidgetDemo:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.gtkdemo", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](WidgetDemo.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (WidgetDemo.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())

@@ -105,10 +105,10 @@ struct DialogDemos:
             # file_data_ptr[].dialog = dialog
             # app[].dialog = dialog
 
-            _ = g_signal_connect_data(
+            _ = g_signal_connect_data[fn (a: ptr, res: Int32, dat: ptr)](
                 dialog,
                 "response",
-                rebind[ptr](DialogDemos.on_file_open_response),
+                (DialogDemos.on_file_open_response),
                 user_data,
                 None,
                 0
@@ -124,20 +124,12 @@ struct DialogDemos:
     fn on_file_open_response(native: ptr, response_id: Int32, dialog: ptr):
         try:
             # print("=== FILE OPEN RESPONSE ===")
-            # print("Native pointer:", native)
             var data_ptr = rebind[FileOpenDataPointer](native)
-            # native[] = dialog[]
-            # var int8native_ptr = LegacyUnsafePointer[Int8].alloc(128)
-            # var native_ptr = rebind[ptr](int8native_ptr)
-            # native_ptr[] = data_ptr[].dialog
-            # var native_ptr_native =  rebind[FileOpenDataPointer](int8native_ptr)
-            # print("Stored dialog pointer:", data_ptr[].dialog)
             
             if response_id == -3:  # GTK_RESPONSE_ACCEPT
-                # print("Getting file from dialog...")
                 var file = gtk_file_chooser_get_file(dialog)
                 # print("Got file:", file)
-                var path = g_file_get_path(file)
+                var path = g_file_get_path(file) 
                 
                 if path:
                     var path_str = ""
@@ -150,12 +142,7 @@ struct DialogDemos:
                         print(result_text)
                         gtk_label_set_text(data_ptr[].result_label, result_text)
                         print("Selected file:", path_str)
-            # else:
-            #     gtk_label_set_text(data_ptr[].result_label, "❌ File selection cancelled")
-            
-            # g_object_unref(native)
-            # Don't free data_ptr yet - let it leak for now to test
-            # data_ptr.free()
+
         except e:
             print("Error in file open response:", e)
     
@@ -180,10 +167,10 @@ struct DialogDemos:
             gtk_file_chooser_set_current_name(dialog, "untitled.txt")
             
             app_data_ptr[].dialog = dialog
-            _ = g_signal_connect_data(
+            _ = g_signal_connect_data[fn (a: ptr, res: Int32, dat: ptr)](
                 dialog, 
                 "response", 
-                rebind[ptr](DialogDemos.on_file_save_response), 
+                (DialogDemos.on_file_save_response), 
                 user_data,
                 None, 
                 0
@@ -243,10 +230,10 @@ struct DialogDemos:
 
             folder_data_ptr[].dialog = dialog
             print("Stored in file_data_ptr[].dialog:", folder_data_ptr[].dialog)
-            _ = g_signal_connect_data(
+            _ = g_signal_connect_data[fn (a: ptr, res: Int32, dat: ptr)](
                 dialog, 
                 "response", 
-                rebind[ptr](DialogDemos.on_folder_response), 
+                (DialogDemos.on_folder_response), 
                 rebind[ptr](folder_data_ptr),
                 None, 
                 0
@@ -302,10 +289,10 @@ struct DialogDemos:
             gtk_window_set_modal(dialog, True)
             
             color_data_ptr[].dialog = dialog
-            _ = g_signal_connect_data(
+            _ = g_signal_connect_data[fn (a: ptr, res: Int32, dat: ptr)](
                 dialog, 
                 "response", 
-                rebind[ptr](DialogDemos.on_color_response), 
+                (DialogDemos.on_color_response), 
                 rebind[ptr](color_data_ptr),
                 None, 
                 0
@@ -362,10 +349,10 @@ struct DialogDemos:
             gtk_window_set_modal(dialog, True)
             
             font_data_ptr[].dialog = dialog
-            _ = g_signal_connect_data(
+            _ = g_signal_connect_data[fn (a: ptr, res: Int32, dat: ptr)](
                 dialog, 
                 "response", 
-                rebind[ptr](DialogDemos.on_font_response), 
+                (DialogDemos.on_font_response), 
                 rebind[ptr](font_data_ptr),
                 None, 
                 0
@@ -526,23 +513,23 @@ struct DialogDemos:
 
             var btn_file_open = gtk_button_new_with_label("📂 Open File")
             gtk_widget_add_css_class(btn_file_open, "demo-button")
-            _ = g_signal_connect_data(btn_file_open, "clicked", rebind[ptr](DialogDemos.show_file_open), rebind[ptr](file_data_ptr), None, 0)
+            _ = g_signal_connect_data(btn_file_open, "clicked", (DialogDemos.show_file_open), rebind[ptr](file_data_ptr), None, 0)
             
             var btn_file_save = gtk_button_new_with_label("💾 Save File")
             gtk_widget_add_css_class(btn_file_save, "demo-button")
-            _ = g_signal_connect_data(btn_file_save, "clicked", rebind[ptr](DialogDemos.show_file_save), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(btn_file_save, "clicked", (DialogDemos.show_file_save), rebind[ptr](data_ptr), None, 0)
             
             var btn_folder = gtk_button_new_with_label("📁 Select Folder")
             gtk_widget_add_css_class(btn_folder, "demo-button")
-            _ = g_signal_connect_data(btn_folder, "clicked", rebind[ptr](DialogDemos.show_folder_chooser), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(btn_folder, "clicked", (DialogDemos.show_folder_chooser), rebind[ptr](data_ptr), None, 0)
             
             var btn_color = gtk_button_new_with_label("🎨 Choose Color")
             gtk_widget_add_css_class(btn_color, "demo-button")
-            _ = g_signal_connect_data(btn_color, "clicked", rebind[ptr](DialogDemos.show_color_chooser), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(btn_color, "clicked", (DialogDemos.show_color_chooser), rebind[ptr](data_ptr), None, 0)
             
             var btn_font = gtk_button_new_with_label("🔤 Choose Font")
             gtk_widget_add_css_class(btn_font, "demo-button")
-            _ = g_signal_connect_data(btn_font, "clicked", rebind[ptr](DialogDemos.show_font_chooser), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(btn_font, "clicked", (DialogDemos.show_font_chooser), rebind[ptr](data_ptr), None, 0)
             
             # Add buttons to grid (2 columns)
             gtk_grid_attach(grid, btn_file_open, 0, 0, 1, 1)
@@ -567,5 +554,5 @@ struct DialogDemos:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.dialogs", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](DialogDemos.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (DialogDemos.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())

@@ -206,8 +206,8 @@ struct AnimationDemo:
             var start_btn = gtk_button_new_with_label("Start")
             var stop_btn = gtk_button_new_with_label("Stop")
             
-            _ = g_signal_connect_data(start_btn, "clicked", rebind[ptr](AnimationDemo.on_spin_start), ctrl_spinner, None, 0)
-            _ = g_signal_connect_data(stop_btn, "clicked", rebind[ptr](AnimationDemo.on_spin_stop), ctrl_spinner, None, 0)
+            _ = g_signal_connect_data(start_btn, "clicked", AnimationDemo.on_spin_start, ctrl_spinner, None, 0)
+            _ = g_signal_connect_data(stop_btn, "clicked", AnimationDemo.on_spin_stop, ctrl_spinner, None, 0)
             
             gtk_box_append(ctrl_row, ctrl_spinner)
             gtk_box_append(ctrl_row, start_btn)
@@ -228,7 +228,7 @@ struct AnimationDemo:
             gtk_progress_bar_set_fraction(det_progress, 0.3)
             gtk_progress_bar_set_show_text(det_progress, True)
             var update_btn = gtk_button_new_with_label("Update Progress (+10%)")
-            _ = g_signal_connect_data(update_btn, "clicked", rebind[ptr](AnimationDemo.on_progress_update), det_progress, None, 0)
+            _ = g_signal_connect_data(update_btn, "clicked", AnimationDemo.on_progress_update, det_progress, None, 0)
             
             gtk_box_append(progress_box, gtk_label_new("Determinate:"))
             gtk_box_append(progress_box, det_progress)
@@ -259,7 +259,7 @@ struct AnimationDemo:
                 
                 var toggle = gtk_toggle_button_new_with_label(transitions[i])
                 gtk_widget_set_size_request(toggle, 120, -1)
-                _ = g_signal_connect_data(toggle, "toggled", rebind[ptr](AnimationDemo.on_revealer_toggle), revealer, None, 0)
+                _ = g_signal_connect_data(toggle, "toggled", (AnimationDemo.on_revealer_toggle), revealer, None, 0)
                 
                 gtk_box_append(rev_row, toggle)
                 gtk_box_append(rev_row, revealer)
@@ -301,40 +301,40 @@ struct AnimationDemo:
             var trans_box = gtk_box_new(0, 8)
             
             var btn0 = gtk_button_new_with_label("None")
-            _ = g_signal_connect_data(btn0, "clicked", rebind[ptr](AnimationDemo.on_transition_0), stack, None, 0)
+            _ = g_signal_connect_data(btn0, "clicked", (AnimationDemo.on_transition_0), stack, None, 0)
             gtk_box_append(trans_box, btn0)
             
             var btn1 = gtk_button_new_with_label("Crossfade")
-            _ = g_signal_connect_data(btn1, "clicked", rebind[ptr](AnimationDemo.on_transition_1), stack, None, 0)
+            _ = g_signal_connect_data(btn1, "clicked", (AnimationDemo.on_transition_1), stack, None, 0)
             gtk_box_append(trans_box, btn1)
             
             var btn2 = gtk_button_new_with_label("Slide Right")
-            _ = g_signal_connect_data(btn2, "clicked", rebind[ptr](AnimationDemo.on_transition_2), stack, None, 0)
+            _ = g_signal_connect_data(btn2, "clicked", (AnimationDemo.on_transition_2), stack, None, 0)
             gtk_box_append(trans_box, btn2)
             
             var btn3 = gtk_button_new_with_label("Slide Left")
-            _ = g_signal_connect_data(btn3, "clicked", rebind[ptr](AnimationDemo.on_transition_3), stack, None, 0)
+            _ = g_signal_connect_data(btn3, "clicked", (AnimationDemo.on_transition_3), stack, None, 0)
             gtk_box_append(trans_box, btn3)
             
             var btn4 = gtk_button_new_with_label("Slide Up")
-            _ = g_signal_connect_data(btn4, "clicked", rebind[ptr](AnimationDemo.on_transition_4), stack, None, 0)
+            _ = g_signal_connect_data(btn4, "clicked", AnimationDemo.on_transition_4, stack, None, 0)
             gtk_box_append(trans_box, btn4)
             
             var btn5 = gtk_button_new_with_label("Slide Down")
-            _ = g_signal_connect_data(btn5, "clicked", rebind[ptr](AnimationDemo.on_transition_5), stack, None, 0)
+            _ = g_signal_connect_data(btn5, "clicked", AnimationDemo.on_transition_5, stack, None, 0)
             gtk_box_append(trans_box, btn5)
-            
+             
             var btn6 = gtk_button_new_with_label("Over Right")
-            _ = g_signal_connect_data(btn6, "clicked", rebind[ptr](AnimationDemo.on_transition_6), stack, None, 0)
+            _ = g_signal_connect_data(btn6, "clicked", AnimationDemo.on_transition_6, stack, None, 0)
             gtk_box_append(trans_box, btn6)
             
             var btn7 = gtk_button_new_with_label("Over Left")
-            _ = g_signal_connect_data(btn7, "clicked", rebind[ptr](AnimationDemo.on_transition_7), stack, None, 0)
+            _ = g_signal_connect_data(btn7, "clicked", AnimationDemo.on_transition_7, stack, None, 0)
             gtk_box_append(trans_box, btn7)
             
             var next_btn = gtk_button_new_with_label("Next Page →")
             gtk_widget_add_css_class(next_btn, "suggested-action")
-            _ = g_signal_connect_data(next_btn, "clicked", rebind[ptr](AnimationDemo.on_stack_next), stack, None, 0)
+            _ = g_signal_connect_data(next_btn, "clicked", AnimationDemo.on_stack_next, stack, None, 0)
             
             gtk_box_append(stack_box, gtk_label_new("Select transition type:"))
             gtk_box_append(stack_box, trans_box)
@@ -354,23 +354,23 @@ struct AnimationDemo:
             var level_btns = gtk_box_new(0, 8)
             
             var lvl_btn0 = gtk_button_new_with_label("0%")
-            _ = g_signal_connect_data(lvl_btn0, "clicked", rebind[ptr](AnimationDemo.on_level_0), level_bar, None, 0)
+            _ = g_signal_connect_data(lvl_btn0, "clicked", AnimationDemo.on_level_0, level_bar, None, 0)
             gtk_box_append(level_btns, lvl_btn0)
             
             var lvl_btn25 = gtk_button_new_with_label("25%")
-            _ = g_signal_connect_data(lvl_btn25, "clicked", rebind[ptr](AnimationDemo.on_level_25), level_bar, None, 0)
+            _ = g_signal_connect_data(lvl_btn25, "clicked", AnimationDemo.on_level_25, level_bar, None, 0)
             gtk_box_append(level_btns, lvl_btn25)
             
             var lvl_btn50 = gtk_button_new_with_label("50%")
-            _ = g_signal_connect_data(lvl_btn50, "clicked", rebind[ptr](AnimationDemo.on_level_50), level_bar, None, 0)
+            _ = g_signal_connect_data(lvl_btn50, "clicked", AnimationDemo.on_level_50, level_bar, None, 0)
             gtk_box_append(level_btns, lvl_btn50)
             
             var lvl_btn75 = gtk_button_new_with_label("75%")
-            _ = g_signal_connect_data(lvl_btn75, "clicked", rebind[ptr](AnimationDemo.on_level_75), level_bar, None, 0)
+            _ = g_signal_connect_data(lvl_btn75, "clicked", AnimationDemo.on_level_75, level_bar, None, 0)
             gtk_box_append(level_btns, lvl_btn75)
             
             var lvl_btn100 = gtk_button_new_with_label("100%")
-            _ = g_signal_connect_data(lvl_btn100, "clicked", rebind[ptr](AnimationDemo.on_level_100), level_bar, None, 0)
+            _ = g_signal_connect_data(lvl_btn100, "clicked", AnimationDemo.on_level_100, level_bar, None, 0)
             gtk_box_append(level_btns, lvl_btn100)
             
             gtk_box_append(level_box, level_bar)

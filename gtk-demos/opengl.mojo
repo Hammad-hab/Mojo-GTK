@@ -331,9 +331,9 @@ struct OpenGLApp:
             var data_ptr = GLAppDataPointer.alloc(1)
             data_ptr[] = data
             
-            _ = g_signal_connect_data(gl_area, "realize", rebind[ptr](OpenGLApp.on_realize), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(gl_area, "render", rebind[ptr](OpenGLApp.on_render), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(gl_area, "unrealize", rebind[ptr](OpenGLApp.on_unrealize), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(gl_area, "realize", (OpenGLApp.on_realize), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(gl_area, "render", (OpenGLApp.on_render), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(gl_area, "unrealize", (OpenGLApp.on_unrealize), rebind[ptr](data_ptr), None, 0)
             
             gtk_box_append(main_box, info_bar)
             gtk_box_append(main_box, gl_area)
@@ -346,5 +346,5 @@ struct OpenGLApp:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.opengl.modern", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](OpenGLApp.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (OpenGLApp.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())

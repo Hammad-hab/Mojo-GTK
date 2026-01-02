@@ -52,15 +52,15 @@ struct ListsDemo:
         
         # Create factory for rendering items
         var factory = gtk_signal_list_item_factory_new()
-        _ = g_signal_connect_data(factory, "setup", rebind[ptr](ListsDemo.setup_list_item), ptr(), None, 0)
-        _ = g_signal_connect_data(factory, "bind", rebind[ptr](ListsDemo.bind_list_item), ptr(), None, 0)
+        _ = g_signal_connect_data[fn(factory: ptr, list_item: ptr, gptr: ptr)](factory, "setup", (ListsDemo.setup_list_item), ptr(), None, 0)
+        _ = g_signal_connect_data[fn(factory: ptr, list_item: ptr, gptr: ptr)](factory, "bind", (ListsDemo.bind_list_item), ptr(), None, 0)
         
         # Create list view
         var list_view = gtk_list_view_new(selection, factory)
         
         # Connect signals
-        _ = g_signal_connect_data(list_view, "activate", rebind[ptr](ListsDemo.on_row_activated), ptr(), None, 0)
-        _ = g_signal_connect_data(selection, "selection-changed", rebind[ptr](ListsDemo.on_selection_changed), ptr(), None, 0)
+        _ = g_signal_connect_data[fn(list_view: ptr, position: UInt32, gptr: ptr)](list_view, "activate", (ListsDemo.on_row_activated), ptr(), None, 0)
+        _ = g_signal_connect_data[fn(selection: ptr, gptr: ptr)](selection, "selection-changed", (ListsDemo.on_selection_changed), ptr(), None, 0)
         
         return list_view
     
@@ -123,8 +123,8 @@ struct ListsDemo:
         var index_ptr = LegacyUnsafePointer[Int].alloc(1)
         index_ptr[] = column_index
         
-        _ = g_signal_connect_data(factory, "setup", rebind[ptr](ListsDemo.setup_column_item), ptr(), None, 0)
-        _ = g_signal_connect_data(factory, "bind", rebind[ptr](ListsDemo.bind_column_item), index_ptr.bitcast[NoneType](), None, 0)
+        _ = g_signal_connect_data[fn(factory: ptr, list_item: ptr, gptr: ptr)](factory, "setup", (ListsDemo.setup_column_item), ptr(), None, 0)
+        _ = g_signal_connect_data[fn(factory: ptr, list_item: ptr, gptr: ptr)](factory, "bind", (ListsDemo.bind_column_item), index_ptr.bitcast[NoneType](), None, 0)
         
         var column = gtk_column_view_column_new(title, factory)
         gtk_column_view_column_set_expand(column, True)
@@ -217,8 +217,8 @@ struct ListsDemo:
         var selection = gtk_single_selection_new(string_list)
         
         var factory = gtk_signal_list_item_factory_new()
-        _ = g_signal_connect_data(factory, "setup", rebind[ptr](ListsDemo.setup_grid_item), ptr(), None, 0)
-        _ = g_signal_connect_data(factory, "bind", rebind[ptr](ListsDemo.bind_grid_item), ptr(), None, 0)
+        _ = g_signal_connect_data[fn(factory: ptr, list_item: ptr, gptr: ptr)](factory, "setup", (ListsDemo.setup_grid_item), ptr(), None, 0)
+        _ = g_signal_connect_data[fn(factory: ptr, list_item: ptr, gptr: ptr)](factory, "bind", (ListsDemo.bind_grid_item), ptr(), None, 0)
         
         var grid_view = gtk_grid_view_new(selection, factory)
         gtk_grid_view_set_max_columns(grid_view, 4)
@@ -348,5 +348,5 @@ struct ListsDemo:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.listsdemo", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](ListsDemo.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (ListsDemo.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())

@@ -33,10 +33,10 @@ struct SaveDialogEvents:
             
             gtk_file_chooser_set_current_name(dialog, "untitled.txt")
             data_ptr[].dialog = dialog
-            _ = g_signal_connect_data(
+            _ = g_signal_connect_data[fn (native: ptr, response_id: Int32, user_data: ptr)](
                 dialog, 
                 "response", 
-                rebind[ptr](SaveDialogEvents.on_save_response), 
+                (SaveDialogEvents.on_save_response), 
                 user_data,
                 None, 
                 0
@@ -128,7 +128,7 @@ struct TextEditorApp:
             
             var ok_btn = gtk_button_new_with_label("OK")
             gtk_widget_set_halign(ok_btn, 3)
-            _ = g_signal_connect_data(ok_btn, "clicked", rebind[ptr](TextEditorApp.on_close_dialog), dialog, None, 0)
+            _ = g_signal_connect_data(ok_btn, "clicked", (TextEditorApp.on_close_dialog), dialog, None, 0)
             
             gtk_box_append(box, app_name)
             gtk_box_append(box, version)
@@ -236,7 +236,7 @@ struct TextEditorApp:
             _ = g_signal_connect_data(
                 save_btn, 
                 "clicked", 
-                rebind[ptr](SaveDialogEvents.on_save_clicked), 
+                (SaveDialogEvents.on_save_clicked), 
                 rebind[ptr](data_ptr),
                 None, 
                 0
@@ -244,7 +244,7 @@ struct TextEditorApp:
             _ = g_signal_connect_data(
                 about_btn, 
                 "clicked", 
-                rebind[ptr](TextEditorApp.on_about_clicked), 
+                (TextEditorApp.on_about_clicked), 
                 win, 
                 None, 
                 0
@@ -273,5 +273,5 @@ struct TextEditorApp:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojotext.editor", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](TextEditorApp.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (TextEditorApp.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())
