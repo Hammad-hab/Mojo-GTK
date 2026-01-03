@@ -1,5 +1,6 @@
 import json
 
+MOJO_RESERVED = ["ref", "in", 'out', "inout", "mut", "fn", "struct", "def", "len", "type", "cstringslice"]
 
 def define_type(ptype: str, rtypemode=False):
     param_type = ptype
@@ -7,6 +8,8 @@ def define_type(ptype: str, rtypemode=False):
             param_type = param_type.replace('int', 'Int')
     elif ptype == "void*":
             param_type = "LegacyUnsafePointer[NoneType]"
+    elif ptype.startswith("Enum-"):
+            param_type = ptype.replace("Enum-", "")
     elif ptype == "void[]":
             param_type = "List[NoneType]"
     elif ptype == "void*[]":
@@ -29,7 +32,6 @@ def define_type(ptype: str, rtypemode=False):
     elif 'boolean' in ptype:
             param_type = 'Bool'
     elif ptype.endswith('[]'):
-        if 'GTKInterface' not in ptype:
             param_type = f"List[{define_type(param_type.replace('[]', ''))}]"
     elif ptype.endswith('*'):
         if 'GTKInterface' not in ptype:
@@ -48,6 +50,8 @@ def generate_fn_params(params: dict[str, str]):
 
     for pname in param_names:
         param_type = define_type(params[pname])
+        if pname in MOJO_RESERVED:
+            pname = f"{pname}_param"
         param_str += f'{pname}: {param_type}, '
     
     return param_str
@@ -64,7 +68,8 @@ def fix_parameters(params: dict[str, str], function_name:str) -> dict[str, str]:
         if params[p].startswith('Enum-'):
             nw_parameters[p] = 'Int32'
             continue
-            
+        
+
         if ('def' in p):
             new_name = f'x_{p}'
             nw_parameters[new_name] = params[p]
@@ -74,7 +79,8 @@ def fix_parameters(params: dict[str, str], function_name:str) -> dict[str, str]:
     return nw_parameters
 
 def extract_param_values(params: dict[str, str]):
-    return list(params.values())
+    params = list(params.values())
+    return params
 
 def generate_function(name: str, return_type: str, params: dict[str, str]): 
     param_names = extract_param_names(params)
@@ -115,8 +121,22 @@ def generate_function(name: str, return_type: str, params: dict[str, str]):
     elif return_type_mojo == 'String':
         return_type_mojo = 'LegacyUnsafePointer[c_char]'
         
-    params_passed = ' '.join([f"{name}," for name in param_names])
-    return (f"fn {name}({generate_fn_params(params)}) raises -> {return_type_mojo}:{string_preprocess_ijection}\n\treturn external_call[\"{name}\", {return_type_mojo}]({params_passed})")
+    params_passed = ', '.join([(f"{name}_param" if name in MOJO_RESERVED else name) for name in param_names])
+    # NOTE REPLACE, GTKINTERFACE with return_type_mojo!!!
+    if return_type_mojo != 'List[String]':
+        return (f"fn {name}({generate_fn_params(params)}) raises -> {return_type_mojo}:{string_preprocess_ijection}\n\treturn external_call[\"{name}\", {return_type_mojo}]({params_passed})")
+    else: 
+        # string list must be given a special treatment
+        output_treatment = "\tvar lst = List[String]()\n\tvar i=0"
+        output_treatment += "\n\twhile True:"
+        output_treatment += "\n\t\tvar str_ptr = result[i]"
+        output_treatment += "\n\t\tif not str_ptr:\n\t\t\tbreak"
+        output_treatment += "\n\t\tvar mojo_cstring = CStringSlice(unsafe_from_ptr=str_ptr)"
+        output_treatment += "\n\t\tvar mojo_string = ''"
+        output_treatment += "\n\t\tmojo_cstring.write_to(mojo_string)"
+        output_treatment += "\n\t\tlst.append(mojo_string)"
+        output_treatment += f"\n\treturn lst^"
+        return (f"fn {name}({generate_fn_params(params)}) raises -> {return_type_mojo}:{string_preprocess_ijection}\n\tvar result = external_call[\"{name}\", LegacyUnsafePointer[LegacyUnsafePointer[char]]]({params_passed})\n{output_treatment}")
     ...
 
 def declare_legacy_ptr(type: str):
@@ -172,7 +192,7 @@ def declare_functions(functions_names, functions: dict[str]):
     return mojo_bindings 
 
 def declare_enum(name: str, descriptgen_dict: dict):
-    content = f"@register_passable\nstruct {name}:"
+    content = f"@register_passable('trivial')\nstruct {name}:"
     fields = descriptgen_dict['values']
     for field_name, field_value in fields.items():
         if field_name == '0BSD':
@@ -181,11 +201,20 @@ def declare_enum(name: str, descriptgen_dict: dict):
     return content
 
 def declare_struct(name: str, descriptgen_dict: dict):
-    content = f"@register_passable('trivial')\n@fieldwise_init\nstruct {name}:"
+    content = f"@register_passable('trivial')\n@fieldwise_init\nstruct {name}(Copyable):"
     fields = descriptgen_dict['fields']
         
     for field_name, field_type in fields.items():
-        content += f"\n\tvar {field_name}: {define_type(field_type)}"
+        type = define_type(field_type)
+        if type.strip().startswith('List'):
+            eltype = type.replace("List[", "")[0:-1]
+            type = f"LegacyUnsafePointer[{eltype}]"
+        if type == "String":
+            type = "LegacyUnsafePointer[char]"
+            
+        if field_name in MOJO_RESERVED:
+            field_name = f"{field_name}_param"
+        content += f"\n\tvar {field_name}: {type}"
 
     if len(fields.keys()) == 0:
         content = f"comptime {name} = LegacyUnsafePointer[NoneType]"
@@ -208,7 +237,7 @@ with open('fn.json', 'r') as f:
             comptimes += declare_struct(name, descriptjson) + '\n\n'
             continue
         
-    mojo_bindings = f"from sys.ffi import external_call, c_char, CStringSlice\ncomptime ParameterNULL=NoneType\n{comptimes}\ncomptime GTKInterface = LegacyUnsafePointer[NoneType]\ncomptime GTKType=LegacyUnsafePointer[NoneType]\ncomptime GError=LegacyUnsafePointer[NoneType]\ncomptime filename=String\n"
+    mojo_bindings = f"from sys.ffi import external_call, c_char, CStringSlice\ncomptime ParameterNULL=NoneType\n{comptimes}\ncomptime GTKInterface = LegacyUnsafePointer[NoneType]\ncomptime GTKType=LegacyUnsafePointer[NoneType]\ncomptime GError=LegacyUnsafePointer[NoneType]\ncomptime filename=String\ncomptime char=c_char\n"
     mojo_bindings += declare_functions(functions_names, functions)
     
     whitelisted_declarations = declare_whitelisted_functions()

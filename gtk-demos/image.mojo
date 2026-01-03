@@ -44,7 +44,7 @@ struct ImageDemo:
             gtk_file_filter_add_mime_type(filter, "image/bmp")
             gtk_file_filter_add_mime_type(filter, "image/webp")
             
-            var filter_list = g_list_store_new()
+            var filter_list = g_list_store_new(ptr())
             g_list_store_append(filter_list, filter)
             gtk_file_dialog_set_filters(dialog, filter_list)
             

@@ -24,7 +24,7 @@ for demo in demos:
     stderr = output.stderr.decode('utf-8')
     lines = stderr.split('\n')
 
-    errored_lines = [l for l in lines if "error" in l.lower()]
+    errored_lines = [l for l in lines if "error:" in l.lower()]
     warning_lines = [l for l in lines if "warning" in l.lower()]
 
     errors = len(errored_lines)
@@ -63,7 +63,7 @@ for demo, errors, warnings, build_ok, retcode in summary:
     status = "OK" if build_ok else "FAIL"
     total_errors += errors
     total_warnings += warnings
-    print(f"{demo:30} {errors:8d} {warnings:10d} {status:>10} {signal.strsignal(-retcode):>10}")
+    print(f"{demo:30} {errors:8d} {warnings:10d} {status:>10} {(retcode):>10d}")
 
 print("-" * 80)
 print(f"{'TOTAL':30} {total_errors:8d} {total_warnings:10d}")

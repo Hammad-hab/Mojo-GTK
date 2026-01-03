@@ -3,9 +3,23 @@ from gi.repository import GIRepository
 import json
 import sys
 
+MOJO_RESERVED = ["ref", "in", 'out', "inout", "mut", "fn", "struct", "def", "len", "type", "cstringslice"]
+
 types = dict()
 
 def get_type_string(type_info):
+    info = get_type_string_(type_info)
+    tag = type_info.get_tag()
+    if tag in (GIRepository.TypeTag.ARRAY, 
+               GIRepository.TypeTag.UTF8, 
+               GIRepository.TypeTag.FILENAME):
+        return info
+        
+    if type_info.is_pointer() and not info.endswith("*"):
+        return info + "*"
+    return info
+
+def get_type_string_(type_info):
     """Convert a TypeInfo to a readable string"""
     try:
         tag = type_info.get_tag()
@@ -89,31 +103,40 @@ def get_type_string(type_info):
                 
                 for i in range(iface.get_n_fields()):
                     field = iface.get_field(i)
-                    struct['fields'][field.get_name()] = get_type_string(field.get_type_info())
+                    type = get_type_string(field.get_type_info())
+                    struct['fields'][field.get_name()] = type if "Enum-" not in type else "int32"
                 types[name] = struct
 
                 if type_info.is_pointer():
                     return name + "*"
 
                 return name
+            # TODO: actually implement callback stuff
+            # elif  isinstance(iface, GIRepository.CallbackInfo):
+            #     name = iface.get_name()
+            #     return f"[GenericType,{name}]"
+                # fn =  {
+                #     "name": name,
+                #     "args": {},
+                #     "type": "Callback",
+                # }
+                # # Analyze the callback signature
+                # for j in range(iface.get_n_args()):
+                #     cb_arg = iface.get_arg(j)
+                #     print(f"      CB arg: {cb_arg.get_name()} {get_type_string(cb_arg.get_type_info())}")
 
             return 'GTKInterface'
         except:
             return 'GTKInterface'
     elif tag == GIRepository.TypeTag.GLIST:
-        types.add('GTKType')
         return f"GTKType"
     elif tag == GIRepository.TypeTag.GTYPE:
-        types.add('GTKType')
         return f"GTKType"
     elif tag == GIRepository.TypeTag.GSLIST:
-        types.add('GTKType')
         return f"GTKType"
     elif tag == GIRepository.TypeTag.GHASH:
-        types.add('GTKType')
         return "GTKType"
     elif tag == GIRepository.TypeTag.ERROR:
-        types.add('GError')
         return "GError"
     elif tag == GIRepository.TypeTag.UNICHAR:
         return "GTKType"
@@ -166,8 +189,18 @@ def format_function_signature(func_info, class_name=None):
 
             direction = arg.get_direction()
             if direction == GIRepository.Direction.OUT or direction == GIRepository.Direction.INOUT:
-                arg_type += "*"
+                tag = arg_info.get_tag()
+                if tag != GIRepository.TypeTag.ARRAY:
+                    arg_type += "*"
+                else:
+                    param_type = arg_info.get_param_type(0)
+                    param_tag = param_type.get_tag()
+                    
+                    if param_tag in (GIRepository.TypeTag.UINT8, GIRepository.TypeTag.INT8):
+                        arg_type = "char**"
 
+            if arg_name in MOJO_RESERVED:
+                arg_name = f"{arg_name}_param"
             params[arg_name] = arg_type
         except:
             # Skip problematic parameters
