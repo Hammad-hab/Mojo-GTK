@@ -63,7 +63,7 @@ for demo, errors, warnings, build_ok, retcode in summary:
     status = "OK" if build_ok else "FAIL"
     total_errors += errors
     total_warnings += warnings
-    print(f"{demo:30} {errors:8d} {warnings:10d} {status:>10} {signal.Signals(-retcode).name:>10}")
+    print(f"{demo:30} {errors:8d} {warnings:10d} {status:>10} {signal.strsignal(-retcode):>10}")
 
 print("-" * 80)
 print(f"{'TOTAL':30} {total_errors:8d} {total_warnings:10d}")
