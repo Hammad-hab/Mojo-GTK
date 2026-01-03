@@ -46,7 +46,7 @@ struct App:
 fn main():
     try:
         var app = gtk_application_new(String("examples.gtk.main"), 0)
-        _ = g_signal_connect_data(app, "activate", rebind[GTKInterface](App.activate), GTKInterface(), None, 0)
+        _ = g_signal_connect_data(app, "activate", (App.activate), GTKInterface(), None, 0)
         _ = g_application_run(app, 0, GTKInterface())
     except e:
         print('Failed to intialize app due to an error', e) 
