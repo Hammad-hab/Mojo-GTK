@@ -391,5 +391,5 @@ struct AnimationDemo:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.animdemo", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](AnimationDemo.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (AnimationDemo.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())
