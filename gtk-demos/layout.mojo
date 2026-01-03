@@ -72,7 +72,7 @@ struct LayoutDemo:
                         gtk_widget_add_css_class(btn, colors[idx])
                     gtk_widget_set_hexpand(btn, True)
                     gtk_widget_set_vexpand(btn, True)
-                    _ = g_signal_connect_data(btn, "clicked", rebind[ptr](LayoutDemo.on_grid_button_clicked), ptr(), None, 0)
+                    _ = g_signal_connect_data(btn, "clicked", (LayoutDemo.on_grid_button_clicked), ptr(), None, 0)
                     gtk_grid_attach(grid, btn, col, row, 1, 1)
 
             gtk_box_append(grid_page, grid)
@@ -305,5 +305,5 @@ struct LayoutDemo:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.layoutdemo", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](LayoutDemo.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (LayoutDemo.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())

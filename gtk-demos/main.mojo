@@ -1,4 +1,4 @@
-from bindings import *
+from gtk import *
 
 
 @register_passable('trivial')

@@ -230,7 +230,7 @@ struct OpenGLApp:
             return 1  # TRUE
             
         except e:
-            print("Error in on_render:", e)
+            print("Error in  :", e)
             return 0  # FALSE
 
     @staticmethod

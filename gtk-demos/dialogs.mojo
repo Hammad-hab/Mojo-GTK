@@ -129,7 +129,7 @@ struct DialogDemos:
             if response_id == -3:  # GTK_RESPONSE_ACCEPT
                 var file = gtk_file_chooser_get_file(dialog)
                 # print("Got file:", file)
-                var path = g_file_get_path(file) 
+                var path = g_file_get_path(file)
                 
                 if path:
                     var path_str = ""

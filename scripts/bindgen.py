@@ -5,11 +5,17 @@ def define_type(ptype: str, rtypemode=False):
     param_type = ptype
     if ptype.startswith('int') and not ptype.endswith('*'):
             param_type = param_type.replace('int', 'Int')
+    elif ptype == "void*":
+            param_type = "LegacyUnsafePointer[NoneType]"
+    elif ptype == "void[]":
+            param_type = "List[NoneType]"
+    elif ptype == "void*[]":
+            param_type = "List[LegacyUnsafePointer[NoneType]]"
     elif ptype.startswith('uint') and not ptype.endswith('*'):
             param_type = param_type.replace('uint', 'UInt')
-    elif 'float' in ptype:
+    elif 'float' == ptype:
             param_type = 'Float32'
-    elif 'double' in ptype:
+    elif 'double' == ptype:
             param_type = 'Float64'
     elif 'char*' == ptype:
             param_type = "String"
@@ -22,6 +28,9 @@ def define_type(ptype: str, rtypemode=False):
             param_type = 'NoneType'
     elif 'boolean' in ptype:
             param_type = 'Bool'
+    elif ptype.endswith('[]'):
+        if 'GTKInterface' not in ptype:
+            param_type = f"List[{define_type(param_type.replace('[]', ''))}]"
     elif ptype.endswith('*'):
         if 'GTKInterface' not in ptype:
             param_type = f"LegacyUnsafePointer[{define_type(param_type.replace('*', ''))}]"
@@ -29,6 +38,7 @@ def define_type(ptype: str, rtypemode=False):
             param_type = ptype.replace('*', '')
     elif 'Widget' in ptype:
             param_type = 'GTKInterface'
+    
     return param_type
 
 

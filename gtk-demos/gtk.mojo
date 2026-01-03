@@ -323,7 +323,7 @@ struct GTKDBusAnnotationInfo:
 	var ref_count: Int32
 	var key: String
 	var value: String
-	var annotations: GTKDBusAnnotationInfo*[]
+	var annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]]
 
 @register_passable('trivial')
 @fieldwise_init
@@ -331,7 +331,7 @@ struct GTKDBusArgInfo:
 	var ref_count: Int32
 	var name: String
 	var signature: String
-	var annotations: GTKDBusAnnotationInfo*[]
+	var annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]]
 
 @register_passable
 struct GTKDBusConnectionFlags:
@@ -360,17 +360,17 @@ struct GTKDBusCapabilityFlags:
 struct GTKDBusMethodInfo:
 	var ref_count: Int32
 	var name: String
-	var in_args: GTKDBusArgInfo*[]
-	var out_args: GTKDBusArgInfo*[]
-	var annotations: GTKDBusAnnotationInfo*[]
+	var in_args: List[LegacyUnsafePointer[GTKDBusArgInfo]]
+	var out_args: List[LegacyUnsafePointer[GTKDBusArgInfo]]
+	var annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]]
 
 @register_passable('trivial')
 @fieldwise_init
 struct GTKDBusSignalInfo:
 	var ref_count: Int32
 	var name: String
-	var args: GTKDBusArgInfo*[]
-	var annotations: GTKDBusAnnotationInfo*[]
+	var args: List[LegacyUnsafePointer[GTKDBusArgInfo]]
+	var annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]]
 
 @register_passable
 struct GTKDBusPropertyInfoFlags:
@@ -385,17 +385,17 @@ struct GTKDBusPropertyInfo:
 	var name: String
 	var signature: String
 	var flags: Enum-GTKDBusPropertyInfoFlags
-	var annotations: GTKDBusAnnotationInfo*[]
+	var annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]]
 
 @register_passable('trivial')
 @fieldwise_init
 struct GTKDBusInterfaceInfo:
 	var ref_count: Int32
 	var name: String
-	var methods: GTKDBusMethodInfo*[]
-	var signals: GTKDBusSignalInfo*[]
-	var properties: GTKDBusPropertyInfo*[]
-	var annotations: GTKDBusAnnotationInfo*[]
+	var methods: List[LegacyUnsafePointer[GTKDBusMethodInfo]]
+	var signals: List[LegacyUnsafePointer[GTKDBusSignalInfo]]
+	var properties: List[LegacyUnsafePointer[GTKDBusPropertyInfo]]
+	var annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]]
 
 @register_passable('trivial')
 @fieldwise_init
@@ -403,7 +403,7 @@ struct GTKDBusSubtreeVTable:
 	var enumerate: GTKInterface
 	var introspect: GTKInterface
 	var dispatch: GTKInterface
-	var padding: void[]
+	var padding: List[NoneType]
 
 @register_passable
 struct GTKDBusSubtreeFlags:
@@ -440,7 +440,7 @@ struct GTKDBusInterfaceVTable:
 	var method_call: GTKInterface
 	var get_property: GTKInterface
 	var set_property: GTKInterface
-	var padding: void[]
+	var padding: List[NoneType]
 
 @register_passable
 struct GTKDBusMessageByteOrder:
@@ -480,9 +480,9 @@ struct GTKDBusMessageType:
 struct GTKDBusNodeInfo:
 	var ref_count: Int32
 	var path: String
-	var interfaces: GTKDBusInterfaceInfo*[]
-	var nodes: GTKDBusNodeInfo*[]
-	var annotations: GTKDBusAnnotationInfo*[]
+	var interfaces: List[LegacyUnsafePointer[GTKDBusInterfaceInfo]]
+	var nodes: List[LegacyUnsafePointer[GTKDBusNodeInfo]]
+	var annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]]
 
 @register_passable
 struct GTKBusType:
@@ -545,7 +545,7 @@ struct GTKInputVector:
 @fieldwise_init
 struct GTKInputMessage:
 	var address: GTKInterface
-	var vectors: GTKInputVector[]
+	var vectors: List[GTKInputVector]
 	var num_vectors: UInt32
 	var bytes_received: UInt64
 	var flags: Int32
@@ -1235,7 +1235,7 @@ comptime GTKBitset = LegacyUnsafePointer[NoneType]
 @register_passable('trivial')
 @fieldwise_init
 struct GTKBitsetIter:
-	var private_data: void[]
+	var private_data: List[NoneType]
 
 @register_passable('trivial')
 @fieldwise_init
@@ -1263,7 +1263,7 @@ struct GTKBuildableParser:
 	var end_element: GTKInterface
 	var text: GTKInterface
 	var error: GTKInterface
-	var padding: void[]
+	var padding: List[NoneType]
 
 @register_passable
 struct GTKBuilderClosureFlags:
@@ -1613,7 +1613,7 @@ struct GTKAxisFlags:
 struct GTKTimeCoord:
 	var time: UInt32
 	var flags: Enum-GTKAxisFlags
-	var axes: Float64
+	var axes: List[Float64]
 
 @register_passable
 struct GTKGraphicsOffloadEnabled:
@@ -1941,7 +1941,7 @@ struct GTKRect:
 @fieldwise_init
 struct GTKRoundedRect:
 	var bounds: GTKRect
-	var corner: GTKSize[]
+	var corner: List[GTKSize]
 
 @register_passable('trivial')
 @fieldwise_init
@@ -2339,7 +2339,7 @@ struct GTKHookList:
 	var hooks: LegacyUnsafePointer[GTKHook]
 	var dummy3: LegacyUnsafePointer[ParameterNULL]
 	var finalize_hook: GTKInterface
-	var dummy: void[]
+	var dummy: List[NoneType]
 
 @register_passable('trivial')
 @fieldwise_init
@@ -2490,7 +2490,7 @@ struct GTKTraverseType:
 @register_passable('trivial')
 @fieldwise_init
 struct GTKPathBuf:
-	var dummy: void[]
+	var dummy: List[NoneType]
 
 comptime GTKPatternSpec = LegacyUnsafePointer[NoneType]
 
@@ -3161,7 +3161,7 @@ fn g_closure_sink(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_closure_sink", NoneType](self,)
 fn g_closure_unref(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_closure_unref", NoneType](self,)
-fn g_object_newv(n_parameters: UInt32, parameters: GTKParameter[], ) raises -> GTKInterface:
+fn g_object_newv(n_parameters: UInt32, parameters: List[GTKParameter], ) raises -> GTKInterface:
 	return external_call["g_object_newv", GTKInterface](n_parameters, parameters,)
 fn g_object_compat_control(what: UInt64, data: LegacyUnsafePointer[ParameterNULL], ) raises -> UInt64:
 	return external_call["g_object_compat_control", UInt64](what, data,)
@@ -3350,15 +3350,15 @@ fn g_type_interface_instantiatable_prerequisite() raises -> NoneType:
 	return external_call["g_type_interface_instantiatable_prerequisite", NoneType]()
 fn g_type_interface_peek(instance_class: GTKInterface, ) raises -> GTKInterface:
 	return external_call["g_type_interface_peek", GTKInterface](instance_class,)
-fn g_type_interface_prerequisites(n_prerequisites: LegacyUnsafePointer[UInt32], ) raises -> void*[]:
-	return external_call["g_type_interface_prerequisites", void*[]](n_prerequisites,)
+fn g_type_interface_prerequisites(n_prerequisites: LegacyUnsafePointer[UInt32], ) raises -> List[LegacyUnsafePointer[NoneType]]:
+	return external_call["g_type_interface_prerequisites", List[LegacyUnsafePointer[NoneType]]](n_prerequisites,)
 fn g_type_module_add_interface(self: GTKInterface, interface_info: GTKInterfaceInfo, ) raises -> NoneType:
 	return external_call["g_type_module_add_interface", NoneType](self, interface_info,)
-fn g_type_module_register_enum(self: GTKInterface, name: String, const_static_values: GTKEnumValue[], ) raises -> NoneType:
+fn g_type_module_register_enum(self: GTKInterface, name: String, const_static_values: List[GTKEnumValue], ) raises -> NoneType:
 	var slc_cstr_name = StringSlice(name + " ")
 	var cstr_name = CStringSlice(slc_cstr_name)
 	return external_call["g_type_module_register_enum", NoneType](self, cstr_name, const_static_values,)
-fn g_type_module_register_flags(self: GTKInterface, name: String, const_static_values: GTKFlagsValue[], ) raises -> NoneType:
+fn g_type_module_register_flags(self: GTKInterface, name: String, const_static_values: List[GTKFlagsValue], ) raises -> NoneType:
 	var slc_cstr_name = StringSlice(name + " ")
 	var cstr_name = CStringSlice(slc_cstr_name)
 	return external_call["g_type_module_register_flags", NoneType](self, cstr_name, const_static_values,)
@@ -3548,7 +3548,7 @@ fn g_boxed_type_register_static(name: String, boxed_copy: GTKInterface, boxed_fr
 	return external_call["g_boxed_type_register_static", NoneType](cstr_name, boxed_copy, boxed_free,)
 fn g_clear_signal_handler(handler_id_ptr: UInt64, instance: GTKInterface, ) raises -> NoneType:
 	return external_call["g_clear_signal_handler", NoneType](handler_id_ptr, instance,)
-fn g_enum_complete_type_info(info: LegacyUnsafePointer[GTKTypeInfo], const_values: GTKEnumValue[], ) raises -> NoneType:
+fn g_enum_complete_type_info(info: LegacyUnsafePointer[GTKTypeInfo], const_values: List[GTKEnumValue], ) raises -> NoneType:
 	return external_call["g_enum_complete_type_info", NoneType](info, const_values,)
 fn g_enum_get_value(enum_class: LegacyUnsafePointer[GTKEnumClass], value: Int32, ) raises -> LegacyUnsafePointer[GTKEnumValue]:
 	return external_call["g_enum_get_value", LegacyUnsafePointer[GTKEnumValue]](enum_class, value,)
@@ -3560,13 +3560,13 @@ fn g_enum_get_value_by_nick(enum_class: LegacyUnsafePointer[GTKEnumClass], nick:
 	var slc_cstr_nick = StringSlice(nick + " ")
 	var cstr_nick = CStringSlice(slc_cstr_nick)
 	return external_call["g_enum_get_value_by_nick", LegacyUnsafePointer[GTKEnumValue]](enum_class, cstr_nick,)
-fn g_enum_register_static(name: String, const_static_values: GTKEnumValue[], ) raises -> NoneType:
+fn g_enum_register_static(name: String, const_static_values: List[GTKEnumValue], ) raises -> NoneType:
 	var slc_cstr_name = StringSlice(name + " ")
 	var cstr_name = CStringSlice(slc_cstr_name)
 	return external_call["g_enum_register_static", NoneType](cstr_name, const_static_values,)
 fn g_enum_to_string(value: Int32, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["g_enum_to_string", LegacyUnsafePointer[c_char]](value,)
-fn g_flags_complete_type_info(info: LegacyUnsafePointer[GTKTypeInfo], const_values: GTKFlagsValue[], ) raises -> NoneType:
+fn g_flags_complete_type_info(info: LegacyUnsafePointer[GTKTypeInfo], const_values: List[GTKFlagsValue], ) raises -> NoneType:
 	return external_call["g_flags_complete_type_info", NoneType](info, const_values,)
 fn g_flags_get_first_value(flags_class: LegacyUnsafePointer[GTKFlagsClass], value: UInt32, ) raises -> LegacyUnsafePointer[GTKFlagsValue]:
 	return external_call["g_flags_get_first_value", LegacyUnsafePointer[GTKFlagsValue]](flags_class, value,)
@@ -3578,7 +3578,7 @@ fn g_flags_get_value_by_nick(flags_class: LegacyUnsafePointer[GTKFlagsClass], ni
 	var slc_cstr_nick = StringSlice(nick + " ")
 	var cstr_nick = CStringSlice(slc_cstr_nick)
 	return external_call["g_flags_get_value_by_nick", LegacyUnsafePointer[GTKFlagsValue]](flags_class, cstr_nick,)
-fn g_flags_register_static(name: String, const_static_values: GTKFlagsValue[], ) raises -> NoneType:
+fn g_flags_register_static(name: String, const_static_values: List[GTKFlagsValue], ) raises -> NoneType:
 	var slc_cstr_name = StringSlice(name + " ")
 	var cstr_name = CStringSlice(slc_cstr_name)
 	return external_call["g_flags_register_static", NoneType](cstr_name, const_static_values,)
@@ -3872,8 +3872,8 @@ fn g_type_check_value(value: GTKInterface, ) raises -> Bool:
 	return external_call["g_type_check_value", Bool](value,)
 fn g_type_check_value_holds(value: GTKInterface, ) raises -> Bool:
 	return external_call["g_type_check_value_holds", Bool](value,)
-fn g_type_children(n_children: LegacyUnsafePointer[UInt32], ) raises -> void*[]:
-	return external_call["g_type_children", void*[]](n_children,)
+fn g_type_children(n_children: LegacyUnsafePointer[UInt32], ) raises -> List[LegacyUnsafePointer[NoneType]]:
+	return external_call["g_type_children", List[LegacyUnsafePointer[NoneType]]](n_children,)
 fn g_type_default_interface_get() raises -> GTKInterface:
 	return external_call["g_type_default_interface_get", GTKInterface]()
 fn g_type_default_interface_peek() raises -> GTKInterface:
@@ -3908,8 +3908,8 @@ fn g_type_init() raises -> NoneType:
 	return external_call["g_type_init", NoneType]()
 fn g_type_init_with_debug_flags(debug_flags: Int32, ) raises -> NoneType:
 	return external_call["g_type_init_with_debug_flags", NoneType](debug_flags,)
-fn g_type_interfaces(n_interfaces: LegacyUnsafePointer[UInt32], ) raises -> void*[]:
-	return external_call["g_type_interfaces", void*[]](n_interfaces,)
+fn g_type_interfaces(n_interfaces: LegacyUnsafePointer[UInt32], ) raises -> List[LegacyUnsafePointer[NoneType]]:
+	return external_call["g_type_interfaces", List[LegacyUnsafePointer[NoneType]]](n_interfaces,)
 fn g_type_is_a() raises -> Bool:
 	return external_call["g_type_is_a", Bool]()
 fn g_type_name() raises -> LegacyUnsafePointer[c_char]:
@@ -4028,7 +4028,7 @@ fn g_action_group_query_action(self: GTKInterface, action_name: String, enabled:
 	return external_call["g_action_group_query_action", Bool](self, cstr_action_name, enabled, parameter_type, state_type, state_hint, state,)
 fn g_action_map_add_action(self: GTKInterface, action: GTKInterface, ) raises -> NoneType:
 	return external_call["g_action_map_add_action", NoneType](self, action,)
-fn g_action_map_add_action_entries(self: GTKInterface, entries: GTKActionEntry[], n_entries: Int32, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
+fn g_action_map_add_action_entries(self: GTKInterface, entries: List[GTKActionEntry], n_entries: Int32, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_action_map_add_action_entries", NoneType](self, entries, n_entries, user_data,)
 fn g_action_map_lookup_action(self: GTKInterface, action_name: String, ) raises -> GTKInterface:
 	var slc_cstr_action_name = StringSlice(action_name + " ")
@@ -4038,7 +4038,7 @@ fn g_action_map_remove_action(self: GTKInterface, action_name: String, ) raises 
 	var slc_cstr_action_name = StringSlice(action_name + " ")
 	var cstr_action_name = CStringSlice(slc_cstr_action_name)
 	return external_call["g_action_map_remove_action", NoneType](self, cstr_action_name,)
-fn g_action_map_remove_action_entries(self: GTKInterface, entries: GTKActionEntry[], n_entries: Int32, ) raises -> NoneType:
+fn g_action_map_remove_action_entries(self: GTKInterface, entries: List[GTKActionEntry], n_entries: Int32, ) raises -> NoneType:
 	return external_call["g_action_map_remove_action_entries", NoneType](self, entries, n_entries,)
 fn g_app_info_create_from_commandline(commandline: String, application_name: String, flags: Int32, ) raises -> GTKInterface:
 	var slc_cstr_commandline = StringSlice(commandline + " ")
@@ -4198,7 +4198,7 @@ fn g_application_add_main_option(self: GTKInterface, long_name: String, short_na
 	var slc_cstr_arg_description = StringSlice(arg_description + " ")
 	var cstr_arg_description = CStringSlice(slc_cstr_arg_description)
 	return external_call["g_application_add_main_option", NoneType](self, cstr_long_name, short_name, flags, arg, cstr_description, cstr_arg_description,)
-fn g_application_add_main_option_entries(self: GTKInterface, entries: GTKOptionEntry[], ) raises -> NoneType:
+fn g_application_add_main_option_entries(self: GTKInterface, entries: List[GTKOptionEntry], ) raises -> NoneType:
 	return external_call["g_application_add_main_option_entries", NoneType](self, entries,)
 fn g_application_add_option_group(self: GTKInterface, group: LegacyUnsafePointer[GTKOptionGroup], ) raises -> NoneType:
 	return external_call["g_application_add_option_group", NoneType](self, group,)
@@ -4463,7 +4463,7 @@ fn g_dbus_annotation_info_ref(self: GTKInterface, ) raises -> LegacyUnsafePointe
 	return external_call["g_dbus_annotation_info_ref", LegacyUnsafePointer[GTKDBusAnnotationInfo]](self,)
 fn g_dbus_annotation_info_unref(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_dbus_annotation_info_unref", NoneType](self,)
-fn g_dbus_annotation_info_lookup(annotations: GTKDBusAnnotationInfo*[], name: String, ) raises -> LegacyUnsafePointer[c_char]:
+fn g_dbus_annotation_info_lookup(annotations: List[LegacyUnsafePointer[GTKDBusAnnotationInfo]], name: String, ) raises -> LegacyUnsafePointer[c_char]:
 	var slc_cstr_name = StringSlice(name + " ")
 	var cstr_name = CStringSlice(slc_cstr_name)
 	return external_call["g_dbus_annotation_info_lookup", LegacyUnsafePointer[c_char]](annotations, cstr_name,)
@@ -5179,9 +5179,9 @@ fn g_datagram_based_condition_wait(self: GTKInterface, condition: Int32, timeout
 	return external_call["g_datagram_based_condition_wait", Bool](self, condition, timeout, cancellable,)
 fn g_datagram_based_create_source(self: GTKInterface, condition: Int32, cancellable: GTKInterface, ) raises -> GTKInterface:
 	return external_call["g_datagram_based_create_source", GTKInterface](self, condition, cancellable,)
-fn g_datagram_based_receive_messages(self: GTKInterface, messages: GTKInputMessage[], num_messages: UInt32, flags: Int32, timeout: Int64, cancellable: GTKInterface, ) raises -> Int32:
+fn g_datagram_based_receive_messages(self: GTKInterface, messages: List[GTKInputMessage], num_messages: UInt32, flags: Int32, timeout: Int64, cancellable: GTKInterface, ) raises -> Int32:
 	return external_call["g_datagram_based_receive_messages", Int32](self, messages, num_messages, flags, timeout, cancellable,)
-fn g_datagram_based_send_messages(self: GTKInterface, messages: GTKOutputMessage[], num_messages: UInt32, flags: Int32, timeout: Int64, cancellable: GTKInterface, ) raises -> Int32:
+fn g_datagram_based_send_messages(self: GTKInterface, messages: List[GTKOutputMessage], num_messages: UInt32, flags: Int32, timeout: Int64, cancellable: GTKInterface, ) raises -> Int32:
 	return external_call["g_datagram_based_send_messages", Int32](self, messages, num_messages, flags, timeout, cancellable,)
 fn g_debug_controller_get_debug_enabled(self: GTKInterface, ) raises -> Bool:
 	return external_call["g_debug_controller_get_debug_enabled", Bool](self,)
@@ -5807,7 +5807,7 @@ fn g_file_info_get_attribute_byte_string(self: GTKInterface, attribute: String, 
 	var slc_cstr_attribute = StringSlice(attribute + " ")
 	var cstr_attribute = CStringSlice(slc_cstr_attribute)
 	return external_call["g_file_info_get_attribute_byte_string", LegacyUnsafePointer[c_char]](self, cstr_attribute,)
-fn g_file_info_get_attribute_data(self: GTKInterface, attribute: String, type: Int32, value_pp: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], status: Int32, ) raises -> Bool:
+fn g_file_info_get_attribute_data(self: GTKInterface, attribute: String, type: Int32, value_pp: LegacyUnsafePointer[NoneType], status: Int32, ) raises -> Bool:
 	var slc_cstr_attribute = StringSlice(attribute + " ")
 	var cstr_attribute = CStringSlice(slc_cstr_attribute)
 	return external_call["g_file_info_get_attribute_data", Bool](self, cstr_attribute, type, value_pp, status,)
@@ -6222,7 +6222,7 @@ fn g_inet_socket_address_get_port(self: GTKInterface, ) raises -> UInt16:
 	return external_call["g_inet_socket_address_get_port", UInt16](self,)
 fn g_inet_socket_address_get_scope_id(self: GTKInterface, ) raises -> UInt32:
 	return external_call["g_inet_socket_address_get_scope_id", UInt32](self,)
-fn g_initable_newv(n_parameters: UInt32, parameters: GTKParameter[], cancellable: GTKInterface, ) raises -> GTKInterface:
+fn g_initable_newv(n_parameters: UInt32, parameters: List[GTKParameter], cancellable: GTKInterface, ) raises -> GTKInterface:
 	return external_call["g_initable_newv", GTKInterface](n_parameters, parameters, cancellable,)
 fn g_initable_init(self: GTKInterface, cancellable: GTKInterface, ) raises -> Bool:
 	return external_call["g_initable_init", Bool](self, cancellable,)
@@ -6710,15 +6710,15 @@ fn g_output_stream_write_bytes_finish(self: GTKInterface, result: GTKInterface, 
 	return external_call["g_output_stream_write_bytes_finish", Int64](self, result,)
 fn g_output_stream_write_finish(self: GTKInterface, result: GTKInterface, ) raises -> Int64:
 	return external_call["g_output_stream_write_finish", Int64](self, result,)
-fn g_output_stream_writev(self: GTKInterface, vectors: GTKOutputVector[], n_vectors: UInt64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Bool:
+fn g_output_stream_writev(self: GTKInterface, vectors: List[GTKOutputVector], n_vectors: UInt64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Bool:
 	return external_call["g_output_stream_writev", Bool](self, vectors, n_vectors, bytes_written, cancellable,)
-fn g_output_stream_writev_all(self: GTKInterface, vectors: GTKOutputVector[], n_vectors: UInt64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Bool:
+fn g_output_stream_writev_all(self: GTKInterface, vectors: List[GTKOutputVector], n_vectors: UInt64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Bool:
 	return external_call["g_output_stream_writev_all", Bool](self, vectors, n_vectors, bytes_written, cancellable,)
-fn g_output_stream_writev_all_async(self: GTKInterface, vectors: GTKOutputVector[], n_vectors: UInt64, io_priority: Int32, cancellable: GTKInterface, callback: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
+fn g_output_stream_writev_all_async(self: GTKInterface, vectors: List[GTKOutputVector], n_vectors: UInt64, io_priority: Int32, cancellable: GTKInterface, callback: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_output_stream_writev_all_async", NoneType](self, vectors, n_vectors, io_priority, cancellable, callback, user_data,)
 fn g_output_stream_writev_all_finish(self: GTKInterface, result: GTKInterface, bytes_written: LegacyUnsafePointer[UInt64], ) raises -> Bool:
 	return external_call["g_output_stream_writev_all_finish", Bool](self, result, bytes_written,)
-fn g_output_stream_writev_async(self: GTKInterface, vectors: GTKOutputVector[], n_vectors: UInt64, io_priority: Int32, cancellable: GTKInterface, callback: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
+fn g_output_stream_writev_async(self: GTKInterface, vectors: List[GTKOutputVector], n_vectors: UInt64, io_priority: Int32, cancellable: GTKInterface, callback: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_output_stream_writev_async", NoneType](self, vectors, n_vectors, io_priority, cancellable, callback, user_data,)
 fn g_output_stream_writev_finish(self: GTKInterface, result: GTKInterface, bytes_written: LegacyUnsafePointer[UInt64], ) raises -> Bool:
 	return external_call["g_output_stream_writev_finish", Bool](self, result, bytes_written,)
@@ -6758,7 +6758,7 @@ fn g_pollable_output_stream_is_writable(self: GTKInterface, ) raises -> Bool:
 	return external_call["g_pollable_output_stream_is_writable", Bool](self,)
 fn g_pollable_output_stream_write_nonblocking(self: GTKInterface, buffer: UInt8[], count: UInt64, cancellable: GTKInterface, ) raises -> Int64:
 	return external_call["g_pollable_output_stream_write_nonblocking", Int64](self, buffer, count, cancellable,)
-fn g_pollable_output_stream_writev_nonblocking(self: GTKInterface, vectors: GTKOutputVector[], n_vectors: UInt64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Enum-GTKPollableReturn:
+fn g_pollable_output_stream_writev_nonblocking(self: GTKInterface, vectors: List[GTKOutputVector], n_vectors: UInt64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Enum-GTKPollableReturn:
 	return external_call["g_pollable_output_stream_writev_nonblocking", Enum-GTKPollableReturn](self, vectors, n_vectors, bytes_written, cancellable,)
 fn g_power_profile_monitor_dup_default() raises -> GTKInterface:
 	return external_call["g_power_profile_monitor_dup_default", GTKInterface]()
@@ -7131,7 +7131,7 @@ fn g_settings_set_value(self: GTKInterface, key: String, value: LegacyUnsafePoin
 	var slc_cstr_key = StringSlice(key + " ")
 	var cstr_key = CStringSlice(slc_cstr_key)
 	return external_call["g_settings_set_value", Bool](self, cstr_key, value,)
-fn g_settings_backend_flatten_tree(tree: LegacyUnsafePointer[GTKTree], path: LegacyUnsafePointer[char], keys: LegacyUnsafePointer[char[]], values: LegacyUnsafePointer[GTKVariant[]], ) raises -> NoneType:
+fn g_settings_backend_flatten_tree(tree: LegacyUnsafePointer[GTKTree], path: LegacyUnsafePointer[char], keys: LegacyUnsafePointer[List[char]], values: LegacyUnsafePointer[List[GTKVariant]], ) raises -> NoneType:
 	return external_call["g_settings_backend_flatten_tree", NoneType](tree, path, keys, values,)
 fn g_settings_backend_get_default() raises -> GTKInterface:
 	return external_call["g_settings_backend_get_default", GTKInterface]()
@@ -7206,7 +7206,7 @@ fn g_settings_schema_source_new_from_directory(directory: String, parent: Legacy
 	var slc_cstr_directory = StringSlice(directory + " ")
 	var cstr_directory = CStringSlice(slc_cstr_directory)
 	return external_call["g_settings_schema_source_new_from_directory", LegacyUnsafePointer[GTKSettingsSchemaSource]](cstr_directory, parent, trusted,)
-fn g_settings_schema_source_list_schemas(self: GTKInterface, recursive: Bool, non_relocatable: LegacyUnsafePointer[char[]], relocatable: LegacyUnsafePointer[char[]], ) raises -> NoneType:
+fn g_settings_schema_source_list_schemas(self: GTKInterface, recursive: Bool, non_relocatable: LegacyUnsafePointer[List[char]], relocatable: LegacyUnsafePointer[List[char]], ) raises -> NoneType:
 	return external_call["g_settings_schema_source_list_schemas", NoneType](self, recursive, non_relocatable, relocatable,)
 fn g_settings_schema_source_lookup(self: GTKInterface, schema_id: String, recursive: Bool, ) raises -> LegacyUnsafePointer[GTKSettingsSchema]:
 	var slc_cstr_schema_id = StringSlice(schema_id + " ")
@@ -7234,7 +7234,7 @@ fn g_simple_action_set_state_hint(self: GTKInterface, state_hint: LegacyUnsafePo
 	return external_call["g_simple_action_set_state_hint", NoneType](self, state_hint,)
 fn g_simple_action_group_new() raises -> GTKInterface:
 	return external_call["g_simple_action_group_new", GTKInterface]()
-fn g_simple_action_group_add_entries(self: GTKInterface, entries: GTKActionEntry[], n_entries: Int32, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
+fn g_simple_action_group_add_entries(self: GTKInterface, entries: List[GTKActionEntry], n_entries: Int32, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_simple_action_group_add_entries", NoneType](self, entries, n_entries, user_data,)
 fn g_simple_action_group_insert(self: GTKInterface, action: GTKInterface, ) raises -> NoneType:
 	return external_call["g_simple_action_group_insert", NoneType](self, action,)
@@ -7392,19 +7392,19 @@ fn g_socket_receive_bytes_from(self: GTKInterface, address: GTKInterface, size: 
 	return external_call["g_socket_receive_bytes_from", LegacyUnsafePointer[GTKBytes]](self, address, size, timeout_us, cancellable,)
 fn g_socket_receive_from(self: GTKInterface, address: GTKInterface, buffer: LegacyUnsafePointer[UInt8[]], size: UInt64, cancellable: GTKInterface, ) raises -> Int64:
 	return external_call["g_socket_receive_from", Int64](self, address, buffer, size, cancellable,)
-fn g_socket_receive_message(self: GTKInterface, address: GTKInterface, vectors: GTKInputVector[], num_vectors: Int32, messages: GTKInterface[], num_messages: LegacyUnsafePointer[Int32], flags: LegacyUnsafePointer[Int32], cancellable: GTKInterface, ) raises -> Int64:
+fn g_socket_receive_message(self: GTKInterface, address: GTKInterface, vectors: List[GTKInputVector], num_vectors: Int32, messages: GTKInterface[], num_messages: LegacyUnsafePointer[Int32], flags: LegacyUnsafePointer[Int32], cancellable: GTKInterface, ) raises -> Int64:
 	return external_call["g_socket_receive_message", Int64](self, address, vectors, num_vectors, messages, num_messages, flags, cancellable,)
-fn g_socket_receive_messages(self: GTKInterface, messages: GTKInputMessage[], num_messages: UInt32, flags: Int32, cancellable: GTKInterface, ) raises -> Int32:
+fn g_socket_receive_messages(self: GTKInterface, messages: List[GTKInputMessage], num_messages: UInt32, flags: Int32, cancellable: GTKInterface, ) raises -> Int32:
 	return external_call["g_socket_receive_messages", Int32](self, messages, num_messages, flags, cancellable,)
 fn g_socket_receive_with_blocking(self: GTKInterface, buffer: LegacyUnsafePointer[UInt8[]], size: UInt64, blocking: Bool, cancellable: GTKInterface, ) raises -> Int64:
 	return external_call["g_socket_receive_with_blocking", Int64](self, buffer, size, blocking, cancellable,)
 fn g_socket_send(self: GTKInterface, buffer: UInt8[], size: UInt64, cancellable: GTKInterface, ) raises -> Int64:
 	return external_call["g_socket_send", Int64](self, buffer, size, cancellable,)
-fn g_socket_send_message(self: GTKInterface, address: GTKInterface, vectors: GTKOutputVector[], num_vectors: Int32, messages: GTKInterface[], num_messages: Int32, flags: Int32, cancellable: GTKInterface, ) raises -> Int64:
+fn g_socket_send_message(self: GTKInterface, address: GTKInterface, vectors: List[GTKOutputVector], num_vectors: Int32, messages: GTKInterface[], num_messages: Int32, flags: Int32, cancellable: GTKInterface, ) raises -> Int64:
 	return external_call["g_socket_send_message", Int64](self, address, vectors, num_vectors, messages, num_messages, flags, cancellable,)
-fn g_socket_send_message_with_timeout(self: GTKInterface, address: GTKInterface, vectors: GTKOutputVector[], num_vectors: Int32, messages: GTKInterface[], num_messages: Int32, flags: Int32, timeout_us: Int64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Enum-GTKPollableReturn:
+fn g_socket_send_message_with_timeout(self: GTKInterface, address: GTKInterface, vectors: List[GTKOutputVector], num_vectors: Int32, messages: GTKInterface[], num_messages: Int32, flags: Int32, timeout_us: Int64, bytes_written: LegacyUnsafePointer[UInt64], cancellable: GTKInterface, ) raises -> Enum-GTKPollableReturn:
 	return external_call["g_socket_send_message_with_timeout", Enum-GTKPollableReturn](self, address, vectors, num_vectors, messages, num_messages, flags, timeout_us, bytes_written, cancellable,)
-fn g_socket_send_messages(self: GTKInterface, messages: GTKOutputMessage[], num_messages: UInt32, flags: Int32, cancellable: GTKInterface, ) raises -> Int32:
+fn g_socket_send_messages(self: GTKInterface, messages: List[GTKOutputMessage], num_messages: UInt32, flags: Int32, cancellable: GTKInterface, ) raises -> Int32:
 	return external_call["g_socket_send_messages", Int32](self, messages, num_messages, flags, cancellable,)
 fn g_socket_send_to(self: GTKInterface, address: GTKInterface, buffer: UInt8[], size: UInt64, cancellable: GTKInterface, ) raises -> Int64:
 	return external_call["g_socket_send_to", Int64](self, address, buffer, size, cancellable,)
@@ -7926,8 +7926,8 @@ fn g_tls_certificate_list_new_from_file(file: String, ) raises -> NoneType:
 	var slc_cstr_file = StringSlice(file + " ")
 	var cstr_file = CStringSlice(slc_cstr_file)
 	return external_call["g_tls_certificate_list_new_from_file", NoneType](cstr_file,)
-fn g_tls_certificate_get_dns_names(self: GTKInterface, ) raises -> GTKBytes[]:
-	return external_call["g_tls_certificate_get_dns_names", GTKBytes[]](self,)
+fn g_tls_certificate_get_dns_names(self: GTKInterface, ) raises -> List[GTKBytes]:
+	return external_call["g_tls_certificate_get_dns_names", List[GTKBytes]](self,)
 fn g_tls_certificate_get_ip_addresses(self: GTKInterface, ) raises -> GTKInterface[]:
 	return external_call["g_tls_certificate_get_ip_addresses", GTKInterface[]](self,)
 fn g_tls_certificate_get_issuer(self: GTKInterface, ) raises -> GTKInterface:
@@ -8382,7 +8382,7 @@ fn g_dbus_error_register_error(error_domain: UInt32, error_code: Int32, dbus_err
 	var slc_cstr_dbus_error_name = StringSlice(dbus_error_name + " ")
 	var cstr_dbus_error_name = CStringSlice(slc_cstr_dbus_error_name)
 	return external_call["g_dbus_error_register_error", Bool](error_domain, error_code, cstr_dbus_error_name,)
-fn g_dbus_error_register_error_domain(error_domain_quark_name: String, quark_volatile: UInt64, entries: GTKDBusErrorEntry[], num_entries: UInt32, ) raises -> NoneType:
+fn g_dbus_error_register_error_domain(error_domain_quark_name: String, quark_volatile: UInt64, entries: List[GTKDBusErrorEntry], num_entries: UInt32, ) raises -> NoneType:
 	var slc_cstr_error_domain_quark_name = StringSlice(error_domain_quark_name + " ")
 	var cstr_error_domain_quark_name = CStringSlice(slc_cstr_error_domain_quark_name)
 	return external_call["g_dbus_error_register_error_domain", NoneType](cstr_error_domain_quark_name, quark_volatile, entries, num_entries,)
@@ -9557,7 +9557,7 @@ fn gtk_cell_renderer_activate(self: GTKInterface, event: GTKInterface, widget: G
 	return external_call["gtk_cell_renderer_activate", Bool](self, event, widget, cstr_path, background_area, cell_area, flags,)
 fn gtk_cell_renderer_get_aligned_area(self: GTKInterface, widget: GTKInterface, flags: Int32, cell_area: LegacyUnsafePointer[GTKRectangle], aligned_area: LegacyUnsafePointer[GTKRectangle], ) raises -> NoneType:
 	return external_call["gtk_cell_renderer_get_aligned_area", NoneType](self, widget, flags, cell_area, aligned_area,)
-fn gtk_cell_renderer_get_alignment(self: GTKInterface, xalign: Float32, yalign: Float32, ) raises -> NoneType:
+fn gtk_cell_renderer_get_alignment(self: GTKInterface, xalign: LegacyUnsafePointer[Float32], yalign: LegacyUnsafePointer[Float32], ) raises -> NoneType:
 	return external_call["gtk_cell_renderer_get_alignment", NoneType](self, xalign, yalign,)
 fn gtk_cell_renderer_get_fixed_size(self: GTKInterface, width: LegacyUnsafePointer[Int32], height: LegacyUnsafePointer[Int32], ) raises -> NoneType:
 	return external_call["gtk_cell_renderer_get_fixed_size", NoneType](self, width, height,)
@@ -9767,7 +9767,7 @@ fn gtk_color_button_set_title(self: GTKInterface, title: String, ) raises -> Non
 	var slc_cstr_title = StringSlice(title + " ")
 	var cstr_title = CStringSlice(slc_cstr_title)
 	return external_call["gtk_color_button_set_title", NoneType](self, cstr_title,)
-fn gtk_color_chooser_add_palette(self: GTKInterface, orientation: Int32, colors_per_line: Int32, n_colors: Int32, colors: GTKRGBA[], ) raises -> NoneType:
+fn gtk_color_chooser_add_palette(self: GTKInterface, orientation: Int32, colors_per_line: Int32, n_colors: Int32, colors: List[GTKRGBA], ) raises -> NoneType:
 	return external_call["gtk_color_chooser_add_palette", NoneType](self, orientation, colors_per_line, n_colors, colors,)
 fn gtk_color_chooser_get_rgba(self: GTKInterface, color: LegacyUnsafePointer[GTKRGBA], ) raises -> NoneType:
 	return external_call["gtk_color_chooser_get_rgba", NoneType](self, color,)
@@ -10353,8 +10353,8 @@ fn gtk_drop_target_get_drop(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_drop_target_get_drop", GTKInterface](self,)
 fn gtk_drop_target_get_formats(self: GTKInterface, ) raises -> LegacyUnsafePointer[GTKContentFormats]:
 	return external_call["gtk_drop_target_get_formats", LegacyUnsafePointer[GTKContentFormats]](self,)
-fn gtk_drop_target_get_gtypes(self: GTKInterface, n_types: LegacyUnsafePointer[UInt64], ) raises -> void*[]:
-	return external_call["gtk_drop_target_get_gtypes", void*[]](self, n_types,)
+fn gtk_drop_target_get_gtypes(self: GTKInterface, n_types: LegacyUnsafePointer[UInt64], ) raises -> List[LegacyUnsafePointer[NoneType]]:
+	return external_call["gtk_drop_target_get_gtypes", List[LegacyUnsafePointer[NoneType]]](self, n_types,)
 fn gtk_drop_target_get_preload(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_drop_target_get_preload", Bool](self,)
 fn gtk_drop_target_get_value(self: GTKInterface, ) raises -> GTKInterface:
@@ -10363,7 +10363,7 @@ fn gtk_drop_target_reject(self: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_drop_target_reject", NoneType](self,)
 fn gtk_drop_target_set_actions(self: GTKInterface, actions: Int32, ) raises -> NoneType:
 	return external_call["gtk_drop_target_set_actions", NoneType](self, actions,)
-fn gtk_drop_target_set_gtypes(self: GTKInterface, types: void*[], n_types: UInt64, ) raises -> NoneType:
+fn gtk_drop_target_set_gtypes(self: GTKInterface, types: List[LegacyUnsafePointer[NoneType]], n_types: UInt64, ) raises -> NoneType:
 	return external_call["gtk_drop_target_set_gtypes", NoneType](self, types, n_types,)
 fn gtk_drop_target_set_preload(self: GTKInterface, preload: Bool, ) raises -> NoneType:
 	return external_call["gtk_drop_target_set_preload", NoneType](self, preload,)
@@ -10907,8 +10907,10 @@ fn gtk_file_dialog_get_modal(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_file_dialog_get_modal", Bool](self,)
 fn gtk_file_dialog_get_title(self: GTKInterface, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["gtk_file_dialog_get_title", LegacyUnsafePointer[c_char]](self,)
+	
 fn gtk_file_dialog_open(self: GTKInterface, parent: GTKInterface, cancellable: GTKInterface, callback: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["gtk_file_dialog_open", NoneType](self, parent, cancellable, callback, user_data,)
+
 fn gtk_file_dialog_open_finish(self: GTKInterface, result: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_file_dialog_open_finish", GTKInterface](self, result,)
 fn gtk_file_dialog_open_multiple(self: GTKInterface, parent: GTKInterface, cancellable: GTKInterface, callback: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
@@ -11039,7 +11041,7 @@ fn gtk_filter_list_model_set_watch_items(self: GTKInterface, watch_items: Bool, 
 	return external_call["gtk_filter_list_model_set_watch_items", NoneType](self, watch_items,)
 fn gtk_fixed_new() raises -> GTKInterface:
 	return external_call["gtk_fixed_new", GTKInterface]()
-fn gtk_fixed_get_child_position(self: GTKInterface, widget: GTKInterface, x: Float64, y: Float64, ) raises -> NoneType:
+fn gtk_fixed_get_child_position(self: GTKInterface, widget: GTKInterface, x: LegacyUnsafePointer[Float64], y: LegacyUnsafePointer[Float64], ) raises -> NoneType:
 	return external_call["gtk_fixed_get_child_position", NoneType](self, widget, x, y,)
 fn gtk_fixed_get_child_transform(self: GTKInterface, widget: GTKInterface, ) raises -> LegacyUnsafePointer[GTKTransform]:
 	return external_call["gtk_fixed_get_child_transform", LegacyUnsafePointer[GTKTransform]](self, widget,)
@@ -11357,7 +11359,7 @@ fn gtk_gl_area_set_use_es(self: GTKInterface, use_es: Bool, ) raises -> NoneType
 	return external_call["gtk_gl_area_set_use_es", NoneType](self, use_es,)
 fn gtk_gesture_get_bounding_box(self: GTKInterface, rect: LegacyUnsafePointer[GTKRectangle], ) raises -> Bool:
 	return external_call["gtk_gesture_get_bounding_box", Bool](self, rect,)
-fn gtk_gesture_get_bounding_box_center(self: GTKInterface, x: Float64, y: Float64, ) raises -> Bool:
+fn gtk_gesture_get_bounding_box_center(self: GTKInterface, x: LegacyUnsafePointer[Float64], y: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_gesture_get_bounding_box_center", Bool](self, x, y,)
 fn gtk_gesture_get_device(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_gesture_get_device", GTKInterface](self,)
@@ -11367,7 +11369,7 @@ fn gtk_gesture_get_last_event(self: GTKInterface, sequence: LegacyUnsafePointer[
 	return external_call["gtk_gesture_get_last_event", GTKInterface](self, sequence,)
 fn gtk_gesture_get_last_updated_sequence(self: GTKInterface, ) raises -> LegacyUnsafePointer[GTKEventSequence]:
 	return external_call["gtk_gesture_get_last_updated_sequence", LegacyUnsafePointer[GTKEventSequence]](self,)
-fn gtk_gesture_get_point(self: GTKInterface, sequence: LegacyUnsafePointer[GTKEventSequence], x: Float64, y: Float64, ) raises -> Bool:
+fn gtk_gesture_get_point(self: GTKInterface, sequence: LegacyUnsafePointer[GTKEventSequence], x: LegacyUnsafePointer[Float64], y: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_gesture_get_point", Bool](self, sequence, x, y,)
 fn gtk_gesture_get_sequence_state(self: GTKInterface, sequence: LegacyUnsafePointer[GTKEventSequence], ) raises -> Enum-GTKEventSequenceState:
 	return external_call["gtk_gesture_get_sequence_state", Enum-GTKEventSequenceState](self, sequence,)
@@ -11393,9 +11395,9 @@ fn gtk_gesture_click_new() raises -> GTKInterface:
 	return external_call["gtk_gesture_click_new", GTKInterface]()
 fn gtk_gesture_drag_new() raises -> GTKInterface:
 	return external_call["gtk_gesture_drag_new", GTKInterface]()
-fn gtk_gesture_drag_get_offset(self: GTKInterface, x: Float64, y: Float64, ) raises -> Bool:
+fn gtk_gesture_drag_get_offset(self: GTKInterface, x: LegacyUnsafePointer[Float64], y: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_gesture_drag_get_offset", Bool](self, x, y,)
-fn gtk_gesture_drag_get_start_point(self: GTKInterface, x: Float64, y: Float64, ) raises -> Bool:
+fn gtk_gesture_drag_get_start_point(self: GTKInterface, x: LegacyUnsafePointer[Float64], y: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_gesture_drag_get_start_point", Bool](self, x, y,)
 fn gtk_gesture_long_press_new() raises -> GTKInterface:
 	return external_call["gtk_gesture_long_press_new", GTKInterface]()
@@ -11431,11 +11433,11 @@ fn gtk_gesture_single_set_touch_only(self: GTKInterface, touch_only: Bool, ) rai
 	return external_call["gtk_gesture_single_set_touch_only", NoneType](self, touch_only,)
 fn gtk_gesture_stylus_new() raises -> GTKInterface:
 	return external_call["gtk_gesture_stylus_new", GTKInterface]()
-fn gtk_gesture_stylus_get_axes(self: GTKInterface, axes: Int32, values: Float64, ) raises -> Bool:
+fn gtk_gesture_stylus_get_axes(self: GTKInterface, axes: Int32, values: LegacyUnsafePointer[List[Float64]], ) raises -> Bool:
 	return external_call["gtk_gesture_stylus_get_axes", Bool](self, axes, values,)
-fn gtk_gesture_stylus_get_axis(self: GTKInterface, axis: Int32, value: Float64, ) raises -> Bool:
+fn gtk_gesture_stylus_get_axis(self: GTKInterface, axis: Int32, value: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_gesture_stylus_get_axis", Bool](self, axis, value,)
-fn gtk_gesture_stylus_get_backlog(self: GTKInterface, backlog: LegacyUnsafePointer[GTKTimeCoord[]], n_elems: LegacyUnsafePointer[UInt32], ) raises -> Bool:
+fn gtk_gesture_stylus_get_backlog(self: GTKInterface, backlog: LegacyUnsafePointer[List[GTKTimeCoord]], n_elems: LegacyUnsafePointer[UInt32], ) raises -> Bool:
 	return external_call["gtk_gesture_stylus_get_backlog", Bool](self, backlog, n_elems,)
 fn gtk_gesture_stylus_get_device_tool(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_gesture_stylus_get_device_tool", GTKInterface](self,)
@@ -11445,7 +11447,7 @@ fn gtk_gesture_stylus_set_stylus_only(self: GTKInterface, stylus_only: Bool, ) r
 	return external_call["gtk_gesture_stylus_set_stylus_only", NoneType](self, stylus_only,)
 fn gtk_gesture_swipe_new() raises -> GTKInterface:
 	return external_call["gtk_gesture_swipe_new", GTKInterface]()
-fn gtk_gesture_swipe_get_velocity(self: GTKInterface, velocity_x: Float64, velocity_y: Float64, ) raises -> Bool:
+fn gtk_gesture_swipe_get_velocity(self: GTKInterface, velocity_x: LegacyUnsafePointer[Float64], velocity_y: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_gesture_swipe_get_velocity", Bool](self, velocity_x, velocity_y,)
 fn gtk_gesture_zoom_new() raises -> GTKInterface:
 	return external_call["gtk_gesture_zoom_new", GTKInterface]()
@@ -12152,7 +12154,7 @@ fn gtk_level_bar_get_min_value(self: GTKInterface, ) raises -> Float64:
 	return external_call["gtk_level_bar_get_min_value", Float64](self,)
 fn gtk_level_bar_get_mode(self: GTKInterface, ) raises -> Enum-GTKLevelBarMode:
 	return external_call["gtk_level_bar_get_mode", Enum-GTKLevelBarMode](self,)
-fn gtk_level_bar_get_offset_value(self: GTKInterface, name: String, value: Float64, ) raises -> Bool:
+fn gtk_level_bar_get_offset_value(self: GTKInterface, name: String, value: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	var slc_cstr_name = StringSlice(name + " ")
 	var cstr_name = CStringSlice(slc_cstr_name)
 	return external_call["gtk_level_bar_get_offset_value", Bool](self, cstr_name, value,)
@@ -12332,7 +12334,7 @@ fn gtk_list_item_set_focusable(self: GTKInterface, focusable: Bool, ) raises -> 
 	return external_call["gtk_list_item_set_focusable", NoneType](self, focusable,)
 fn gtk_list_item_set_selectable(self: GTKInterface, selectable: Bool, ) raises -> NoneType:
 	return external_call["gtk_list_item_set_selectable", NoneType](self, selectable,)
-fn gtk_list_store_newv(n_columns: Int32, types: void*[], ) raises -> GTKInterface:
+fn gtk_list_store_newv(n_columns: Int32, types: List[LegacyUnsafePointer[NoneType]], ) raises -> GTKInterface:
 	return external_call["gtk_list_store_newv", GTKInterface](n_columns, types,)
 fn gtk_list_store_append(self: GTKInterface, iter: LegacyUnsafePointer[GTKTreeIter], ) raises -> NoneType:
 	return external_call["gtk_list_store_append", NoneType](self, iter,)
@@ -12358,7 +12360,7 @@ fn gtk_list_store_remove(self: GTKInterface, iter: LegacyUnsafePointer[GTKTreeIt
 	return external_call["gtk_list_store_remove", Bool](self, iter,)
 fn gtk_list_store_reorder(self: GTKInterface, new_order: Int32[], ) raises -> NoneType:
 	return external_call["gtk_list_store_reorder", NoneType](self, new_order,)
-fn gtk_list_store_set_column_types(self: GTKInterface, n_columns: Int32, types: void*[], ) raises -> NoneType:
+fn gtk_list_store_set_column_types(self: GTKInterface, n_columns: Int32, types: List[LegacyUnsafePointer[NoneType]], ) raises -> NoneType:
 	return external_call["gtk_list_store_set_column_types", NoneType](self, n_columns, types,)
 fn gtk_list_store_set_value(self: GTKInterface, iter: LegacyUnsafePointer[GTKTreeIter], column: Int32, value: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_list_store_set_value", NoneType](self, iter, column, value,)
@@ -12622,7 +12624,7 @@ fn gtk_native_get_renderer(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_native_get_renderer", GTKInterface](self,)
 fn gtk_native_get_surface(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_native_get_surface", GTKInterface](self,)
-fn gtk_native_get_surface_transform(self: GTKInterface, x: Float64, y: Float64, ) raises -> NoneType:
+fn gtk_native_get_surface_transform(self: GTKInterface, x: LegacyUnsafePointer[Float64], y: LegacyUnsafePointer[Float64], ) raises -> NoneType:
 	return external_call["gtk_native_get_surface_transform", NoneType](self, x, y,)
 fn gtk_native_realize(self: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_native_realize", NoneType](self,)
@@ -12812,7 +12814,7 @@ fn gtk_pad_controller_set_action(self: GTKInterface, type: Int32, index: Int32, 
 	var slc_cstr_action_name = StringSlice(action_name + " ")
 	var cstr_action_name = CStringSlice(slc_cstr_action_name)
 	return external_call["gtk_pad_controller_set_action", NoneType](self, type, index, mode, cstr_label, cstr_action_name,)
-fn gtk_pad_controller_set_action_entries(self: GTKInterface, entries: GTKPadActionEntry[], n_entries: Int32, ) raises -> NoneType:
+fn gtk_pad_controller_set_action_entries(self: GTKInterface, entries: List[GTKPadActionEntry], n_entries: Int32, ) raises -> NoneType:
 	return external_call["gtk_pad_controller_set_action_entries", NoneType](self, entries, n_entries,)
 fn gtk_page_setup_new() raises -> GTKInterface:
 	return external_call["gtk_page_setup_new", GTKInterface]()
@@ -13138,7 +13140,7 @@ fn gtk_print_context_get_dpi_x(self: GTKInterface, ) raises -> Float64:
 	return external_call["gtk_print_context_get_dpi_x", Float64](self,)
 fn gtk_print_context_get_dpi_y(self: GTKInterface, ) raises -> Float64:
 	return external_call["gtk_print_context_get_dpi_y", Float64](self,)
-fn gtk_print_context_get_hard_margins(self: GTKInterface, top: Float64, bottom: Float64, left: Float64, right: Float64, ) raises -> Bool:
+fn gtk_print_context_get_hard_margins(self: GTKInterface, top: LegacyUnsafePointer[Float64], bottom: LegacyUnsafePointer[Float64], left: LegacyUnsafePointer[Float64], right: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_print_context_get_hard_margins", Bool](self, top, bottom, left, right,)
 fn gtk_print_context_get_height(self: GTKInterface, ) raises -> Float64:
 	return external_call["gtk_print_context_get_height", Float64](self,)
@@ -13200,8 +13202,8 @@ fn gtk_print_job_get_n_up_layout(self: GTKInterface, ) raises -> Enum-GTKNumberU
 	return external_call["gtk_print_job_get_n_up_layout", Enum-GTKNumberUpLayout](self,)
 fn gtk_print_job_get_num_copies(self: GTKInterface, ) raises -> Int32:
 	return external_call["gtk_print_job_get_num_copies", Int32](self,)
-fn gtk_print_job_get_page_ranges(self: GTKInterface, n_ranges: LegacyUnsafePointer[Int32], ) raises -> GTKPageRange[]:
-	return external_call["gtk_print_job_get_page_ranges", GTKPageRange[]](self, n_ranges,)
+fn gtk_print_job_get_page_ranges(self: GTKInterface, n_ranges: LegacyUnsafePointer[Int32], ) raises -> List[GTKPageRange]:
+	return external_call["gtk_print_job_get_page_ranges", List[GTKPageRange]](self, n_ranges,)
 fn gtk_print_job_get_page_set(self: GTKInterface, ) raises -> Enum-GTKPageSet:
 	return external_call["gtk_print_job_get_page_set", Enum-GTKPageSet](self,)
 fn gtk_print_job_get_pages(self: GTKInterface, ) raises -> Enum-GTKPrintPages:
@@ -13234,7 +13236,7 @@ fn gtk_print_job_set_n_up_layout(self: GTKInterface, layout: Int32, ) raises -> 
 	return external_call["gtk_print_job_set_n_up_layout", NoneType](self, layout,)
 fn gtk_print_job_set_num_copies(self: GTKInterface, num_copies: Int32, ) raises -> NoneType:
 	return external_call["gtk_print_job_set_num_copies", NoneType](self, num_copies,)
-fn gtk_print_job_set_page_ranges(self: GTKInterface, ranges: GTKPageRange[], n_ranges: Int32, ) raises -> NoneType:
+fn gtk_print_job_set_page_ranges(self: GTKInterface, ranges: List[GTKPageRange], n_ranges: Int32, ) raises -> NoneType:
 	return external_call["gtk_print_job_set_page_ranges", NoneType](self, ranges, n_ranges,)
 fn gtk_print_job_set_page_set(self: GTKInterface, page_set: Int32, ) raises -> NoneType:
 	return external_call["gtk_print_job_set_page_set", NoneType](self, page_set,)
@@ -13392,8 +13394,8 @@ fn gtk_print_settings_get_orientation(self: GTKInterface, ) raises -> Enum-GTKPa
 	return external_call["gtk_print_settings_get_orientation", Enum-GTKPageOrientation](self,)
 fn gtk_print_settings_get_output_bin(self: GTKInterface, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["gtk_print_settings_get_output_bin", LegacyUnsafePointer[c_char]](self,)
-fn gtk_print_settings_get_page_ranges(self: GTKInterface, num_ranges: LegacyUnsafePointer[Int32], ) raises -> GTKPageRange[]:
-	return external_call["gtk_print_settings_get_page_ranges", GTKPageRange[]](self, num_ranges,)
+fn gtk_print_settings_get_page_ranges(self: GTKInterface, num_ranges: LegacyUnsafePointer[Int32], ) raises -> List[GTKPageRange]:
+	return external_call["gtk_print_settings_get_page_ranges", List[GTKPageRange]](self, num_ranges,)
 fn gtk_print_settings_get_page_set(self: GTKInterface, ) raises -> Enum-GTKPageSet:
 	return external_call["gtk_print_settings_get_page_set", Enum-GTKPageSet](self,)
 fn gtk_print_settings_get_paper_height(self: GTKInterface, unit: Int32, ) raises -> Float64:
@@ -13488,7 +13490,7 @@ fn gtk_print_settings_set_output_bin(self: GTKInterface, output_bin: String, ) r
 	var slc_cstr_output_bin = StringSlice(output_bin + " ")
 	var cstr_output_bin = CStringSlice(slc_cstr_output_bin)
 	return external_call["gtk_print_settings_set_output_bin", NoneType](self, cstr_output_bin,)
-fn gtk_print_settings_set_page_ranges(self: GTKInterface, page_ranges: GTKPageRange[], num_ranges: Int32, ) raises -> NoneType:
+fn gtk_print_settings_set_page_ranges(self: GTKInterface, page_ranges: List[GTKPageRange], num_ranges: Int32, ) raises -> NoneType:
 	return external_call["gtk_print_settings_set_page_ranges", NoneType](self, page_ranges, num_ranges,)
 fn gtk_print_settings_set_page_set(self: GTKInterface, page_set: Int32, ) raises -> NoneType:
 	return external_call["gtk_print_settings_set_page_set", NoneType](self, page_set,)
@@ -13596,9 +13598,9 @@ fn gtk_printer_get_default_page_size(self: GTKInterface, ) raises -> GTKInterfac
 	return external_call["gtk_printer_get_default_page_size", GTKInterface](self,)
 fn gtk_printer_get_description(self: GTKInterface, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["gtk_printer_get_description", LegacyUnsafePointer[c_char]](self,)
-fn gtk_printer_get_hard_margins(self: GTKInterface, top: Float64, bottom: Float64, left: Float64, right: Float64, ) raises -> Bool:
+fn gtk_printer_get_hard_margins(self: GTKInterface, top: LegacyUnsafePointer[Float64], bottom: LegacyUnsafePointer[Float64], left: LegacyUnsafePointer[Float64], right: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_printer_get_hard_margins", Bool](self, top, bottom, left, right,)
-fn gtk_printer_get_hard_margins_for_paper_size(self: GTKInterface, paper_size: LegacyUnsafePointer[GTKPaperSize], top: Float64, bottom: Float64, left: Float64, right: Float64, ) raises -> Bool:
+fn gtk_printer_get_hard_margins_for_paper_size(self: GTKInterface, paper_size: LegacyUnsafePointer[GTKPaperSize], top: LegacyUnsafePointer[Float64], bottom: LegacyUnsafePointer[Float64], left: LegacyUnsafePointer[Float64], right: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_printer_get_hard_margins_for_paper_size", Bool](self, paper_size, top, bottom, left, right,)
 fn gtk_printer_get_icon_name(self: GTKInterface, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["gtk_printer_get_icon_name", LegacyUnsafePointer[c_char]](self,)
@@ -14228,13 +14230,13 @@ fn gtk_slice_list_model_set_size(self: GTKInterface, size: UInt32, ) raises -> N
 	return external_call["gtk_slice_list_model_set_size", NoneType](self, size,)
 fn gtk_snapshot_new() raises -> GTKInterface:
 	return external_call["gtk_snapshot_new", GTKInterface]()
-fn gtk_snapshot_append_border(self: GTKInterface, outline: LegacyUnsafePointer[GTKRoundedRect], border_width: Float32, border_color: GTKRGBA[], ) raises -> NoneType:
+fn gtk_snapshot_append_border(self: GTKInterface, outline: LegacyUnsafePointer[GTKRoundedRect], border_width: List[Float32], border_color: List[GTKRGBA], ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_border", NoneType](self, outline, border_width, border_color,)
 fn gtk_snapshot_append_cairo(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], ) raises -> LegacyUnsafePointer[GTKContext]:
 	return external_call["gtk_snapshot_append_cairo", LegacyUnsafePointer[GTKContext]](self, bounds,)
 fn gtk_snapshot_append_color(self: GTKInterface, color: LegacyUnsafePointer[GTKRGBA], bounds: LegacyUnsafePointer[GTKRect], ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_color", NoneType](self, color, bounds,)
-fn gtk_snapshot_append_conic_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], center: LegacyUnsafePointer[GTKPoint], rotation: Float32, stops: GTKColorStop[], n_stops: UInt64, ) raises -> NoneType:
+fn gtk_snapshot_append_conic_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], center: LegacyUnsafePointer[GTKPoint], rotation: Float32, stops: List[GTKColorStop], n_stops: UInt64, ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_conic_gradient", NoneType](self, bounds, center, rotation, stops, n_stops,)
 fn gtk_snapshot_append_fill(self: GTKInterface, path: LegacyUnsafePointer[GTKPath], fill_rule: Int32, color: LegacyUnsafePointer[GTKRGBA], ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_fill", NoneType](self, path, fill_rule, color,)
@@ -14242,17 +14244,17 @@ fn gtk_snapshot_append_inset_shadow(self: GTKInterface, outline: LegacyUnsafePoi
 	return external_call["gtk_snapshot_append_inset_shadow", NoneType](self, outline, color, dx, dy, spread, blur_radius,)
 fn gtk_snapshot_append_layout(self: GTKInterface, layout: GTKInterface, color: LegacyUnsafePointer[GTKRGBA], ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_layout", NoneType](self, layout, color,)
-fn gtk_snapshot_append_linear_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], start_point: LegacyUnsafePointer[GTKPoint], end_point: LegacyUnsafePointer[GTKPoint], stops: GTKColorStop[], n_stops: UInt64, ) raises -> NoneType:
+fn gtk_snapshot_append_linear_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], start_point: LegacyUnsafePointer[GTKPoint], end_point: LegacyUnsafePointer[GTKPoint], stops: List[GTKColorStop], n_stops: UInt64, ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_linear_gradient", NoneType](self, bounds, start_point, end_point, stops, n_stops,)
 fn gtk_snapshot_append_node(self: GTKInterface, node: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_node", NoneType](self, node,)
 fn gtk_snapshot_append_outset_shadow(self: GTKInterface, outline: LegacyUnsafePointer[GTKRoundedRect], color: LegacyUnsafePointer[GTKRGBA], dx: Float32, dy: Float32, spread: Float32, blur_radius: Float32, ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_outset_shadow", NoneType](self, outline, color, dx, dy, spread, blur_radius,)
-fn gtk_snapshot_append_radial_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], center: LegacyUnsafePointer[GTKPoint], hradius: Float32, vradius: Float32, start: Float32, end: Float32, stops: GTKColorStop[], n_stops: UInt64, ) raises -> NoneType:
+fn gtk_snapshot_append_radial_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], center: LegacyUnsafePointer[GTKPoint], hradius: Float32, vradius: Float32, start: Float32, end: Float32, stops: List[GTKColorStop], n_stops: UInt64, ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_radial_gradient", NoneType](self, bounds, center, hradius, vradius, start, end, stops, n_stops,)
-fn gtk_snapshot_append_repeating_linear_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], start_point: LegacyUnsafePointer[GTKPoint], end_point: LegacyUnsafePointer[GTKPoint], stops: GTKColorStop[], n_stops: UInt64, ) raises -> NoneType:
+fn gtk_snapshot_append_repeating_linear_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], start_point: LegacyUnsafePointer[GTKPoint], end_point: LegacyUnsafePointer[GTKPoint], stops: List[GTKColorStop], n_stops: UInt64, ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_repeating_linear_gradient", NoneType](self, bounds, start_point, end_point, stops, n_stops,)
-fn gtk_snapshot_append_repeating_radial_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], center: LegacyUnsafePointer[GTKPoint], hradius: Float32, vradius: Float32, start: Float32, end: Float32, stops: GTKColorStop[], n_stops: UInt64, ) raises -> NoneType:
+fn gtk_snapshot_append_repeating_radial_gradient(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRect], center: LegacyUnsafePointer[GTKPoint], hradius: Float32, vradius: Float32, start: Float32, end: Float32, stops: List[GTKColorStop], n_stops: UInt64, ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_repeating_radial_gradient", NoneType](self, bounds, center, hradius, vradius, start, end, stops, n_stops,)
 fn gtk_snapshot_append_scaled_texture(self: GTKInterface, texture: GTKInterface, filter: Int32, bounds: LegacyUnsafePointer[GTKRect], ) raises -> NoneType:
 	return external_call["gtk_snapshot_append_scaled_texture", NoneType](self, texture, filter, bounds,)
@@ -14290,7 +14292,7 @@ fn gtk_snapshot_push_repeat(self: GTKInterface, bounds: LegacyUnsafePointer[GTKR
 	return external_call["gtk_snapshot_push_repeat", NoneType](self, bounds, child_bounds,)
 fn gtk_snapshot_push_rounded_clip(self: GTKInterface, bounds: LegacyUnsafePointer[GTKRoundedRect], ) raises -> NoneType:
 	return external_call["gtk_snapshot_push_rounded_clip", NoneType](self, bounds,)
-fn gtk_snapshot_push_shadow(self: GTKInterface, shadow: GTKShadow[], n_shadows: UInt64, ) raises -> NoneType:
+fn gtk_snapshot_push_shadow(self: GTKInterface, shadow: List[GTKShadow], n_shadows: UInt64, ) raises -> NoneType:
 	return external_call["gtk_snapshot_push_shadow", NoneType](self, shadow, n_shadows,)
 fn gtk_snapshot_push_stroke(self: GTKInterface, path: LegacyUnsafePointer[GTKPath], stroke: LegacyUnsafePointer[GTKStroke], ) raises -> NoneType:
 	return external_call["gtk_snapshot_push_stroke", NoneType](self, path, stroke,)
@@ -14368,11 +14370,11 @@ fn gtk_spin_button_get_climb_rate(self: GTKInterface, ) raises -> Float64:
 	return external_call["gtk_spin_button_get_climb_rate", Float64](self,)
 fn gtk_spin_button_get_digits(self: GTKInterface, ) raises -> UInt32:
 	return external_call["gtk_spin_button_get_digits", UInt32](self,)
-fn gtk_spin_button_get_increments(self: GTKInterface, step: Float64, page: Float64, ) raises -> NoneType:
+fn gtk_spin_button_get_increments(self: GTKInterface, step: LegacyUnsafePointer[Float64], page: LegacyUnsafePointer[Float64], ) raises -> NoneType:
 	return external_call["gtk_spin_button_get_increments", NoneType](self, step, page,)
 fn gtk_spin_button_get_numeric(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_spin_button_get_numeric", Bool](self,)
-fn gtk_spin_button_get_range(self: GTKInterface, min: Float64, max: Float64, ) raises -> NoneType:
+fn gtk_spin_button_get_range(self: GTKInterface, min: LegacyUnsafePointer[Float64], max: LegacyUnsafePointer[Float64], ) raises -> NoneType:
 	return external_call["gtk_spin_button_get_range", NoneType](self, min, max,)
 fn gtk_spin_button_get_snap_to_ticks(self: GTKInterface, ) raises -> Bool:
 	return external_call["gtk_spin_button_get_snap_to_ticks", Bool](self,)
@@ -14674,7 +14676,7 @@ fn gtk_switch_set_active(self: GTKInterface, is_active: Bool, ) raises -> NoneTy
 	return external_call["gtk_switch_set_active", NoneType](self, is_active,)
 fn gtk_switch_set_state(self: GTKInterface, state: Bool, ) raises -> NoneType:
 	return external_call["gtk_switch_set_state", NoneType](self, state,)
-fn gtk_symbolic_paintable_snapshot_symbolic(self: GTKInterface, snapshot: GTKInterface, width: Float64, height: Float64, colors: GTKRGBA[], n_colors: UInt64, ) raises -> NoneType:
+fn gtk_symbolic_paintable_snapshot_symbolic(self: GTKInterface, snapshot: GTKInterface, width: Float64, height: Float64, colors: List[GTKRGBA], n_colors: UInt64, ) raises -> NoneType:
 	return external_call["gtk_symbolic_paintable_snapshot_symbolic", NoneType](self, snapshot, width, height, colors, n_colors,)
 fn gtk_text_new() raises -> GTKInterface:
 	return external_call["gtk_text_new", GTKInterface]()
@@ -15222,7 +15224,7 @@ fn gtk_text_view_get_tabs(self: GTKInterface, ) raises -> LegacyUnsafePointer[GT
 	return external_call["gtk_text_view_get_tabs", LegacyUnsafePointer[GTKTabArray]](self,)
 fn gtk_text_view_get_top_margin(self: GTKInterface, ) raises -> Int32:
 	return external_call["gtk_text_view_get_top_margin", Int32](self,)
-fn gtk_text_view_get_visible_offset(self: GTKInterface, x_offset: Float64, y_offset: Float64, ) raises -> NoneType:
+fn gtk_text_view_get_visible_offset(self: GTKInterface, x_offset: LegacyUnsafePointer[Float64], y_offset: LegacyUnsafePointer[Float64], ) raises -> NoneType:
 	return external_call["gtk_text_view_get_visible_offset", NoneType](self, x_offset, y_offset,)
 fn gtk_text_view_get_visible_rect(self: GTKInterface, visible_rect: LegacyUnsafePointer[GTKRectangle], ) raises -> NoneType:
 	return external_call["gtk_text_view_get_visible_rect", NoneType](self, visible_rect,)
@@ -15476,7 +15478,7 @@ fn gtk_tree_model_filter_get_model(self: GTKInterface, ) raises -> GTKInterface:
 	return external_call["gtk_tree_model_filter_get_model", GTKInterface](self,)
 fn gtk_tree_model_filter_refilter(self: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_tree_model_filter_refilter", NoneType](self,)
-fn gtk_tree_model_filter_set_modify_func(self: GTKInterface, n_columns: Int32, types: void*[], func: GTKInterface, data: LegacyUnsafePointer[ParameterNULL], destroy: GTKInterface, ) raises -> NoneType:
+fn gtk_tree_model_filter_set_modify_func(self: GTKInterface, n_columns: Int32, types: List[LegacyUnsafePointer[NoneType]], func: GTKInterface, data: LegacyUnsafePointer[ParameterNULL], destroy: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_tree_model_filter_set_modify_func", NoneType](self, n_columns, types, func, data, destroy,)
 fn gtk_tree_model_filter_set_visible_column(self: GTKInterface, column: Int32, ) raises -> NoneType:
 	return external_call["gtk_tree_model_filter_set_visible_column", NoneType](self, column,)
@@ -15604,7 +15606,7 @@ fn gtk_tree_sortable_set_sort_func(self: GTKInterface, sort_column_id: Int32, so
 	return external_call["gtk_tree_sortable_set_sort_func", NoneType](self, sort_column_id, sort_func, user_data, destroy,)
 fn gtk_tree_sortable_sort_column_changed(self: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_tree_sortable_sort_column_changed", NoneType](self,)
-fn gtk_tree_store_newv(n_columns: Int32, types: void*[], ) raises -> GTKInterface:
+fn gtk_tree_store_newv(n_columns: Int32, types: List[LegacyUnsafePointer[NoneType]], ) raises -> GTKInterface:
 	return external_call["gtk_tree_store_newv", GTKInterface](n_columns, types,)
 fn gtk_tree_store_append(self: GTKInterface, iter: LegacyUnsafePointer[GTKTreeIter], parent: LegacyUnsafePointer[GTKTreeIter], ) raises -> NoneType:
 	return external_call["gtk_tree_store_append", NoneType](self, iter, parent,)
@@ -15632,7 +15634,7 @@ fn gtk_tree_store_prepend(self: GTKInterface, iter: LegacyUnsafePointer[GTKTreeI
 	return external_call["gtk_tree_store_prepend", NoneType](self, iter, parent,)
 fn gtk_tree_store_remove(self: GTKInterface, iter: LegacyUnsafePointer[GTKTreeIter], ) raises -> Bool:
 	return external_call["gtk_tree_store_remove", Bool](self, iter,)
-fn gtk_tree_store_set_column_types(self: GTKInterface, n_columns: Int32, types: void*[], ) raises -> NoneType:
+fn gtk_tree_store_set_column_types(self: GTKInterface, n_columns: Int32, types: List[LegacyUnsafePointer[NoneType]], ) raises -> NoneType:
 	return external_call["gtk_tree_store_set_column_types", NoneType](self, n_columns, types,)
 fn gtk_tree_store_set_value(self: GTKInterface, iter: LegacyUnsafePointer[GTKTreeIter], column: Int32, value: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_tree_store_set_value", NoneType](self, iter, column, value,)
@@ -16345,7 +16347,7 @@ fn gtk_widget_size_allocate(self: GTKInterface, allocation: LegacyUnsafePointer[
 	return external_call["gtk_widget_size_allocate", NoneType](self, allocation, baseline,)
 fn gtk_widget_snapshot_child(self: GTKInterface, child: GTKInterface, snapshot: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_widget_snapshot_child", NoneType](self, child, snapshot,)
-fn gtk_widget_translate_coordinates(self: GTKInterface, dest_widget: GTKInterface, src_x: Float64, src_y: Float64, dest_x: Float64, dest_y: Float64, ) raises -> Bool:
+fn gtk_widget_translate_coordinates(self: GTKInterface, dest_widget: GTKInterface, src_x: Float64, src_y: Float64, dest_x: LegacyUnsafePointer[Float64], dest_y: LegacyUnsafePointer[Float64], ) raises -> Bool:
 	return external_call["gtk_widget_translate_coordinates", Bool](self, dest_widget, src_x, src_y, dest_x, dest_y,)
 fn gtk_widget_trigger_tooltip_query(self: GTKInterface, ) raises -> NoneType:
 	return external_call["gtk_widget_trigger_tooltip_query", NoneType](self,)
@@ -16627,7 +16629,7 @@ fn gtk_disable_portals() raises -> NoneType:
 	return external_call["gtk_disable_portals", NoneType]()
 fn gtk_disable_setlocale() raises -> NoneType:
 	return external_call["gtk_disable_setlocale", NoneType]()
-fn gtk_distribute_natural_allocation(extra_space: Int32, n_requested_sizes: UInt32, sizes: GTKRequestedSize[], ) raises -> Int32:
+fn gtk_distribute_natural_allocation(extra_space: Int32, n_requested_sizes: UInt32, sizes: List[GTKRequestedSize], ) raises -> Int32:
 	return external_call["gtk_distribute_natural_allocation", Int32](extra_space, n_requested_sizes, sizes,)
 fn gtk_enumerate_printers(func: GTKInterface, data: LegacyUnsafePointer[ParameterNULL], destroy: GTKInterface, wait: Bool, ) raises -> NoneType:
 	return external_call["gtk_enumerate_printers", NoneType](func, data, destroy, wait,)
@@ -16649,7 +16651,7 @@ fn gtk_get_micro_version() raises -> UInt32:
 	return external_call["gtk_get_micro_version", UInt32]()
 fn gtk_get_minor_version() raises -> UInt32:
 	return external_call["gtk_get_minor_version", UInt32]()
-fn gtk_hsv_to_rgb(h: Float32, s: Float32, v: Float32, r: Float32, g: Float32, b: Float32, ) raises -> NoneType:
+fn gtk_hsv_to_rgb(h: Float32, s: Float32, v: Float32, r: LegacyUnsafePointer[Float32], g: LegacyUnsafePointer[Float32], b: LegacyUnsafePointer[Float32], ) raises -> NoneType:
 	return external_call["gtk_hsv_to_rgb", NoneType](h, s, v, r, g, b,)
 fn gtk_icon_theme_error_quark() raises -> UInt32:
 	return external_call["gtk_icon_theme_error_quark", UInt32]()
@@ -16699,7 +16701,7 @@ fn gtk_render_line(context: GTKInterface, cr: LegacyUnsafePointer[GTKContext], x
 	return external_call["gtk_render_line", NoneType](context, cr, x0, y0, x1, y1,)
 fn gtk_render_option(context: GTKInterface, cr: LegacyUnsafePointer[GTKContext], x: Float64, y: Float64, width: Float64, height: Float64, ) raises -> NoneType:
 	return external_call["gtk_render_option", NoneType](context, cr, x, y, width, height,)
-fn gtk_rgb_to_hsv(r: Float32, g: Float32, b: Float32, h: Float32, s: Float32, v: Float32, ) raises -> NoneType:
+fn gtk_rgb_to_hsv(r: Float32, g: Float32, b: Float32, h: LegacyUnsafePointer[Float32], s: LegacyUnsafePointer[Float32], v: LegacyUnsafePointer[Float32], ) raises -> NoneType:
 	return external_call["gtk_rgb_to_hsv", NoneType](r, g, b, h, s, v,)
 fn gtk_set_debug_flags(flags: Int32, ) raises -> NoneType:
 	return external_call["gtk_set_debug_flags", NoneType](flags,)
@@ -16731,8 +16733,8 @@ fn gtk_test_accessible_has_role(accessible: GTKInterface, role: Int32, ) raises 
 	return external_call["gtk_test_accessible_has_role", Bool](accessible, role,)
 fn gtk_test_accessible_has_state(accessible: GTKInterface, state: Int32, ) raises -> Bool:
 	return external_call["gtk_test_accessible_has_state", Bool](accessible, state,)
-fn gtk_test_list_all_types(n_types: LegacyUnsafePointer[UInt32], ) raises -> void*[]:
-	return external_call["gtk_test_list_all_types", void*[]](n_types,)
+fn gtk_test_list_all_types(n_types: LegacyUnsafePointer[UInt32], ) raises -> List[LegacyUnsafePointer[NoneType]]:
+	return external_call["gtk_test_list_all_types", List[LegacyUnsafePointer[NoneType]]](n_types,)
 fn gtk_test_register_all_types() raises -> NoneType:
 	return external_call["gtk_test_register_all_types", NoneType]()
 fn gtk_test_widget_wait_for_draw(widget: GTKInterface, ) raises -> NoneType:
@@ -17408,7 +17410,7 @@ fn g_hash_table_insert(key: LegacyUnsafePointer[ParameterNULL], value: LegacyUns
 	return external_call["g_hash_table_insert", Bool](key, value,)
 fn g_hash_table_lookup(key: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_hash_table_lookup", NoneType](key,)
-fn g_hash_table_lookup_extended(lookup_key: LegacyUnsafePointer[ParameterNULL], orig_key: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], value: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], ) raises -> Bool:
+fn g_hash_table_lookup_extended(lookup_key: LegacyUnsafePointer[ParameterNULL], orig_key: LegacyUnsafePointer[NoneType], value: LegacyUnsafePointer[NoneType], ) raises -> Bool:
 	return external_call["g_hash_table_lookup_extended", Bool](lookup_key, orig_key, value,)
 fn g_hash_table_new_similar() raises -> NoneType:
 	return external_call["g_hash_table_new_similar", NoneType]()
@@ -17426,7 +17428,7 @@ fn g_hash_table_steal(key: LegacyUnsafePointer[ParameterNULL], ) raises -> Bool:
 	return external_call["g_hash_table_steal", Bool](key,)
 fn g_hash_table_steal_all() raises -> NoneType:
 	return external_call["g_hash_table_steal_all", NoneType]()
-fn g_hash_table_steal_extended(lookup_key: LegacyUnsafePointer[ParameterNULL], stolen_key: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], stolen_value: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], ) raises -> Bool:
+fn g_hash_table_steal_extended(lookup_key: LegacyUnsafePointer[ParameterNULL], stolen_key: LegacyUnsafePointer[NoneType], stolen_value: LegacyUnsafePointer[NoneType], ) raises -> Bool:
 	return external_call["g_hash_table_steal_extended", Bool](lookup_key, stolen_key, stolen_value,)
 fn g_hash_table_unref() raises -> NoneType:
 	return external_call["g_hash_table_unref", NoneType]()
@@ -17434,7 +17436,7 @@ fn g_hash_table_iter_get_hash_table(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_hash_table_iter_get_hash_table", NoneType](self,)
 fn g_hash_table_iter_init(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_hash_table_iter_init", NoneType](self,)
-fn g_hash_table_iter_next(self: GTKInterface, key: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], value: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], ) raises -> Bool:
+fn g_hash_table_iter_next(self: GTKInterface, key: LegacyUnsafePointer[NoneType], value: LegacyUnsafePointer[NoneType], ) raises -> Bool:
 	return external_call["g_hash_table_iter_next", Bool](self, key, value,)
 fn g_hash_table_iter_remove(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_hash_table_iter_remove", NoneType](self,)
@@ -17592,12 +17594,12 @@ fn g_key_file_get_double(self: GTKInterface, group_name: String, key: String, ) 
 	var slc_cstr_key = StringSlice(key + " ")
 	var cstr_key = CStringSlice(slc_cstr_key)
 	return external_call["g_key_file_get_double", Float64](self, cstr_group_name, cstr_key,)
-fn g_key_file_get_double_list(self: GTKInterface, group_name: String, key: String, length: LegacyUnsafePointer[UInt64], ) raises -> Float64:
+fn g_key_file_get_double_list(self: GTKInterface, group_name: String, key: String, length: LegacyUnsafePointer[UInt64], ) raises -> List[Float64]:
 	var slc_cstr_group_name = StringSlice(group_name + " ")
 	var cstr_group_name = CStringSlice(slc_cstr_group_name)
 	var slc_cstr_key = StringSlice(key + " ")
 	var cstr_key = CStringSlice(slc_cstr_key)
-	return external_call["g_key_file_get_double_list", Float64](self, cstr_group_name, cstr_key, length,)
+	return external_call["g_key_file_get_double_list", List[Float64]](self, cstr_group_name, cstr_key, length,)
 fn g_key_file_get_groups(self: GTKInterface, length: LegacyUnsafePointer[UInt64], ) raises -> List[String]:
 	return external_call["g_key_file_get_groups", List[String]](self, length,)
 fn g_key_file_get_int64(self: GTKInterface, group_name: String, key: String, ) raises -> Int64:
@@ -17747,7 +17749,7 @@ fn g_key_file_set_double(self: GTKInterface, group_name: String, key: String, va
 	var slc_cstr_key = StringSlice(key + " ")
 	var cstr_key = CStringSlice(slc_cstr_key)
 	return external_call["g_key_file_set_double", NoneType](self, cstr_group_name, cstr_key, value,)
-fn g_key_file_set_double_list(self: GTKInterface, group_name: String, key: String, list: Float64, length: UInt64, ) raises -> NoneType:
+fn g_key_file_set_double_list(self: GTKInterface, group_name: String, key: String, list: List[Float64], length: UInt64, ) raises -> NoneType:
 	var slc_cstr_group_name = StringSlice(group_name + " ")
 	var cstr_group_name = CStringSlice(slc_cstr_group_name)
 	var slc_cstr_key = StringSlice(key + " ")
@@ -17851,7 +17853,7 @@ fn g_main_context_acquire(self: GTKInterface, ) raises -> Bool:
 	return external_call["g_main_context_acquire", Bool](self,)
 fn g_main_context_add_poll(self: GTKInterface, fd: LegacyUnsafePointer[GTKPollFD], priority: Int32, ) raises -> NoneType:
 	return external_call["g_main_context_add_poll", NoneType](self, fd, priority,)
-fn g_main_context_check(self: GTKInterface, max_priority: Int32, fds: GTKPollFD[], n_fds: Int32, ) raises -> Bool:
+fn g_main_context_check(self: GTKInterface, max_priority: Int32, fds: List[GTKPollFD], n_fds: Int32, ) raises -> Bool:
 	return external_call["g_main_context_check", Bool](self, max_priority, fds, n_fds,)
 fn g_main_context_dispatch(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_main_context_dispatch", NoneType](self,)
@@ -17877,7 +17879,7 @@ fn g_main_context_push_thread_default(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_main_context_push_thread_default", NoneType](self,)
 fn g_main_context_pusher_new(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_main_context_pusher_new", NoneType](self,)
-fn g_main_context_query(self: GTKInterface, max_priority: Int32, timeout_: LegacyUnsafePointer[Int32], fds: LegacyUnsafePointer[GTKPollFD[]], n_fds: Int32, ) raises -> Int32:
+fn g_main_context_query(self: GTKInterface, max_priority: Int32, timeout_: LegacyUnsafePointer[Int32], fds: LegacyUnsafePointer[List[GTKPollFD]], n_fds: Int32, ) raises -> Int32:
 	return external_call["g_main_context_query", Int32](self, max_priority, timeout_, fds, n_fds,)
 fn g_main_context_ref(self: GTKInterface, ) raises -> LegacyUnsafePointer[GTKMainContext]:
 	return external_call["g_main_context_ref", LegacyUnsafePointer[GTKMainContext]](self,)
@@ -18045,19 +18047,19 @@ fn g_node_pop_allocator() raises -> NoneType:
 	return external_call["g_node_pop_allocator", NoneType]()
 fn g_node_push_allocator(allocator: LegacyUnsafePointer[GTKAllocator], ) raises -> NoneType:
 	return external_call["g_node_push_allocator", NoneType](allocator,)
-fn g_once_init_enter(location: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], ) raises -> Bool:
+fn g_once_init_enter(location: LegacyUnsafePointer[NoneType], ) raises -> Bool:
 	return external_call["g_once_init_enter", Bool](location,)
 fn g_once_init_enter_impl(location: UInt64, ) raises -> Bool:
 	return external_call["g_once_init_enter_impl", Bool](location,)
 fn g_once_init_enter_pointer(location: LegacyUnsafePointer[ParameterNULL], ) raises -> Bool:
 	return external_call["g_once_init_enter_pointer", Bool](location,)
-fn g_once_init_leave(location: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], result: UInt64, ) raises -> NoneType:
+fn g_once_init_leave(location: LegacyUnsafePointer[NoneType], result: UInt64, ) raises -> NoneType:
 	return external_call["g_once_init_leave", NoneType](location, result,)
 fn g_once_init_leave_pointer(location: LegacyUnsafePointer[ParameterNULL], result: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_once_init_leave_pointer", NoneType](location, result,)
 fn g_option_context_add_group(self: GTKInterface, group: LegacyUnsafePointer[GTKOptionGroup], ) raises -> NoneType:
 	return external_call["g_option_context_add_group", NoneType](self, group,)
-fn g_option_context_add_main_entries(self: GTKInterface, entries: GTKOptionEntry[], translation_domain: String, ) raises -> NoneType:
+fn g_option_context_add_main_entries(self: GTKInterface, entries: List[GTKOptionEntry], translation_domain: String, ) raises -> NoneType:
 	var slc_cstr_translation_domain = StringSlice(translation_domain + " ")
 	var cstr_translation_domain = CStringSlice(slc_cstr_translation_domain)
 	return external_call["g_option_context_add_main_entries", NoneType](self, entries, cstr_translation_domain,)
@@ -18077,9 +18079,9 @@ fn g_option_context_get_strict_posix(self: GTKInterface, ) raises -> Bool:
 	return external_call["g_option_context_get_strict_posix", Bool](self,)
 fn g_option_context_get_summary(self: GTKInterface, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["g_option_context_get_summary", LegacyUnsafePointer[c_char]](self,)
-fn g_option_context_parse(self: GTKInterface, argc: LegacyUnsafePointer[Int32], argv: LegacyUnsafePointer[char[]], ) raises -> Bool:
+fn g_option_context_parse(self: GTKInterface, argc: LegacyUnsafePointer[Int32], argv: LegacyUnsafePointer[List[char]], ) raises -> Bool:
 	return external_call["g_option_context_parse", Bool](self, argc, argv,)
-fn g_option_context_parse_strv(self: GTKInterface, arguments: LegacyUnsafePointer[char[]], ) raises -> Bool:
+fn g_option_context_parse_strv(self: GTKInterface, arguments: LegacyUnsafePointer[List[char]], ) raises -> Bool:
 	return external_call["g_option_context_parse_strv", Bool](self, arguments,)
 fn g_option_context_set_description(self: GTKInterface, description: String, ) raises -> NoneType:
 	var slc_cstr_description = StringSlice(description + " ")
@@ -18111,7 +18113,7 @@ fn g_option_group_new(name: String, description: String, help_description: Strin
 	var slc_cstr_help_description = StringSlice(help_description + " ")
 	var cstr_help_description = CStringSlice(slc_cstr_help_description)
 	return external_call["g_option_group_new", LegacyUnsafePointer[GTKOptionGroup]](cstr_name, cstr_description, cstr_help_description, user_data, destroy,)
-fn g_option_group_add_entries(self: GTKInterface, entries: GTKOptionEntry[], ) raises -> NoneType:
+fn g_option_group_add_entries(self: GTKInterface, entries: List[GTKOptionEntry], ) raises -> NoneType:
 	return external_call["g_option_group_add_entries", NoneType](self, entries,)
 fn g_option_group_free(self: GTKInterface, ) raises -> NoneType:
 	return external_call["g_option_group_free", NoneType](self,)
@@ -18896,7 +18898,7 @@ fn g_tree_insert_node(self: GTKInterface, key: LegacyUnsafePointer[ParameterNULL
 	return external_call["g_tree_insert_node", LegacyUnsafePointer[GTKTreeNode]](self, key, value,)
 fn g_tree_lookup(self: GTKInterface, key: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_tree_lookup", NoneType](self, key,)
-fn g_tree_lookup_extended(self: GTKInterface, lookup_key: LegacyUnsafePointer[ParameterNULL], orig_key: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], value: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], ) raises -> Bool:
+fn g_tree_lookup_extended(self: GTKInterface, lookup_key: LegacyUnsafePointer[ParameterNULL], orig_key: LegacyUnsafePointer[NoneType], value: LegacyUnsafePointer[NoneType], ) raises -> Bool:
 	return external_call["g_tree_lookup_extended", Bool](self, lookup_key, orig_key, value,)
 fn g_tree_lookup_node(self: GTKInterface, key: LegacyUnsafePointer[ParameterNULL], ) raises -> LegacyUnsafePointer[GTKTreeNode]:
 	return external_call["g_tree_lookup_node", LegacyUnsafePointer[GTKTreeNode]](self, key,)
@@ -19120,7 +19122,7 @@ fn g_uri_params_iter_init(self: GTKInterface, params: String, length: Int64, sep
 	return external_call["g_uri_params_iter_init", NoneType](self, cstr_params, length, cstr_separators, flags,)
 fn g_uri_params_iter_next(self: GTKInterface, attribute: LegacyUnsafePointer[char], value: LegacyUnsafePointer[char], ) raises -> Bool:
 	return external_call["g_uri_params_iter_next", Bool](self, attribute, value,)
-fn g_variant_new_array(child_type: LegacyUnsafePointer[GTKVariantType], children: GTKVariant*[], n_children: UInt64, ) raises -> LegacyUnsafePointer[GTKVariant]:
+fn g_variant_new_array(child_type: LegacyUnsafePointer[GTKVariantType], children: List[LegacyUnsafePointer[GTKVariant]], n_children: UInt64, ) raises -> LegacyUnsafePointer[GTKVariant]:
 	return external_call["g_variant_new_array", LegacyUnsafePointer[GTKVariant]](child_type, children, n_children,)
 fn g_variant_new_boolean(value: Bool, ) raises -> LegacyUnsafePointer[GTKVariant]:
 	return external_call["g_variant_new_boolean", LegacyUnsafePointer[GTKVariant]](value,)
@@ -19187,7 +19189,7 @@ fn g_variant_new_strv(strv: List[String], length: Int64, ) raises -> LegacyUnsaf
 		var charptr = cstr.unsafe_ptr()
 		charptr_array_strv[ix] = charptr
 	return external_call["g_variant_new_strv", LegacyUnsafePointer[GTKVariant]](charptr_array_strv, length,)
-fn g_variant_new_tuple(children: GTKVariant*[], n_children: UInt64, ) raises -> LegacyUnsafePointer[GTKVariant]:
+fn g_variant_new_tuple(children: List[LegacyUnsafePointer[GTKVariant]], n_children: UInt64, ) raises -> LegacyUnsafePointer[GTKVariant]:
 	return external_call["g_variant_new_tuple", LegacyUnsafePointer[GTKVariant]](children, n_children,)
 fn g_variant_new_uint16(value: UInt16, ) raises -> LegacyUnsafePointer[GTKVariant]:
 	return external_call["g_variant_new_uint16", LegacyUnsafePointer[GTKVariant]](value,)
@@ -19369,7 +19371,7 @@ fn g_variant_type_new_dict_entry(key: LegacyUnsafePointer[GTKVariantType], value
 	return external_call["g_variant_type_new_dict_entry", LegacyUnsafePointer[GTKVariantType]](key, value,)
 fn g_variant_type_new_maybe(element: LegacyUnsafePointer[GTKVariantType], ) raises -> LegacyUnsafePointer[GTKVariantType]:
 	return external_call["g_variant_type_new_maybe", LegacyUnsafePointer[GTKVariantType]](element,)
-fn g_variant_type_new_tuple(items: GTKVariantType*[], length: Int32, ) raises -> LegacyUnsafePointer[GTKVariantType]:
+fn g_variant_type_new_tuple(items: List[LegacyUnsafePointer[GTKVariantType]], length: Int32, ) raises -> LegacyUnsafePointer[GTKVariantType]:
 	return external_call["g_variant_type_new_tuple", LegacyUnsafePointer[GTKVariantType]](items, length,)
 fn g_variant_type_copy(self: GTKInterface, ) raises -> LegacyUnsafePointer[GTKVariantType]:
 	return external_call["g_variant_type_copy", LegacyUnsafePointer[GTKVariantType]](self,)
@@ -19605,7 +19607,7 @@ fn g_atomic_pointer_and(atomic: LegacyUnsafePointer[ParameterNULL], val: UInt64,
 	return external_call["g_atomic_pointer_and", UInt64](atomic, val,)
 fn g_atomic_pointer_compare_and_exchange(atomic: LegacyUnsafePointer[ParameterNULL], oldval: LegacyUnsafePointer[ParameterNULL], newval: LegacyUnsafePointer[ParameterNULL], ) raises -> Bool:
 	return external_call["g_atomic_pointer_compare_and_exchange", Bool](atomic, oldval, newval,)
-fn g_atomic_pointer_compare_and_exchange_full(atomic: LegacyUnsafePointer[ParameterNULL], oldval: LegacyUnsafePointer[ParameterNULL], newval: LegacyUnsafePointer[ParameterNULL], preval: LegacyUnsafePointer[LegacyUnsafePointer[ParameterNULL]], ) raises -> Bool:
+fn g_atomic_pointer_compare_and_exchange_full(atomic: LegacyUnsafePointer[ParameterNULL], oldval: LegacyUnsafePointer[ParameterNULL], newval: LegacyUnsafePointer[ParameterNULL], preval: LegacyUnsafePointer[NoneType], ) raises -> Bool:
 	return external_call["g_atomic_pointer_compare_and_exchange_full", Bool](atomic, oldval, newval, preval,)
 fn g_atomic_pointer_exchange(atomic: LegacyUnsafePointer[ParameterNULL], newval: LegacyUnsafePointer[ParameterNULL], ) raises -> NoneType:
 	return external_call["g_atomic_pointer_exchange", NoneType](atomic, newval,)
@@ -19952,7 +19954,7 @@ fn g_get_current_time(result: LegacyUnsafePointer[GTKTimeVal], ) raises -> NoneT
 	return external_call["g_get_current_time", NoneType](result,)
 fn g_get_environ() raises -> List[String]:
 	return external_call["g_get_environ", List[String]]()
-fn g_get_filename_charsets(filename_charsets: LegacyUnsafePointer[char[]], ) raises -> Bool:
+fn g_get_filename_charsets(filename_charsets: LegacyUnsafePointer[List[char]], ) raises -> Bool:
 	return external_call["g_get_filename_charsets", Bool](filename_charsets,)
 fn g_get_home_dir() raises -> LegacyUnsafePointer[c_char]:
 	return external_call["g_get_home_dir", LegacyUnsafePointer[c_char]]()
@@ -20088,13 +20090,13 @@ fn g_log_set_handler_full(log_domain: String, log_levels: Int32, log_func: GTKIn
 	return external_call["g_log_set_handler_full", UInt32](cstr_log_domain, log_levels, log_func, user_data, destroy,)
 fn g_log_set_writer_func(func: GTKInterface, user_data: LegacyUnsafePointer[ParameterNULL], user_data_free: GTKInterface, ) raises -> NoneType:
 	return external_call["g_log_set_writer_func", NoneType](func, user_data, user_data_free,)
-fn g_log_structured_array(log_level: Int32, fields: GTKLogField[], n_fields: UInt64, ) raises -> NoneType:
+fn g_log_structured_array(log_level: Int32, fields: List[GTKLogField], n_fields: UInt64, ) raises -> NoneType:
 	return external_call["g_log_structured_array", NoneType](log_level, fields, n_fields,)
 fn g_log_variant(log_domain: String, log_level: Int32, fields: LegacyUnsafePointer[GTKVariant], ) raises -> NoneType:
 	var slc_cstr_log_domain = StringSlice(log_domain + " ")
 	var cstr_log_domain = CStringSlice(slc_cstr_log_domain)
 	return external_call["g_log_variant", NoneType](cstr_log_domain, log_level, fields,)
-fn g_log_writer_default(log_level: Int32, fields: GTKLogField[], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
+fn g_log_writer_default(log_level: Int32, fields: List[GTKLogField], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
 	return external_call["g_log_writer_default", Enum-GTKLogWriterOutput](log_level, fields, n_fields, user_data,)
 fn g_log_writer_default_set_debug_domains(domains: String, ) raises -> NoneType:
 	var slc_cstr_domains = StringSlice(domains + " ")
@@ -20106,17 +20108,17 @@ fn g_log_writer_default_would_drop(log_level: Int32, log_domain: String, ) raise
 	var slc_cstr_log_domain = StringSlice(log_domain + " ")
 	var cstr_log_domain = CStringSlice(slc_cstr_log_domain)
 	return external_call["g_log_writer_default_would_drop", Bool](log_level, cstr_log_domain,)
-fn g_log_writer_format_fields(log_level: Int32, fields: GTKLogField[], n_fields: UInt64, use_color: Bool, ) raises -> LegacyUnsafePointer[c_char]:
+fn g_log_writer_format_fields(log_level: Int32, fields: List[GTKLogField], n_fields: UInt64, use_color: Bool, ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["g_log_writer_format_fields", LegacyUnsafePointer[c_char]](log_level, fields, n_fields, use_color,)
 fn g_log_writer_is_journald(output_fd: Int32, ) raises -> Bool:
 	return external_call["g_log_writer_is_journald", Bool](output_fd,)
-fn g_log_writer_journald(log_level: Int32, fields: GTKLogField[], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
+fn g_log_writer_journald(log_level: Int32, fields: List[GTKLogField], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
 	return external_call["g_log_writer_journald", Enum-GTKLogWriterOutput](log_level, fields, n_fields, user_data,)
-fn g_log_writer_standard_streams(log_level: Int32, fields: GTKLogField[], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
+fn g_log_writer_standard_streams(log_level: Int32, fields: List[GTKLogField], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
 	return external_call["g_log_writer_standard_streams", Enum-GTKLogWriterOutput](log_level, fields, n_fields, user_data,)
 fn g_log_writer_supports_color(output_fd: Int32, ) raises -> Bool:
 	return external_call["g_log_writer_supports_color", Bool](output_fd,)
-fn g_log_writer_syslog(log_level: Int32, fields: GTKLogField[], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
+fn g_log_writer_syslog(log_level: Int32, fields: List[GTKLogField], n_fields: UInt64, user_data: LegacyUnsafePointer[ParameterNULL], ) raises -> Enum-GTKLogWriterOutput:
 	return external_call["g_log_writer_syslog", Enum-GTKLogWriterOutput](log_level, fields, n_fields, user_data,)
 fn g_lstat(filename: String, buf: LegacyUnsafePointer[GTKStatBuf], ) raises -> Int32:
 	var slc_cstr_filename = StringSlice(filename + " ")
@@ -20176,7 +20178,7 @@ fn g_open(filename: String, flags: Int32, mode: Int32, ) raises -> Int32:
 	return external_call["g_open", Int32](cstr_filename, flags, mode,)
 fn g_option_error_quark() raises -> UInt32:
 	return external_call["g_option_error_quark", UInt32]()
-fn g_parse_debug_string(string: String, keys: GTKDebugKey[], nkeys: UInt32, ) raises -> UInt32:
+fn g_parse_debug_string(string: String, keys: List[GTKDebugKey], nkeys: UInt32, ) raises -> UInt32:
 	var slc_cstr_string = StringSlice(string + " ")
 	var cstr_string = CStringSlice(slc_cstr_string)
 	return external_call["g_parse_debug_string", UInt32](cstr_string, keys, nkeys,)
@@ -20340,7 +20342,7 @@ fn g_setenv(variable: String, value: String, overwrite: Bool, ) raises -> Bool:
 	return external_call["g_setenv", Bool](cstr_variable, cstr_value, overwrite,)
 fn g_shell_error_quark() raises -> UInt32:
 	return external_call["g_shell_error_quark", UInt32]()
-fn g_shell_parse_argv(command_line: String, argcp: LegacyUnsafePointer[Int32], argvp: LegacyUnsafePointer[char[]], ) raises -> Bool:
+fn g_shell_parse_argv(command_line: String, argcp: LegacyUnsafePointer[Int32], argvp: LegacyUnsafePointer[List[char]], ) raises -> Bool:
 	var slc_cstr_command_line = StringSlice(command_line + " ")
 	var cstr_command_line = CStringSlice(slc_cstr_command_line)
 	return external_call["g_shell_parse_argv", Bool](cstr_command_line, argcp, argvp,)
@@ -20520,7 +20522,7 @@ fn g_str_to_ascii(str: String, from_locale: String, ) raises -> LegacyUnsafePoin
 	var slc_cstr_from_locale = StringSlice(from_locale + " ")
 	var cstr_from_locale = CStringSlice(slc_cstr_from_locale)
 	return external_call["g_str_to_ascii", LegacyUnsafePointer[c_char]](cstr_str, cstr_from_locale,)
-fn g_str_tokenize_and_fold(string: String, translit_locale: String, ascii_alternates: LegacyUnsafePointer[char[]], ) raises -> List[String]:
+fn g_str_tokenize_and_fold(string: String, translit_locale: String, ascii_alternates: LegacyUnsafePointer[List[char]], ) raises -> List[String]:
 	var slc_cstr_string = StringSlice(string + " ")
 	var cstr_string = CStringSlice(slc_cstr_string)
 	var slc_cstr_translit_locale = StringSlice(translit_locale + " ")
@@ -20854,9 +20856,9 @@ fn g_try_realloc(mem: LegacyUnsafePointer[ParameterNULL], n_bytes: UInt64, ) rai
 	return external_call["g_try_realloc", NoneType](mem, n_bytes,)
 fn g_try_realloc_n(mem: LegacyUnsafePointer[ParameterNULL], n_blocks: UInt64, n_block_bytes: UInt64, ) raises -> NoneType:
 	return external_call["g_try_realloc_n", NoneType](mem, n_blocks, n_block_bytes,)
-fn g_ucs4_to_utf16(str: GTKType[], len: Int64, items_read: LegacyUnsafePointer[Int64], items_written: LegacyUnsafePointer[Int64], ) raises -> UInt16:
+fn g_ucs4_to_utf16(str: List[GTKType], len: Int64, items_read: LegacyUnsafePointer[Int64], items_written: LegacyUnsafePointer[Int64], ) raises -> UInt16:
 	return external_call["g_ucs4_to_utf16", UInt16](str, len, items_read, items_written,)
-fn g_ucs4_to_utf8(str: GTKType[], len: Int64, items_read: LegacyUnsafePointer[Int64], items_written: LegacyUnsafePointer[Int64], ) raises -> LegacyUnsafePointer[c_char]:
+fn g_ucs4_to_utf8(str: List[GTKType], len: Int64, items_read: LegacyUnsafePointer[Int64], items_written: LegacyUnsafePointer[Int64], ) raises -> LegacyUnsafePointer[c_char]:
 	return external_call["g_ucs4_to_utf8", LegacyUnsafePointer[c_char]](str, len, items_read, items_written,)
 fn g_unichar_break_type(c: GTKType, ) raises -> Enum-GTKUnicodeBreakType:
 	return external_call["g_unichar_break_type", Enum-GTKUnicodeBreakType](c,)
@@ -20924,7 +20926,7 @@ fn g_unichar_xdigit_value(c: GTKType, ) raises -> Int32:
 	return external_call["g_unichar_xdigit_value", Int32](c,)
 fn g_unicode_canonical_decomposition(ch: GTKType, result_len: UInt64, ) raises -> GTKType:
 	return external_call["g_unicode_canonical_decomposition", GTKType](ch, result_len,)
-fn g_unicode_canonical_ordering(string: GTKType[], len: UInt64, ) raises -> NoneType:
+fn g_unicode_canonical_ordering(string: List[GTKType], len: UInt64, ) raises -> NoneType:
 	return external_call["g_unicode_canonical_ordering", NoneType](string, len,)
 fn g_unicode_script_from_iso15924(iso15924: UInt32, ) raises -> Enum-GTKUnicodeScript:
 	return external_call["g_unicode_script_from_iso15924", Enum-GTKUnicodeScript](iso15924,)
@@ -21090,7 +21092,8 @@ fn g_uuid_string_random() raises -> LegacyUnsafePointer[c_char]:
 # === GTK Functions ===
 fn g_application_run(app: GTKInterface, argc: Int32, argv: GTKType, ) raises -> Int32:
 	return external_call["g_application_run", Int32](app, argc, argv,)
-fn g_signal_connect_data(instance: GTKInterface, detailed_signal: String, c_handler: GTKType, data: GTKType, destroy_data: NoneType, connect_flags: UInt32, ) raises -> UInt64:
+	
+fn g_signal_connect_data[c_handler_type:AnyType = fn(w: GTKInterface, usdat: GTKInterface) -> NoneType](instance: GTKInterface, detailed_signal: String, c_handler: c_handler_type, data: GTKType, destroy_data: NoneType, connect_flags: UInt32, ) raises -> UInt64:
 	var slc_cstr_detailed_signal = StringSlice(detailed_signal + " ")
 	var cstr_detailed_signal = CStringSlice(slc_cstr_detailed_signal)
 	return external_call["g_signal_connect_data", UInt64](instance, cstr_detailed_signal, c_handler, data, destroy_data, connect_flags,)

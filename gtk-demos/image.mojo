@@ -1,3 +1,4 @@
+# Type bug, may not compile on all systems
 from gtk import *
 from sys.ffi import CStringSlice
 from memory import UnsafePointer
@@ -47,7 +48,7 @@ struct ImageDemo:
             g_list_store_append(filter_list, filter)
             gtk_file_dialog_set_filters(dialog, filter_list)
             
-            gtk_file_dialog_open(dialog, app[].win, ptr(), rebind[ptr](ImageDemo.on_file_open_finish), user_data)
+            external_call["gtk_file_dialog_open", NoneType](dialog, app[].win, ptr(), (ImageDemo.on_file_open_finish), user_data)
         except:
             ImageDemo.update_status(rebind[AppDataPointer](user_data), "⚠️ Failed to open file dialog", "error")
     
@@ -332,13 +333,13 @@ struct ImageApp:
             data_ptr[] = data
 
             # Connect signals
-            _ = g_signal_connect_data(open_btn, "clicked", rebind[ptr](ImageDemo.on_open_image), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(icon_btn, "clicked", rebind[ptr](ImageDemo.on_load_from_icon), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(clear_btn, "clicked", rebind[ptr](ImageDemo.on_clear_image), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(fit_btn, "clicked", rebind[ptr](ImageDemo.on_scale_fit), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(small_btn, "clicked", rebind[ptr](ImageDemo.on_scale_small), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(medium_btn, "clicked", rebind[ptr](ImageDemo.on_scale_medium), rebind[ptr](data_ptr), None, 0)
-            _ = g_signal_connect_data(large_btn, "clicked", rebind[ptr](ImageDemo.on_scale_large), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(open_btn, "clicked", (ImageDemo.on_open_image), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(icon_btn, "clicked", (ImageDemo.on_load_from_icon), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(clear_btn, "clicked", (ImageDemo.on_clear_image), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(fit_btn, "clicked", (ImageDemo.on_scale_fit), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(small_btn, "clicked", (ImageDemo.on_scale_small), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(medium_btn, "clicked", (ImageDemo.on_scale_medium), rebind[ptr](data_ptr), None, 0)
+            _ = g_signal_connect_data(large_btn, "clicked", (ImageDemo.on_scale_large), rebind[ptr](data_ptr), None, 0)
 
             gtk_window_set_child(win, main_box)
             gtk_widget_show(win)
@@ -348,5 +349,5 @@ struct ImageApp:
 
 fn main() raises:
     var app = gtk_application_new("dev.mojo.imageviewer", 0)
-    _ = g_signal_connect_data(app, "activate", rebind[ptr](ImageApp.activate), ptr(), None, 0)
+    _ = g_signal_connect_data(app, "activate", (ImageApp.activate), ptr(), None, 0)
     _ = g_application_run(app, 0, ptr())
