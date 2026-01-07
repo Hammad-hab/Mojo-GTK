@@ -1,5 +1,5 @@
 [workspace]
-authors = ["Hammad <hammadalibutt30@gmail.com>"]
+authors = ["<Author>"]
 channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
 name = "GTK"
 platforms = ["osx-arm64"]
