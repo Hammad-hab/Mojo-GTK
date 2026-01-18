@@ -42,20 +42,20 @@ fn cairo_destroy(cr: ptr):
 fn cairo_set_source_surface(cr: ptr, surface: ptr, x: Float64, y: Float64):
     _ = external_call["cairo_set_source_surface", NoneType](cr, surface, x, y)
 
-alias CAIRO_FORMAT_ARGB32: Int32 = 0
+comptime CAIRO_FORMAT_ARGB32: Int32 = 0
 
 # Particle types
-alias EMPTY: Int32 = 0
-alias SAND: Int32 = 1
-alias WATER: Int32 = 2
-alias STONE: Int32 = 3
-alias FIRE: Int32 = 4
-alias WOOD: Int32 = 5
+comptime EMPTY: Int32 = 0
+comptime SAND: Int32 = 1
+comptime WATER: Int32 = 2
+comptime STONE: Int32 = 3
+comptime FIRE: Int32 = 4
+comptime WOOD: Int32 = 5
 
 # Grid dimensions
-alias GRID_WIDTH: Int32 = 600
-alias GRID_HEIGHT: Int32 = 450
-alias PIXEL_SIZE: Int32 = 2
+comptime GRID_WIDTH: Int32 = 600
+comptime GRID_HEIGHT: Int32 = 450
+comptime PIXEL_SIZE: Int32 = 2
 
 @register_passable("trivial")
 struct PowderSimData:
@@ -101,7 +101,6 @@ struct PowderSim:
     
     @staticmethod
     fn get_particle_color(particle_type: Int32) -> ColorRGB:
-        """Get RGB color for particle type"""
         if particle_type == SAND:
             return ColorRGB(0.93, 0.79, 0.35)
         elif particle_type == WATER:
@@ -117,14 +116,12 @@ struct PowderSim:
 
     @staticmethod
     fn get_grid_index(x: Int32, y: Int32) -> Int32:
-        """Convert x,y to grid index"""
         if x < 0 or x >= GRID_WIDTH or y < 0 or y >= GRID_HEIGHT:
             return -1
         return y * GRID_WIDTH + x
 
     @staticmethod
     fn update_physics(data_ptr: PowderSimDataPointer) raises:
-        """Update particle physics - process from bottom to top"""
         if data_ptr[].paused:
             return
             
@@ -157,7 +154,6 @@ struct PowderSim:
 
     @staticmethod
     fn update_sand(data_ptr: PowderSimDataPointer, x: Int32, y: Int32):
-        """Update sand particle - falls down, slides diagonally"""
         var current_idx = PowderSim.get_grid_index(x, y)
         
         # Try to fall down
@@ -183,7 +179,6 @@ struct PowderSim:
 
     @staticmethod
     fn update_water(data_ptr: PowderSimDataPointer, x: Int32, y: Int32):
-        """Update water particle - falls, spreads horizontally"""
         var current_idx = PowderSim.get_grid_index(x, y)
         
         # Try to fall down
@@ -216,7 +211,6 @@ struct PowderSim:
 
     @staticmethod
     fn update_fire(data_ptr: PowderSimDataPointer, x: Int32, y: Int32):
-        """Update fire particle - rises, burns wood, dies randomly"""
         var current_idx = PowderSim.get_grid_index(x, y)
         
         # Fire has a chance to die
@@ -248,7 +242,6 @@ struct PowderSim:
 
     @staticmethod
     fn render_grid(data_ptr: PowderSimDataPointer):
-        """Render the particle grid to the surface"""
         if not data_ptr[].surface:
             return
         
@@ -287,8 +280,6 @@ struct PowderSim:
 
     @staticmethod
     fn on_draw(area: ptr, cr: ptr, width: Int32, height: Int32, user_data: ptr):
-        """Draw callback"""
-        try:
             var data_ptr = rebind[PowderSimDataPointer](user_data)
             
             # Create surface to match actual widget size
@@ -314,13 +305,10 @@ struct PowderSim:
             # Draw the surface
             cairo_set_source_surface(cr, data_ptr[].surface, 0.0, 0.0)
             cairo_paint(cr)
-            
-        except e:
-            print("Error in on_draw:", e)
+
 
     @staticmethod
     fn on_timer(user_data: ptr) -> Bool:
-        """Timer callback for physics updates"""
         try:
             var data_ptr = rebind[PowderSimDataPointer](user_data)
             PowderSim.update_physics(data_ptr)
@@ -332,7 +320,6 @@ struct PowderSim:
 
     @staticmethod
     fn place_particle(data_ptr: PowderSimDataPointer, x: Float64, y: Float64):
-        """Place particle at position with brush"""
         if not data_ptr[].surface:
             return
             
@@ -356,12 +343,9 @@ struct PowderSim:
 
     @staticmethod
     fn on_drag_begin(gesture: ptr, x: Float64, y: Float64, user_data: ptr):
-        try:
             var data_ptr = rebind[PowderSimDataPointer](user_data)
             data_ptr[].is_drawing = True
             PowderSim.place_particle(data_ptr, x, y)
-        except:
-            pass
 
     @staticmethod
     fn on_drag_update(gesture: ptr, offset_x: Float64, offset_y: Float64, user_data: ptr):
@@ -370,7 +354,7 @@ struct PowderSim:
             if data_ptr[].is_drawing:
                 var start_x: Float64 = 0.0
                 var start_y: Float64 = 0.0
-                gtk_gesture_drag_get_start_point(gesture, 
+                _ = gtk_gesture_drag_get_start_point(gesture, 
                     LegacyUnsafePointer[Float64](to=start_x), 
                     LegacyUnsafePointer[Float64](to=start_y))
                 
@@ -380,11 +364,8 @@ struct PowderSim:
 
     @staticmethod
     fn on_drag_end(gesture: ptr, offset_x: Float64, offset_y: Float64, user_data: ptr):
-        try:
             var data_ptr = rebind[PowderSimDataPointer](user_data)
             data_ptr[].is_drawing = False
-        except:
-            pass
 
     # Button callbacks
     @staticmethod
@@ -425,14 +406,11 @@ struct PowderSim:
 
     @staticmethod
     fn on_clear_clicked(button: ptr, user_data: ptr):
-        try:
             var data_ptr = rebind[PowderSimDataPointer](user_data)
             var grid_size = Int(GRID_WIDTH * GRID_HEIGHT)
             for i in range(grid_size):
                 data_ptr[].grid[i] = EMPTY
             print("Grid cleared")
-        except:
-            pass
 
     @staticmethod
     fn on_pause_clicked(button: ptr, user_data: ptr):
